@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/view_title"/>
+    <ImageView
+        android:layout_width="@dimen/space_200"
+        android:layout_height="@dimen/space_200"
+        android:layout_margin="@dimen/space_40"
+        android:src="@mipmap/ic_launcher" />
+    <com.hjq.widget.ClearEditText
+        android:id="@+id/et_login_phone"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_60"
+        android:drawableLeft="@mipmap/login_number"
+        android:drawablePadding="@dimen/space_16"
+        android:hint="请输入账号"
+        android:inputType="phone"
+        android:maxLength="13"
+        android:maxLines="1" />
+
+    <View
+        style="@style/HorizontalLineStyle"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_60"
+        android:orientation="horizontal"
+        >
+        <com.hjq.widget.ClearEditText
+            android:id="@+id/et_msg_code"
+            style="@style/EditTextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/login_password"
+            android:drawablePadding="@dimen/space_16"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLength="4"
+            android:maxLines="1" />
+        <TextView
+            android:id="@+id/tv_login_forget"
+            android:layout_width="0dp"
+            android:layout_weight="1.5"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="获取动态验证码"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+    <com.hjq.widget.ClearEditText
+        android:id="@+id/et_login_password"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_20"
+        android:layout_marginRight="@dimen/space_60"
+        android:drawableLeft="@mipmap/login_password"
+        android:drawablePadding="@dimen/space_16"
+        android:hint="设置6-12位的密码"
+        android:inputType="textPassword"
+        android:maxLength="16"
+        android:maxLines="1"  />
+    <View
+        style="@style/HorizontalLineStyle"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60" />
+
+    <Button
+        android:id="@+id/btn_login_commit"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="80px"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_100"
+        android:layout_marginRight="@dimen/space_60"
+        android:text="确 定" />
+</com.zhy.autolayout.AutoLinearLayout>

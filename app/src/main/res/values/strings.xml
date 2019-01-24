@@ -1,0 +1,43 @@
+<resources>
+    <string name="app_name">民麦金服</string>
+
+    <!-- 页面 -->
+    <string name="activity_login">登录</string>
+    <string name="activity_register_one">注册第一步</string>
+    <string name="activity_register_two">注册第二步</string>
+    <string name="activity_register_three">注册第三步</string>
+    <string name="activity_quick_pay">快捷刷卡</string>
+    <string name="activity_identify_one">身份信息完善第一步</string>
+    <string name="activity_identify_two">身份信息完善第二步</string>
+    <string name="activity_identify_three">身份信息完善第三步</string>
+    <string name="activity_date_repayment">日期还款</string>
+    <string name="activity_know">养卡知识</string>
+    <string name="activity_share_mois">我的分润</string>
+
+    <!-- 登录 -->
+    <string name="tv_login_title">登录</string>
+    <string name="ed_login_phone_hint">请输入手机号</string>
+    <string name="ed_login_pwd_hint">请输入密码</string>
+    <string name="ed_login_msg_hint">请输入验证码</string>
+    <string name="btn_login">登录</string>
+    <string name="tv_login_forgot_pwd">忘记密码？</string>
+    <string name="tv_login_send_msg">获取动态验证码</string>
+    <string name="tv_login_register">立即注册</string>
+    <string name="tv_login_msg_login">验证码登录</string>
+    <string name="tv_login_again_send">重新获取</string>
+    <string name="tv_login_weichat_login">微信登录</string>
+
+    <!-- 注册 -->
+    <string name="tv_register_title">注册</string>
+    <string name="ed_register_phone_hint">请输入手机号</string>
+    <string name="btn_register_next">下一步</string>
+
+    <string name="home_nav_index">首页</string>
+    <string name="home_nav_found">发现</string>
+    <string name="home_nav_message">推广</string>
+    <string name="home_nav_me">我的</string>
+    <string name="home_exit_hint">再按一次退出</string>
+
+    <!-- 完善信息 -->
+    <string name="user_identity_name">姓名：&#12288;&#12288;&#12288;</string>
+</resources>

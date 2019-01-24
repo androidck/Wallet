@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/view_title"/>
+    <include layout="@layout/division_line"/>
+    <!-- 顶部标识 -->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_160"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="上传身份证"
+            android:textColor="@color/textColor"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:drawableTop="@mipmap/first"
+            android:drawablePadding="@dimen/space_16"
+            android:layout_marginLeft="@dimen/space_40"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="手持身份证"
+            android:textColor="@color/textColor"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:drawableTop="@mipmap/second_active"
+            android:drawablePadding="@dimen/space_16"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="结算卡"
+            android:textColor="@color/textColor"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:drawableTop="@mipmap/third"
+            android:drawablePadding="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_40"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/space_20"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        >
+        <!-- 身份证正面 -->
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:id="@+id/img_hold"
+                android:layout_width="150dp"
+                android:layout_height="105dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/space_30"
+                android:src="@mipmap/id_card_font" />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+        <!-- 姓名 -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_60"
+            android:orientation="horizontal"
+            android:text="上传手持身份证照片"
+            android:gravity="center"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_40"
+            android:orientation="horizontal"
+            android:text="身份证号完整，身份证清晰"
+            android:layout_marginBottom="@dimen/space_30"
+            android:gravity="center"
+            />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Button
+        android:id="@+id/btn_next"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_60"
+        android:layout_marginRight="@dimen/space_60"
+        android:layout_marginBottom="@dimen/space_60"
+        android:text="下 一 步" />
+
+</com.zhy.autolayout.AutoLinearLayout>
