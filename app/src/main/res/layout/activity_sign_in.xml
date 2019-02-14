@@ -62,7 +62,29 @@
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"></com.zhy.autolayout.AutoLinearLayout>
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="积分"
+                        android:textColor="@color/textColor"
+                        android:gravity="center|bottom"
+                        android:textSize="@dimen/font_size_30px"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="1000"
+                        android:textColor="@color/textColor"
+                        android:gravity="center|top"
+                        android:textSize="@dimen/font_size_48px"
+                        />
+
+                </com.zhy.autolayout.AutoLinearLayout>
 
                 <View
                     android:layout_width="@dimen/space_1"
@@ -74,7 +96,29 @@
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"></com.zhy.autolayout.AutoLinearLayout>
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="签到天数"
+                        android:textColor="@color/textColor"
+                        android:gravity="center|bottom"
+                        android:textSize="@dimen/font_size_30px"
+                        />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="2"
+                        android:textColor="@color/textColor"
+                        android:gravity="center|top"
+                        android:textSize="@dimen/font_size_48px"
+                        />
+
+                </com.zhy.autolayout.AutoLinearLayout>
             </com.zhy.autolayout.AutoLinearLayout>
         </com.zhy.autolayout.AutoRelativeLayout>
         <com.zhy.autolayout.AutoLinearLayout

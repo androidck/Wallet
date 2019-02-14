@@ -1,6 +1,5 @@
 package com.minmai.wallet.moudles.ui.moist;
 
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -10,7 +9,6 @@ import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 分润

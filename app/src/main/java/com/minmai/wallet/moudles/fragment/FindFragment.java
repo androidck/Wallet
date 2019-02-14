@@ -81,6 +81,7 @@ public class FindFragment extends MyLazyFragment {
             case R.id.img_open_close:
                 break;
             case R.id.img_sign_in:
+
                 break;
             case R.id.tv_money:
                 break;

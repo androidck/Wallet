@@ -35,7 +35,13 @@ public class SignInActivity extends MyActivity {
         tbLoginTitle.setTitle("签到");
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_white);
         tbLoginTitle.setBackgroundColor(Color.parseColor("#0096ff"));
+        tbLoginTitle.setTitleColor(Color.parseColor("#ffffff"));
+    }
 
+    //设置状态栏字体为白色
+    @Override
+    public boolean statusBarDarkFont() {
+        return false;
     }
 
     @Override

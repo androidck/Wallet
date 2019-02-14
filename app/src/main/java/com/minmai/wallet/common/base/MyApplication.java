@@ -29,8 +29,6 @@ public class MyApplication extends UIApplication {
     public void onCreate() {
         super.onCreate();
 
-
-
         // 初始化吐司工具类
         ToastUtils.init(this);
 
