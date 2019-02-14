@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/view_title"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_530">
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_400"
+                android:background="@color/colorAccent">
+
+                <TextView
+                    android:id="@+id/tv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="25dp"
+                    android:background="@mipmap/sign_in"
+                    android:gravity="center"
+                    android:text="签到"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/tv_count_day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginBottom="43dp"
+                    android:gravity="center"
+                    android:text="已连续签到2天，继续加油"
+                    android:textColor="@android:color/white" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_200"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginLeft="@dimen/space_30"
+                android:layout_marginTop="@dimen/space_30"
+                android:layout_marginEnd="@dimen/space_30"
+                android:layout_marginRight="@dimen/space_30"
+                android:layout_marginBottom="0dp"
+                android:background="@drawable/item_share_bg"
+                android:orientation="horizontal">
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></com.zhy.autolayout.AutoLinearLayout>
+
+                <View
+                    android:layout_width="@dimen/space_1"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="@dimen/space_50"
+                    android:layout_marginBottom="@dimen/space_50"
+                    android:background="@color/colorLine" />
+
+                <com.zhy.autolayout.AutoLinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"></com.zhy.autolayout.AutoLinearLayout>
+            </com.zhy.autolayout.AutoLinearLayout>
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_30"
+            android:layout_marginTop="@dimen/space_20"
+            android:background="@drawable/item_share_bg"
+            ></com.zhy.autolayout.AutoLinearLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoLinearLayout>

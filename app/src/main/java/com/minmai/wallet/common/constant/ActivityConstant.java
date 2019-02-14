@@ -26,6 +26,9 @@ public class ActivityConstant {
     //设置
     public static final String SETUP="";
 
+    //签到
+    public static final String SIGN_IN="/signin/SignInActivity";
+
     //快捷刷卡
     public static final String QUICK_PAY="/cash/QuickPayActivity";
 
