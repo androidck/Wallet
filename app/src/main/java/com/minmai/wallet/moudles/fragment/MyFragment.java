@@ -13,6 +13,9 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.moudles.ui.me.ManageAcountActivity;
+import com.minmai.wallet.moudles.ui.me.MessageBoardActivity;
+import com.minmai.wallet.moudles.ui.me.SetupActivity;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import butterknife.BindView;
@@ -117,8 +120,10 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_my_video:
                 break;
             case R.id.tv_message:
+                startActivity(MessageBoardActivity.class);
                 break;
             case R.id.tv_trade_record:
+                ARouter.getInstance().build(ActivityConstant.TRADE).navigation();
                 break;
             case R.id.tv_share_download:
                 break;
@@ -127,6 +132,7 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_online_customer:
                 break;
             case R.id.tv_more_setup:
+                startActivity(SetupActivity.class);
                 break;
             case R.id.tv_help:
                 break;

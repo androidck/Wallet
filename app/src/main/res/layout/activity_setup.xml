@@ -30,18 +30,35 @@
                 android:textSize="@dimen/font_size_30px"
                 />
             <include layout="@layout/divisions_line"/>
-            <TextView
+            <com.zhy.autolayout.AutoLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_100"
-                android:background="@android:color/white"
-                android:text="开放手机号"
-                android:textColor="@color/textColor"
-                android:paddingLeft="@dimen/space_30"
-                android:paddingRight="@dimen/space_30"
-                android:drawableRight="@mipmap/user_open"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_30px"
-                />
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:text="开放手机号"
+                    android:textColor="@color/textColor"
+                    android:paddingLeft="@dimen/space_30"
+                    android:paddingRight="@dimen/space_30"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/font_size_30px"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:textColor="@color/textColor"
+                    android:paddingLeft="@dimen/space_30"
+                    android:paddingRight="@dimen/space_30"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/font_size_30px"
+                    />
+            </com.zhy.autolayout.AutoLinearLayout>
             <include layout="@layout/division_line"/>
             <TextView
                 android:id="@+id/tv_abount_me"
@@ -57,19 +74,39 @@
                 android:textSize="@dimen/font_size_30px"
                 />
             <include layout="@layout/divisions_line"/>
-            <TextView
+            <com.zhy.autolayout.AutoLinearLayout
                 android:id="@+id/tv_clean_cache"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_100"
-                android:background="@android:color/white"
-                android:text="清除缓存"
-                android:textColor="@color/textColor"
-                android:paddingLeft="@dimen/space_30"
-                android:paddingRight="@dimen/space_30"
-                android:drawableRight="@mipmap/user_open"
-                android:gravity="center_vertical"
-                android:textSize="@dimen/font_size_30px"
-                />
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:text="清除缓存"
+                    android:textColor="@color/textColor"
+                    android:paddingLeft="@dimen/space_30"
+                    android:paddingRight="@dimen/space_30"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/font_size_30px"
+                    />
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/white"
+                    android:text="0.00M"
+                    android:textColor="@color/tipColor"
+                    android:paddingLeft="@dimen/space_30"
+                    android:paddingRight="@dimen/space_30"
+                    android:drawableRight="@mipmap/user_open"
+                    android:gravity="center_vertical|right"
+                    android:textSize="@dimen/font_size_30px"
+                    android:drawablePadding="@dimen/space_16"
+                    />
+            </com.zhy.autolayout.AutoLinearLayout>
 
         </com.zhy.autolayout.AutoLinearLayout>
         <Button

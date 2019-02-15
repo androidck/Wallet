@@ -59,22 +59,64 @@
             />
         <activity android:name=".moudles.ui.upgrade.UpgradeActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_upgrades"
             />
 
         <activity android:name=".moudles.ui.savings.AddSavingCardActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_add_card"
             />
 
         <activity android:name=".moudles.ui.savings.SavingsCardListActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_savingscard"
             />
         <activity android:name=".moudles.ui.cash.CreditCardListActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_creditcard"
             />
 
         <activity android:name=".moudles.ui.cash.AddCreditCardActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_addcreditcard"
             />
+        <activity android:name=".moudles.ui.me.SetupActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_upgrades"
+            />
+        <activity
+            android:name=".moudles.ui.me.ManageAcountActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_manageAcount"
+            />
+
+        <activity
+            android:name=".moudles.ui.me.UpdateUserPassActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_update_user_pass"
+            />
+
+        <activity
+            android:name=".moudles.ui.me.SetupPasswordActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_update_user_pass"
+            />
+
+        <activity
+            android:name=".moudles.ui.forget.ForGetActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_forgot_pass"
+            />
+        <activity
+            android:name=".moudles.ui.me.MessageBoardActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_forgot_pass"
+            />
+        <activity android:name=".moudles.ui.trade.TransactionActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_trade"
+            />
+
     </application>
 
 </manifest>

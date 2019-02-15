@@ -27,7 +27,6 @@ public abstract class UILazyFragment extends BaseLazyFragment {
         // 初始化沉浸式状态栏
         if (isStatusBarEnabled()) {
             statusBarConfig().init();
-
             // 设置标题栏
             if (getTitleBarId() > 0) {
                 ImmersionBar.setTitleBar(mActivity, findViewById(getTitleBarId()));

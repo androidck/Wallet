@@ -102,14 +102,14 @@ public abstract class MyActivity extends UIActivity
     protected void onResume() {
         super.onResume();
         // 友盟统计
-        // UmengHelper.onResume(this);
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         // 友盟统计
-       // UmengHelper.onPause(this);
+
     }
 
     @Override

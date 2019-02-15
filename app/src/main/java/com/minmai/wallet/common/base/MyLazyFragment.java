@@ -32,14 +32,13 @@ public abstract class MyLazyFragment extends UILazyFragment {
     public void onResume() {
         super.onResume();
         // 友盟统计
-        //  UmengHelper.onResume(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
         // 友盟统计
-        //  UmengHelper.onPause(this);
+
     }
 
     @Override

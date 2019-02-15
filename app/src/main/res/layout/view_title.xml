@@ -7,5 +7,6 @@
     android:layout_height="@dimen/space_100"
     app:bar_style="transparent"
     app:icon_back="false"
+    android:background="@android:color/white"
     app:color_title="@android:color/black"
     />

@@ -49,6 +49,7 @@ public class ForGetActivity extends MyActivity {
     protected void initView() {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("找回秘密");
+        tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_black);
     }
 
     @Override

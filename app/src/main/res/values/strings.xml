@@ -13,6 +13,19 @@
     <string name="activity_date_repayment">日期还款</string>
     <string name="activity_know">养卡知识</string>
     <string name="activity_share_mois">我的分润</string>
+    <string name="activity_upgrades">升级</string>
+    <string name="activity_add_card">添加储蓄卡</string>
+    <string name="activity_savingscard">储蓄卡列表</string>
+    <string name="activity_creditcard">信用卡列表</string>
+    <string name="activity_addcreditcard">添加信用卡</string>
+    <string name="activity_more_setup">更多设置</string>
+    <string name="activity_manageAcount">账号管理</string>
+    <string name="activity_update_user_pass">修改登录密码</string>
+    <string name="activity_setup_pass">设置提现密码</string>
+    <string name="activity_forgot_pass">设置提现密码</string>
+    <string name="activity_message_bord">留言板</string>
+    <string name="activity_trade">交易记录</string>
+
 
     <!-- 登录 -->
     <string name="tv_login_title">登录</string>

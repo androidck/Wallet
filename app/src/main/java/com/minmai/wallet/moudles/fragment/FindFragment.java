@@ -57,6 +57,12 @@ public class FindFragment extends MyLazyFragment {
         return R.id.tb_login_title;
     }
 
+
+    @Override
+    public boolean isStatusBarEnabled() {
+        return true;
+    }
+
     @Override
     protected void initView() {
         tbLoginTitle.setTitle("发现");

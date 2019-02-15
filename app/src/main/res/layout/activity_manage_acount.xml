@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/view_title"/>
+    <include layout="@layout/divisions_line"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+        <com.zhy.autolayout.AutoLinearLayout
+            android:id="@+id/ly_change_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_100"
+            android:orientation="horizontal"
+            android:background="@android:color/white"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="手机号"
+                android:textColor="@color/textColor"
+                android:gravity="center_vertical"
+                android:textSize="@dimen/font_size_30px"
+                android:layout_marginLeft="@dimen/space_30"
+                />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="131****8259"
+                android:textColor="@color/colorDeep"
+                android:gravity="center_vertical|right"
+                android:drawableRight="@mipmap/user_open"
+                android:textSize="@dimen/font_size_30px"
+                android:layout_marginRight="@dimen/space_30"
+                android:drawablePadding="@dimen/space_16"
+                />
+        </com.zhy.autolayout.AutoLinearLayout>
+        <include layout="@layout/divisions_line"/>
+        <TextView
+            android:id="@+id/tv_update_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_100"
+            android:background="@android:color/white"
+            android:text="修改登录密码"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_30px"
+            android:paddingLeft="@dimen/space_30"
+            android:paddingRight="@dimen/space_30"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/user_open"
+            />
+        <include layout="@layout/division_line"/>
+        <TextView
+            android:id="@+id/tv_withdraw_pass"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_100"
+            android:background="@android:color/white"
+            android:text="修改提现密码"
+            android:textColor="@color/textColor"
+            android:textSize="@dimen/font_size_30px"
+            android:paddingLeft="@dimen/space_30"
+            android:paddingRight="@dimen/space_30"
+            android:gravity="center_vertical"
+            android:drawableRight="@mipmap/user_open"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoLinearLayout>

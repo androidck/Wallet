@@ -49,4 +49,7 @@ public class ActivityConstant {
 
     //信用卡
     public static final String CREDIT_CARD = "/cash/CreditCardListActivity";
+
+    //交易记录
+    public static final String TRADE = "/trade/TransactionActivity";
 }

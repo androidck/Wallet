@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/view_title"/>
+    <include layout="@layout/divisions_line"/>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        >
+        <com.hjq.widget.ClearEditText
+            android:id="@+id/tv_new_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="6~8位数字、字母或字符"
+            android:background="@null"
+            android:inputType="textPassword"
+            android:maxLength="8"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_30"
+            android:textSize="@dimen/font_size_30px"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <include layout="@layout/division_line"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:orientation="horizontal"
+        android:background="@android:color/white"
+        >
+        <com.hjq.widget.ClearEditText
+            android:id="@+id/ed_qr_pass"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="确认密码"
+            android:background="@null"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_30"
+            android:textSize="@dimen/font_size_30px"
+            android:inputType="textPassword"
+            android:maxLength="8"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <Button
+        android:id="@+id/btn_qr_update"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_100"
+        android:layout_marginRight="@dimen/space_60"
+        android:text="确 认" />
+</com.zhy.autolayout.AutoLinearLayout>
