@@ -7,7 +7,11 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.zhy.autolayout.AutoLinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,6 +31,7 @@ public class ManageAcountActivity extends MyActivity {
     @BindView(R.id.tv_withdraw_pass)
     TextView tvWithdrawPass;
 
+    List<String> list;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_manage_acount;
@@ -46,7 +51,8 @@ public class ManageAcountActivity extends MyActivity {
 
     @Override
     protected void initData() {
-
+        list=new ArrayList<>();
+        list.add("更换手机号");
     }
 
 
@@ -55,6 +61,7 @@ public class ManageAcountActivity extends MyActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_change_phone:
+                new BottomDialog(ManageAcountActivity.this,list).show();
                 break;
             case R.id.tv_update_password:
                 startActivity(UpdateUserPassActivity.class);

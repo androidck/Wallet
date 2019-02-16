@@ -326,12 +326,19 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_marginLeft="@dimen/space_20"
-                            android:layout_weight="1"
+                            android:layout_weight="5"
                             android:drawableLeft="@mipmap/user_start_order"
                             android:drawablePadding="@dimen/space_16"
                             android:gravity="center_vertical"
                             android:text="开始接单"
                             android:textColor="@color/textColor" />
+                        <android.support.v7.widget.SwitchCompat
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:layout_gravity="center_vertical|left"
+                            android:layout_marginRight="@dimen/space_18"
+                            />
                     </com.zhy.autolayout.AutoLinearLayout>
 
                     <include layout="@layout/division_line" />

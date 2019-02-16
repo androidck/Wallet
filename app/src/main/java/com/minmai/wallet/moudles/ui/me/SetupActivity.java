@@ -52,7 +52,7 @@ public class SetupActivity extends MyActivity {
     }
 
 
-    @OnClick({R.id.tv_account_security, R.id.tv_clean_cache, R.id.btn_login_out})
+    @OnClick({R.id.tv_account_security, R.id.tv_clean_cache, R.id.btn_login_out,R.id.tv_abount_me})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_account_security:
@@ -61,6 +61,9 @@ public class SetupActivity extends MyActivity {
             case R.id.tv_clean_cache:
                 break;
             case R.id.btn_login_out:
+                break;
+            case R.id.tv_abount_me:
+                startActivity(AboutUsActivity.class);
                 break;
         }
     }

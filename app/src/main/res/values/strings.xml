@@ -25,7 +25,8 @@
     <string name="activity_forgot_pass">设置提现密码</string>
     <string name="activity_message_bord">留言板</string>
     <string name="activity_trade">交易记录</string>
-
+    <string name="activity_about_us">关于我们</string>
+    <string name="activity_opinion">意见反馈</string>
 
     <!-- 登录 -->
     <string name="tv_login_title">登录</string>

@@ -116,6 +116,14 @@
             android:screenOrientation="portrait"
             android:label="@string/activity_trade"
             />
+        <activity android:name=".moudles.ui.me.AboutUsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_trade"
+            />
+        <activity android:name=".moudles.ui.me.OpinionActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_opinion"
+            />
 
     </application>
 

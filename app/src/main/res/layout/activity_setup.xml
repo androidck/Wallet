@@ -34,29 +34,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/space_100"
                 android:orientation="horizontal"
+                android:background="@android:color/white"
                 >
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/white"
+                    android:layout_weight="5"
                     android:text="开放手机号"
                     android:textColor="@color/textColor"
                     android:paddingLeft="@dimen/space_30"
-                    android:paddingRight="@dimen/space_30"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/font_size_30px"
                     />
-                <TextView
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/sw_switch"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/white"
-                    android:textColor="@color/textColor"
-                    android:paddingLeft="@dimen/space_30"
-                    android:paddingRight="@dimen/space_30"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/font_size_30px"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginRight="@dimen/space_18"
                     />
             </com.zhy.autolayout.AutoLinearLayout>
             <include layout="@layout/division_line"/>

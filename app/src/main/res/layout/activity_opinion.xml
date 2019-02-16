@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <include layout="@layout/view_title"/>
+    <EditText
+        android:id="@+id/ed_opinion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_400"
+        android:background="@drawable/option_edit_share"
+        android:layout_margin="@dimen/space_30"
+        android:hint="欢迎提出意见和建议，我们会努力做的更好"
+        android:textSize="@dimen/font_size_30px"
+        android:gravity="top"
+        />
+    <EditText
+        android:id="@+id/ed_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:background="@drawable/option_edit_share"
+        android:layout_marginLeft="@dimen/space_30"
+        android:layout_marginRight="@dimen/space_30"
+        android:layout_marginTop="@dimen/space_10"
+        android:hint="手机号或QQ号，仅工作人员可见"
+        android:textSize="@dimen/font_size_30px"
+        />
+
+    <Button
+        android:id="@+id/btn_commit"
+        style="@style/ButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginLeft="@dimen/space_60"
+        android:layout_marginTop="@dimen/space_100"
+        android:layout_marginRight="@dimen/space_60"
+        android:text="提交" />
+</com.zhy.autolayout.AutoLinearLayout>

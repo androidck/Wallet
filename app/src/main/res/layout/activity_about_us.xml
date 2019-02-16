@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <include layout="@layout/view_title"/>
+    <include layout="@layout/division_line"/>
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_700"
+        android:background="@color/white"
+        android:orientation="vertical"
+        >
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/space_240">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/space_30"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:text="民麦金服V1.0"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/space_10"
+                />
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="民麦金服"
+            android:textColor="@color/tipColor"
+            android:textSize="@dimen/space_34"
+            android:layout_marginLeft="@dimen/space_20"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/tipColor"
+            android:textSize="@dimen/space_30"
+            android:text="        上海民麦互联网金融信息服务有限公司是行业内领先的知名企业，公司成立与2015年，注册资金未提供，办公地址位于交通便利的上海 浦东新区 南汇新城镇环湖西二路888号2撞2区12074室。主要从事金融印业服务。上海民麦金融信息服务网有限公司本着“客户第一，诚信至上”的原则，以实力和质量获得业界的高度认可。欢迎各界朋友莅临参观、知道和业务洽谈。"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_30"
+            android:lineSpacingExtra="@dimen/space_10"
+            android:lineSpacingMultiplier="1"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
+    <include layout="@layout/divisions_line"/>
+    <TextView
+        android:id="@+id/tv_opinion"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:background="@android:color/white"
+        android:text="意见反馈"
+        android:drawableRight="@mipmap/user_open"
+        android:textSize="@dimen/space_30"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/space_30"
+        android:paddingRight="@dimen/space_30"
+        />
+    <include layout="@layout/division_line"/>
+    <TextView
+        android:id="@+id/tv_check_update"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space_100"
+        android:background="@android:color/white"
+        android:text="检查更新"
+        android:drawableRight="@mipmap/user_open"
+        android:textSize="@dimen/space_30"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/space_30"
+        android:paddingRight="@dimen/space_30"
+        />
+</com.zhy.autolayout.AutoLinearLayout>
