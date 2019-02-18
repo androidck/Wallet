@@ -1,15 +1,16 @@
 package com.minmai.wallet.moudles.ui.cash;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hjq.bar.TitleBar;
+import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.moudles.dialog.PassagewayDialog;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import butterknife.BindView;
@@ -27,7 +28,7 @@ public class QuickPayActivity extends MyActivity {
     @BindView(R.id.tv_select_passageway)
     TextView tvSelectPassageway;
     @BindView(R.id.ed_money)
-    EditText edMoney;
+    ClearEditText edMoney;
     @BindView(R.id.tv_charge)
     TextView tvCharge;
 
@@ -59,6 +60,7 @@ public class QuickPayActivity extends MyActivity {
             case R.id.ly_add_card:
                 break;
             case R.id.tv_select_passageway:
+                new PassagewayDialog(QuickPayActivity.this,false).show();
                 break;
         }
     }

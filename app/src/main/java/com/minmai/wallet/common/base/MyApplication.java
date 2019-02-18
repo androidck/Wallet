@@ -15,6 +15,9 @@ import com.minmai.wallet.common.helper.ActivityStackManager;
  */
 public class MyApplication extends UIApplication {
 
+  
+
+
     @Override
     public void onCreate() {
         super.onCreate();
