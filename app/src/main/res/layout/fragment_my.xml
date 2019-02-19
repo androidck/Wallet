@@ -298,10 +298,10 @@
 
                     <!-- 业务员 -->
                     <com.zhy.autolayout.AutoLinearLayout
+                        android:id="@+id/ly_salesman"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/space_100"
                         android:orientation="horizontal">
-
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"

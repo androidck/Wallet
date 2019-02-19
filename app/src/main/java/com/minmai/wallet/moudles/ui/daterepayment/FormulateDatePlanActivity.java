@@ -1,5 +1,7 @@
 package com.minmai.wallet.moudles.ui.daterepayment;
 
+import android.graphics.Color;
+
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
@@ -24,8 +26,16 @@ public class FormulateDatePlanActivity extends MyActivity {
     }
 
     @Override
+    public boolean statusBarDarkFont() {
+        return false;
+    }
+
+    @Override
     protected void initView() {
         tbLoginTitle.setTitle("制定日期还款");
+        tbLoginTitle.setTitleColor(Color.parseColor("#ffffff"));
+        tbLoginTitle.setBackgroundColor(Color.parseColor("#00000000"));
+        tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_white);
     }
 
     @Override

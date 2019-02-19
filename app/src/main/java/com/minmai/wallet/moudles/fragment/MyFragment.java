@@ -13,10 +13,13 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.moudles.ui.me.ManageAcountActivity;
+import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.ui.me.MessageBoardActivity;
 import com.minmai.wallet.moudles.ui.me.SetupActivity;
 import com.zhy.autolayout.AutoLinearLayout;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -72,6 +75,11 @@ public class MyFragment extends MyLazyFragment {
     @BindView(R.id.ly_status)
     AutoLinearLayout lyStatus;
 
+    List<String> list;
+    @BindView(R.id.ly_salesman)
+    AutoLinearLayout lySalesman;
+
+
 
     @Override
     protected int getLayoutId() {
@@ -95,7 +103,10 @@ public class MyFragment extends MyLazyFragment {
 
     @Override
     protected void initData() {
-
+        list = new ArrayList<>();
+        list.add("完善个人信息");
+        list.add("发布招聘信息");
+        list.add("查看招聘信息");
     }
 
     public static MyFragment newInstance() {
@@ -103,8 +114,7 @@ public class MyFragment extends MyLazyFragment {
     }
 
 
-
-    @OnClick({R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help})
+    @OnClick({R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help,R.id.ly_salesman})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_integral:
@@ -136,6 +146,11 @@ public class MyFragment extends MyLazyFragment {
                 break;
             case R.id.tv_help:
                 break;
+            case R.id.ly_salesman:
+                new BottomDialog(getActivity(),false,list).show();
+                break;
         }
     }
+
+
 }

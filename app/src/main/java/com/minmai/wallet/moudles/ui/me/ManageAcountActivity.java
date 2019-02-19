@@ -61,7 +61,7 @@ public class ManageAcountActivity extends MyActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_change_phone:
-                new BottomDialog(ManageAcountActivity.this,false).show();
+                new BottomDialog(ManageAcountActivity.this,false,list).show();
                 break;
             case R.id.tv_update_password:
                 startActivity(UpdateUserPassActivity.class);

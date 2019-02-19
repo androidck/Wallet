@@ -20,7 +20,6 @@ public class PassagewayDialog extends Dialog implements View.OnClickListener{
     private boolean iscancelable;//控制点击dialog外部是否dismiss
     private View view;
     private Context context;
-    private RecyclerView.Adapter adapter;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
     public PassagewayDialog(Context context, boolean isCancelable) {
         super(context, R.style.ActionSheetDialogStyle);
