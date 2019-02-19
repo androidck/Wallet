@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.zhy.autolayout.AutoLinearLayout;
 
@@ -30,8 +31,10 @@ public class ManageAcountActivity extends MyActivity {
     TextView tvUpdatePassword;
     @BindView(R.id.tv_withdraw_pass)
     TextView tvWithdrawPass;
+    BottomDialog bottomDialog;
 
     List<String> list;
+    private BottomDialogAdapter adapter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_manage_acount;
@@ -47,12 +50,20 @@ public class ManageAcountActivity extends MyActivity {
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_black);
         tbLoginTitle.setTitle("管理账户");
         tbLoginTitle.setBackgroundColor(Color.parseColor("#ffffff"));
+        adapter=new BottomDialogAdapter(ManageAcountActivity.this);
     }
 
     @Override
     protected void initData() {
         list=new ArrayList<>();
         list.add("更换手机号");
+        adapter.setData(list);
+        adapter.setOnItemClickListener(new BottomDialogAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                toast(list.get(position));
+            }
+        });
     }
 
 
@@ -61,7 +72,7 @@ public class ManageAcountActivity extends MyActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_change_phone:
-                new BottomDialog(ManageAcountActivity.this,false,list).show();
+                new BottomDialog(ManageAcountActivity.this,false,adapter).show();
                 break;
             case R.id.tv_update_password:
                 startActivity(UpdateUserPassActivity.class);

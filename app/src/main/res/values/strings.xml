@@ -27,6 +27,7 @@
     <string name="activity_trade">交易记录</string>
     <string name="activity_about_us">关于我们</string>
     <string name="activity_opinion">意见反馈</string>
+    <string name="activity_per_port">个人头像</string>
 
     <!-- 登录 -->
     <string name="tv_login_title">登录</string>

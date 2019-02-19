@@ -124,6 +124,11 @@
             android:screenOrientation="portrait"
             android:label="@string/activity_opinion"
             />
+        <activity android:name=".moudles.ui.me.PersonalportraitActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_opinion"
+            />
+
 
     </application>
 

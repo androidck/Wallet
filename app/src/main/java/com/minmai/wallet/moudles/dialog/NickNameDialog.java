@@ -3,48 +3,37 @@ package com.minmai.wallet.moudles.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.hjq.base.BaseRecyclerViewAdapter;
+import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
-import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
-import com.zhy.autolayout.AutoLinearLayout;
-
-import java.util.List;
 
 /**
- * 底部选项卡dialog
+ * 昵称
  */
-public class BottomDialog extends Dialog implements View.OnClickListener {
+public class NickNameDialog extends Dialog implements View.OnClickListener {
 
     private boolean iscancelable;//控制点击dialog外部是否dismiss
     private View view;
     private Context context;
-    private List<String> list;
 
-    private RecyclerView.Adapter adapter;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
-    public BottomDialog(Context context, boolean isCancelable,  RecyclerView.Adapter adapter) {
+    public NickNameDialog(Context context, boolean isCancelable) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.iscancelable = isCancelable;
-        this.adapter=adapter;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_bottom);//这行一定要写在前面
+        setContentView(R.layout.dialog_nickname);//这行一定要写在前面
         setCancelable(iscancelable);//点击外部不可dismiss
         Window window = this.getWindow();
-        window.setGravity(Gravity.BOTTOM);
+        window.setGravity(Gravity.CENTER);
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
@@ -52,21 +41,22 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
         initView();
     }
 
-    private void initView(){
-        TextView tvEsc=findViewById(R.id.tv_esc);
+    private void initView() {
+        TextView tvEsc=findViewById(R.id.btn_esc);
+        TextView tvOk=findViewById(R.id.btn_ok);
+        ClearEditText editText=findViewById(R.id.ed_nickname);
         tvEsc.setOnClickListener(this);
-        RecyclerView recyclerView=findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setAdapter(adapter);
+        tvOk.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.tv_esc:
+            case R.id.btn_esc:
                 dismiss();
+                break;
+            case R.id.btn_ok:
                 break;
         }
     }
 }
-
