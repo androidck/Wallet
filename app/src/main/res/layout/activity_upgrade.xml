@@ -14,7 +14,7 @@
             >
             <com.zhy.autolayout.AutoRelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/space_400"
+                android:layout_height="@dimen/space_360"
                 >
 
                 <com.zhy.autolayout.AutoLinearLayout

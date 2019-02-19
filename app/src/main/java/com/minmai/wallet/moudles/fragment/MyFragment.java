@@ -14,6 +14,7 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
+import com.minmai.wallet.moudles.dialog.LeavingMsgDialog;
 import com.minmai.wallet.moudles.ui.me.MessageBoardActivity;
 import com.minmai.wallet.moudles.ui.me.SetupActivity;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -78,7 +79,8 @@ public class MyFragment extends MyLazyFragment {
     List<String> list;
     @BindView(R.id.ly_salesman)
     AutoLinearLayout lySalesman;
-
+    @BindView(R.id.ly_recommend)
+    AutoLinearLayout lyRecommend;
 
 
     @Override
@@ -114,7 +116,7 @@ public class MyFragment extends MyLazyFragment {
     }
 
 
-    @OnClick({R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help,R.id.ly_salesman})
+    @OnClick({R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help, R.id.ly_salesman,R.id.ly_recommend})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_integral:
@@ -147,10 +149,14 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_help:
                 break;
             case R.id.ly_salesman:
-                new BottomDialog(getActivity(),false,list).show();
+                new BottomDialog(getActivity(), false, list).show();
+                break;
+            case R.id.ly_recommend:
+                new LeavingMsgDialog(getActivity(), true).show();
                 break;
         }
     }
+
 
 
 }

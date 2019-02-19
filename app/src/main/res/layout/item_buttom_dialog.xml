@@ -3,18 +3,22 @@
     android:id="@+id/item_menu"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/space_100"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     >
-    <TextView
-        android:id="@+id/item_tv_name"
+    <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="更换手机号"
-        android:textSize="@dimen/font_size_30px"
-        android:textColor="@color/textColor"
-        android:gravity="center"
-        android:background="@android:color/white"
-        />
+        android:layout_height="@dimen/space_100">
+        <TextView
+            android:id="@+id/item_tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="更换手机号"
+            android:textSize="@dimen/font_size_30px"
+            android:textColor="@color/textColor"
+            android:gravity="center"
+            android:background="@android:color/white"
+            />
+    </com.zhy.autolayout.AutoLinearLayout>
     <include layout="@layout/division_line"/>
 </com.zhy.autolayout.AutoLinearLayout>
