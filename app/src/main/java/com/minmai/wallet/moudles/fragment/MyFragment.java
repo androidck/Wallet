@@ -16,6 +16,7 @@ import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
+import com.minmai.wallet.moudles.dialog.CallUpDialog;
 import com.minmai.wallet.moudles.dialog.LeavingMsgDialog;
 import com.minmai.wallet.moudles.dialog.NickNameDialog;
 import com.minmai.wallet.moudles.ui.me.MessageBoardActivity;
@@ -90,6 +91,9 @@ public class MyFragment extends MyLazyFragment {
 
     BottomDialogAdapter adapter;
     BottomDialog bottomDialog;
+    @BindView(R.id.tv_phone_number)
+    TextView tvPhoneNumber;
+
 
     @Override
     protected int getLayoutId() {
@@ -110,7 +114,7 @@ public class MyFragment extends MyLazyFragment {
         lp.setMargins(0, rectangle.top, 0, 0);
         lyStatus.setLayoutParams(lp);
 
-        adapter=new BottomDialogAdapter(getActivity());
+        adapter = new BottomDialogAdapter(getActivity());
     }
 
     @Override
@@ -134,7 +138,7 @@ public class MyFragment extends MyLazyFragment {
     }
 
 
-    @OnClick({R.id.img_head,R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help, R.id.ly_salesman, R.id.ly_recommend,R.id.img_ed_nickname})
+    @OnClick({R.id.img_head, R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help, R.id.ly_salesman, R.id.ly_recommend, R.id.img_ed_nickname})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_head://头像
@@ -161,6 +165,7 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_share_download://分享连接
                 break;
             case R.id.my_customer://我的客服
+                new CallUpDialog(getContext(), false, tvPhoneNumber.getText().toString().trim()).show();
                 break;
             case R.id.tv_online_customer://在线客服
                 break;
@@ -170,7 +175,7 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_help://帮助
                 break;
             case R.id.ly_salesman://我是业务元
-                bottomDialog=new BottomDialog(getContext(),false,adapter);
+                bottomDialog = new BottomDialog(getContext(), false, adapter);
                 bottomDialog.show();
                 break;
             case R.id.ly_recommend://留言

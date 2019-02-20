@@ -130,7 +130,18 @@
             />
         <activity android:name=".moudles.web.BrowserActivity"
             android:screenOrientation="portrait"
+            android:label="@string/activity_browser"
             />
+
+        <activity android:name=".moudles.ui.find.WithdrawCashActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_withdraw_cash"
+            />
+        <activity android:name=".moudles.ui.find.WithdrawCashDetailsActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_withdraw_cash"
+            />
+
 
 
     </application>

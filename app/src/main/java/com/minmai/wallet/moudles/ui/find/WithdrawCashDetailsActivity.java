@@ -1,23 +1,20 @@
-package com.minmai.wallet.moudles.ui.moist;
+package com.minmai.wallet.moudles.ui.find;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
-import com.minmai.wallet.common.constant.ActivityConstant;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 分润
+ * 提现明细
  */
-@Route(path = ActivityConstant.MY_SHARE_MOIST)
-public class ShareMoistActivity extends MyActivity {
+public class WithdrawCashDetailsActivity extends MyActivity {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
     @BindView(R.id.recyclerView)
@@ -37,7 +34,7 @@ public class ShareMoistActivity extends MyActivity {
 
     @Override
     protected void initView() {
-        tbLoginTitle.setTitle("我的分润");
+        tbLoginTitle.setTitle("提现明细");
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_black);
     }
 
@@ -45,5 +42,6 @@ public class ShareMoistActivity extends MyActivity {
     protected void initData() {
 
     }
+
 
 }

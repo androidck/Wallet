@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
+import com.minmai.wallet.moudles.ui.find.WithdrawCashActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,6 +103,7 @@ public class FindFragment extends MyLazyFragment {
             case R.id.tv_share_details:
                 break;
             case R.id.tv_profit:
+                startActivity(WithdrawCashActivity.class);
                 break;
             case R.id.tv_all_count:
                 break;

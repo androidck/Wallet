@@ -13,6 +13,8 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.moudles.dialog.LoginTipDialog;
+import com.minmai.wallet.moudles.dialog.ShareDialog;
 import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.stx.xhb.xbanner.XBanner;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -106,6 +108,7 @@ public class HomeFragment extends MyLazyFragment {
                 ARouter.getInstance().build(ActivityConstant.UPGRADE).navigation();
                 break;
             case R.id.lv_finance_service:
+                new LoginTipDialog(getActivity(),false).show();
                 break;
             case R.id.tv_life_service:
                 break;
