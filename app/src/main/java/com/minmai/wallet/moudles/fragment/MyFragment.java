@@ -89,7 +89,7 @@ public class MyFragment extends MyLazyFragment {
     ImageView imgEdNickname;
 
     BottomDialogAdapter adapter;
-
+    BottomDialog bottomDialog;
 
     @Override
     protected int getLayoutId() {
@@ -124,6 +124,7 @@ public class MyFragment extends MyLazyFragment {
             @Override
             public void onClick(int position) {
                 toast(list.get(position));
+                bottomDialog.dismiss();
             }
         });
     }
@@ -136,7 +137,7 @@ public class MyFragment extends MyLazyFragment {
     @OnClick({R.id.img_head,R.id.ly_integral, R.id.ly_credit_num, R.id.ly_savings_num, R.id.ly_agency, R.id.tv_my_video, R.id.tv_message, R.id.tv_trade_record, R.id.tv_share_download, R.id.my_customer, R.id.tv_online_customer, R.id.tv_more_setup, R.id.tv_help, R.id.ly_salesman, R.id.ly_recommend,R.id.img_ed_nickname})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_head:
+            case R.id.img_head://头像
                 startActivity(PersonalportraitActivity.class);
                 break;
             case R.id.ly_integral://积分
@@ -169,7 +170,8 @@ public class MyFragment extends MyLazyFragment {
             case R.id.tv_help://帮助
                 break;
             case R.id.ly_salesman://我是业务元
-                new BottomDialog(getActivity(), false, adapter).show();
+                bottomDialog=new BottomDialog(getContext(),false,adapter);
+                bottomDialog.show();
                 break;
             case R.id.ly_recommend://留言
                 new LeavingMsgDialog(getActivity(), true).show();

@@ -3,20 +3,15 @@ package com.minmai.wallet.moudles.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.hjq.base.BaseRecyclerViewAdapter;
 import com.minmai.wallet.R;
-import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
-import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.List;
 
@@ -31,8 +26,15 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
     private List<String> list;
 
     private RecyclerView.Adapter adapter;
+    private int closeStatus;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
-    public BottomDialog(Context context, boolean isCancelable,  RecyclerView.Adapter adapter) {
+
+    public BottomDialog(Context context){
+        super(context);
+        this.context=context;
+    }
+
+    public BottomDialog(Context context, boolean isCancelable, RecyclerView.Adapter adapter) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.iscancelable = isCancelable;
@@ -68,5 +70,6 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
+
 }
 

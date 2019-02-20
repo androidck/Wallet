@@ -31,10 +31,13 @@ public class ManageAcountActivity extends MyActivity {
     TextView tvUpdatePassword;
     @BindView(R.id.tv_withdraw_pass)
     TextView tvWithdrawPass;
-    BottomDialog bottomDialog;
 
     List<String> list;
     private BottomDialogAdapter adapter;
+    BottomDialog bottomDialog;
+
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_manage_acount;
@@ -62,6 +65,7 @@ public class ManageAcountActivity extends MyActivity {
             @Override
             public void onClick(int position) {
                 toast(list.get(position));
+                bottomDialog.dismiss();
             }
         });
     }
@@ -72,7 +76,8 @@ public class ManageAcountActivity extends MyActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ly_change_phone:
-                new BottomDialog(ManageAcountActivity.this,false,adapter).show();
+                bottomDialog= new BottomDialog(ManageAcountActivity.this,false,adapter);
+                bottomDialog.show();
                 break;
             case R.id.tv_update_password:
                 startActivity(UpdateUserPassActivity.class);

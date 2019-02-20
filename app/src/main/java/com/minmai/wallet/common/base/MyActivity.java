@@ -146,4 +146,6 @@ public abstract class MyActivity extends UIActivity
         intent.putExtra(SonicJavaScriptInterface.PARAM_CLICK_TIME, System.currentTimeMillis());
         startActivityForResult(intent, -1);
     }
+
+
 }

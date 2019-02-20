@@ -24,6 +24,8 @@ public class PersonalportraitActivity extends MyActivity {
     List<String> list;
 
     private BottomDialogAdapter adapter;
+    private BottomDialog bottomDialog;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_per_port;
@@ -40,7 +42,7 @@ public class PersonalportraitActivity extends MyActivity {
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_white);
         tbLoginTitle.setBackgroundColor(Color.parseColor("#323232"));
         tbLoginTitle.setTitleColor(Color.parseColor("#ffffff"));
-        tbLoginTitle.setRightIcon(R.mipmap.bar_icon_back_white);
+        tbLoginTitle.setRightIcon(R.mipmap.user_more);
 
         adapter=new BottomDialogAdapter(PersonalportraitActivity.this);
     }
@@ -57,11 +59,18 @@ public class PersonalportraitActivity extends MyActivity {
         list.add("从手机相册选择");
         list.add("保存图片");
         adapter.setData(list);
+        adapter.setOnItemClickListener(new BottomDialogAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                bottomDialog.dismiss();
+            }
+        });
     }
 
     @Override
     public void onRightClick(View v) {
-        new BottomDialog(PersonalportraitActivity.this,false,adapter).show();
+        bottomDialog= new BottomDialog(PersonalportraitActivity.this,false,adapter);
+        bottomDialog.show();
     }
 
 
