@@ -128,6 +128,9 @@
             android:screenOrientation="portrait"
             android:label="@string/activity_opinion"
             />
+        <activity android:name=".moudles.web.BrowserActivity"
+            android:screenOrientation="portrait"
+            />
 
 
     </application>

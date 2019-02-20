@@ -1,11 +1,15 @@
 package com.minmai.wallet.common.base;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.view.View;
 
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
+import com.minmai.wallet.moudles.web.BrowserActivity;
+import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -131,5 +135,15 @@ public abstract class MyActivity extends UIActivity
 
     public void toast(Object object) {
         ToastUtils.show(object);
+    }
+
+
+    //跳转到浏览器
+    public void startBrowserActivity(Context context,int mode, String url) {
+        Intent intent = new Intent(context, BrowserActivity.class);
+        intent.putExtra(BrowserActivity.PARAM_URL, url);
+        intent.putExtra(BrowserActivity.PARAM_MODE, mode);
+        intent.putExtra(SonicJavaScriptInterface.PARAM_CLICK_TIME, System.currentTimeMillis());
+        startActivityForResult(intent, -1);
     }
 }

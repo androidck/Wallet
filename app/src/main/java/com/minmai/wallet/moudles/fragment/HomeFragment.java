@@ -12,6 +12,8 @@ import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.stx.xhb.xbanner.XBanner;
 import com.zhy.autolayout.AutoLinearLayout;
 
@@ -48,6 +50,9 @@ public class HomeFragment extends MyLazyFragment {
     AutoLinearLayout lyExtension;
     @BindView(R.id.ly_loan)
     AutoLinearLayout lyLoan;
+    @BindView(R.id.ly_network_online)
+    AutoLinearLayout lyNetworkOnline;
+
 
     @Override
     protected int getLayoutId() {
@@ -81,8 +86,7 @@ public class HomeFragment extends MyLazyFragment {
     }
 
 
-
-    @OnClick({R.id.banner, R.id.tv_notice, R.id.tv_quick_pay, R.id.tv_date_repayment, R.id.tv_share_profit, R.id.tv_upgrade, R.id.lv_finance_service, R.id.tv_life_service, R.id.tv_credit_card_knowledge, R.id.ly_extension, R.id.ly_loan})
+    @OnClick({R.id.banner, R.id.tv_notice, R.id.tv_quick_pay, R.id.tv_date_repayment, R.id.tv_share_profit, R.id.tv_upgrade, R.id.lv_finance_service, R.id.tv_life_service, R.id.tv_credit_card_knowledge, R.id.ly_extension, R.id.ly_loan,R.id.ly_network_online})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.banner:
@@ -108,9 +112,15 @@ public class HomeFragment extends MyLazyFragment {
             case R.id.tv_credit_card_knowledge:
                 break;
             case R.id.ly_extension:
+
                 break;
             case R.id.ly_loan:
                 break;
+            case R.id.ly_network_online:
+                startBrowserActivity(getActivity(), MainActivity.MODE_SONIC, Constant.CREDIT_CARD_URL);
+                break;
         }
     }
+
+
 }

@@ -14,6 +14,9 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.helper.ActivityStackManager;
 import com.minmai.wallet.common.helper.DoubleClickHelper;
 import com.minmai.wallet.moudles.adapter.HomeFragmentAdapter;
+import com.minmai.wallet.moudles.web.SonicRuntimeImpl;
+import com.tencent.sonic.sdk.SonicConfig;
+import com.tencent.sonic.sdk.SonicEngine;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +34,14 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
     BottomNavigationView bvHomeNavigation;
 
     private HomeFragmentAdapter mPagerAdapter;
+
+    public static final int MODE_DEFAULT = 0;
+
+    public static final int MODE_SONIC = 1;
+
+    public static final int MODE_SONIC_WITH_OFFLINE_CACHE = 2;
+
+    private static final int PERMISSION_REQUEST_CODE_STORAGE = 1;
 
     @Override
     protected int getLayoutId() {
@@ -58,7 +69,9 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
 
         // 限制页面数量
         vpHomePager.setOffscreenPageLimit(mPagerAdapter.getCount());
+       // init();
     }
+
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
