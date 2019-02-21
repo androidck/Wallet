@@ -40,7 +40,7 @@
                     android:layout_marginLeft="@dimen/space_24"
                     android:layout_marginRight="@dimen/space_24"
                     android:text="10月29日至30日升级会员打9.8折"
-                    android:textColor="@color/colorDeep"
+                    android:textColor="@color/textColor"
                     android:textSize="@dimen/font_size_24px"
                     android:gravity="center_vertical"
                     android:drawablePadding="@dimen/space_16"

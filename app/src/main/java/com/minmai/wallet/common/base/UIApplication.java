@@ -2,6 +2,9 @@ package com.minmai.wallet.common.base;
 
 import android.app.Application;
 
+import com.tencent.tinker.loader.app.TinkerApplication;
+import com.tencent.tinker.loader.shareutil.ShareConstants;
+
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 
 /**
@@ -11,6 +14,11 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
  *    desc   : 支持侧滑的Application基类
  */
 public abstract class UIApplication extends Application {
+
+  /*  protected UIApplication(int tinkerFlags) {
+        super(ShareConstants.TINKER_ENABLE_ALL, "com.minmai.wallet.common.base.SampleApplicationLike",
+                "com.tencent.tinker.loader.TinkerLoader", false);
+    }*/
 
     @Override
     public void onCreate() {
