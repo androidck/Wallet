@@ -51,18 +51,14 @@ public class RegisterOneActivity extends MyActivity implements UserContract.View
 
     @Override
     protected void initView() {
-
-
         tbLoginTitle.setTitle("注册");
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         presenter = new UserPresenter(this, this);
     }
-
     @Override
     protected void initData() {
         ARouter.getInstance().inject(this);
     }
-
 
     //必填验证
     protected void startRequestInterface() {
