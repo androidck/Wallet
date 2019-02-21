@@ -176,6 +176,11 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".moudles.ui.login.LoginActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_login"
+            />
         <activity android:name=".moudles.ui.register.one.RegisterOneActivity"
             android:screenOrientation="portrait"
             android:label="@string/activity_register_one"

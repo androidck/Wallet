@@ -3,7 +3,10 @@ package com.minmai.wallet.common.base;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
+import android.os.CountDownTimer;
 import android.view.View;
+import android.widget.TextView;
 
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
@@ -137,6 +140,10 @@ public abstract class MyActivity extends UIActivity
         ToastUtils.show(object);
     }
 
+    //必填验证
+    protected void startRequestInterface() {
+
+    }
 
     //跳转到浏览器
     public void startBrowserActivity(Context context,int mode, String url) {
@@ -146,6 +153,58 @@ public abstract class MyActivity extends UIActivity
         intent.putExtra(SonicJavaScriptInterface.PARAM_CLICK_TIME, System.currentTimeMillis());
         startActivityForResult(intent, -1);
     }
+
+    /**
+     * 倒计时
+     * @param textView
+     */
+    public void countDown(final TextView textView){
+        /** 倒计时60秒，一次1秒 */
+        CountDownTimer timer = new CountDownTimer(10*1000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                // TODO Auto-generated method stub
+                textView.setText(millisUntilFinished/1000+"秒后重新获取");
+                textView.setClickable(false);
+                textView.setTextColor(Color.parseColor("#8d8d8d"));
+            }
+            @Override
+            public void onFinish() {
+                textView.setText("重新发送验证码");
+                textView.setClickable(true);
+                textView.setTextColor(Color.parseColor("#0096ff"));
+            }
+        }.start();
+
+
+    }
+
+    public class TimeCount extends CountDownTimer {
+
+        TextView textView;
+
+        public TimeCount(long millisInFuture, long countDownInterval,TextView textView) {
+            super(millisInFuture, countDownInterval);
+            this.textView=textView;
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            textView.setTextColor(Color.parseColor("#8d8d8d"));
+            textView.setClickable(false);
+            textView.setText(+millisUntilFinished / 1000 +" 秒后可重新发送");
+        }
+
+        @Override
+        public void onFinish() {
+            textView.setText("重新获取验证码");
+            textView.setClickable(true);
+            textView.setTextColor(Color.parseColor("#0096ff"));
+
+        }
+    }
+
+
 
 
 }

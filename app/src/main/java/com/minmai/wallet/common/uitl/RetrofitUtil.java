@@ -2,6 +2,10 @@ package com.minmai.wallet.common.uitl;
 
 
 
+import com.minmai.wallet.common.api.WalletApi;
+import com.minmai.wallet.common.base.MyApplication;
+import com.minmai.wallet.common.constant.Constant;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,7 +22,7 @@ public class RetrofitUtil {
      */
     private static volatile RetrofitUtil mInstance;
 
-/*    private MainApi mainApi;*/
+    private WalletApi mainApi;
 
     /**
      * 单例封装
@@ -39,20 +43,20 @@ public class RetrofitUtil {
    /**
      * 初始化Retrofit
      */
-/*    public MainApi initRetrofit() {
+    public WalletApi initRetrofit() {
         if (mainApi == null) {
             Retrofit mRetrofit = new Retrofit.Builder()
                     .client(MyApplication.initOKHttp())
                     // 设置请求的域名
-                    .baseUrl(Constant.NEWS_URL)
+                    .baseUrl(Constant.BASE_URL)
                     // 设置解析转换工厂，用自己定义的
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
-            mainApi = mRetrofit.create(MainApi.class);
+            mainApi = mRetrofit.create(WalletApi.class);
         }
         return mainApi;
-    }*/
+    }
 
     /**
      * 初始化Retrofit

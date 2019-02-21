@@ -1,10 +1,23 @@
 package com.minmai.wallet.moudles.bean;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
+
+/**
+ * 用户信息
+ *
+ * @author wangxiangyi
+ * @date 2018/09/20
+ */
+@Entity
 public class UserInfo {
 
     /**
      * 用户id
      */
+    @Id
     private String id;
     /**
      * 用户头像
@@ -31,6 +44,12 @@ public class UserInfo {
      */
     private String phone;
     /**
+     * 性别：<p>
+     * 1：男<p>
+     * 2：女
+     */
+    private String sex;
+    /**
      * 邮箱
      */
     private String email;
@@ -54,6 +73,13 @@ public class UserInfo {
      * 6.进件失败
      */
     private int registerState;
+    /**
+     * 是否开启日期还款<p>
+     * 还款状态<p>
+     * 0.否（不开启） <p>
+     * 1.是（开启）
+     */
+    private String isOpenDateRepayment;
     /**
      * 注册设备型号
      */
@@ -113,6 +139,49 @@ public class UserInfo {
     private boolean isStartOrdering;
 
 
+    @Generated(hash = 1355642528)
+    public UserInfo(String id, String userHead, String createDate,
+            String updateDate, String companyId, String userNo, String phone,
+            String sex, String email, String loginAccount, String loginStatus,
+            int registerState, String isOpenDateRepayment,
+            String registerDeviceModel, String registerDeviceImel,
+            String registerDeviceType, String loginPasswordSalt,
+            String loginPassword, String paymentPasswordSalt, String lastLoginDate,
+            String recommendCode, String qrCode, String recommendUrl,
+            String registerWay, String userType, boolean isStartOrdering) {
+        this.id = id;
+        this.userHead = userHead;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+        this.companyId = companyId;
+        this.userNo = userNo;
+        this.phone = phone;
+        this.sex = sex;
+        this.email = email;
+        this.loginAccount = loginAccount;
+        this.loginStatus = loginStatus;
+        this.registerState = registerState;
+        this.isOpenDateRepayment = isOpenDateRepayment;
+        this.registerDeviceModel = registerDeviceModel;
+        this.registerDeviceImel = registerDeviceImel;
+        this.registerDeviceType = registerDeviceType;
+        this.loginPasswordSalt = loginPasswordSalt;
+        this.loginPassword = loginPassword;
+        this.paymentPasswordSalt = paymentPasswordSalt;
+        this.lastLoginDate = lastLoginDate;
+        this.recommendCode = recommendCode;
+        this.qrCode = qrCode;
+        this.recommendUrl = recommendUrl;
+        this.registerWay = registerWay;
+        this.userType = userType;
+        this.isStartOrdering = isStartOrdering;
+    }
+
+    @Generated(hash = 1279772520)
+    public UserInfo() {
+    }
+
+
     public String getId() {
         return id;
     }
@@ -169,6 +238,14 @@ public class UserInfo {
         this.phone = phone;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -199,6 +276,14 @@ public class UserInfo {
 
     public void setRegisterState(int registerState) {
         this.registerState = registerState;
+    }
+
+    public String getIsOpenDateRepayment() {
+        return isOpenDateRepayment;
+    }
+
+    public void setIsOpenDateRepayment(String isOpenDateRepayment) {
+        this.isOpenDateRepayment = isOpenDateRepayment;
     }
 
     public String getRegisterDeviceModel() {
@@ -305,33 +390,11 @@ public class UserInfo {
         isStartOrdering = startOrdering;
     }
 
-    @Override
-    public String toString() {
-        return "UserInfo{" +
-                "id='" + id + '\'' +
-                ", userHead='" + userHead + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", updateDate='" + updateDate + '\'' +
-                ", companyId='" + companyId + '\'' +
-                ", userNo='" + userNo + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", loginAccount='" + loginAccount + '\'' +
-                ", loginStatus='" + loginStatus + '\'' +
-                ", registerState=" + registerState +
-                ", registerDeviceModel='" + registerDeviceModel + '\'' +
-                ", registerDeviceImel='" + registerDeviceImel + '\'' +
-                ", registerDeviceType='" + registerDeviceType + '\'' +
-                ", loginPasswordSalt='" + loginPasswordSalt + '\'' +
-                ", loginPassword='" + loginPassword + '\'' +
-                ", paymentPasswordSalt='" + paymentPasswordSalt + '\'' +
-                ", lastLoginDate='" + lastLoginDate + '\'' +
-                ", recommendCode='" + recommendCode + '\'' +
-                ", qrCode='" + qrCode + '\'' +
-                ", recommendUrl='" + recommendUrl + '\'' +
-                ", registerWay='" + registerWay + '\'' +
-                ", userType='" + userType + '\'' +
-                ", isStartOrdering=" + isStartOrdering +
-                '}';
+    public boolean getIsStartOrdering() {
+        return this.isStartOrdering;
+    }
+
+    public void setIsStartOrdering(boolean isStartOrdering) {
+        this.isStartOrdering = isStartOrdering;
     }
 }

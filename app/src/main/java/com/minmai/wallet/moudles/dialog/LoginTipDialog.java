@@ -9,7 +9,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.minmai.wallet.R;
+import com.minmai.wallet.common.constant.ActivityConstant;
 
 /**
  * 未登录提示的dialog
@@ -55,6 +57,7 @@ public class LoginTipDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
             case R.id.tv_login:
+                ARouter.getInstance().build(ActivityConstant.USER_LOGIN).navigation();
                 break;
         }
     }

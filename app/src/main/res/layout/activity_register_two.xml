@@ -9,9 +9,9 @@
     <include layout="@layout/view_title"/>
 
     <TextView
+        android:id="@+id/tv_show_phone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="我们已向13127158259发送验证码短信"
         android:gravity="center"
         android:textColor="@android:color/black"
         android:layout_marginTop="@dimen/space_50"
@@ -36,6 +36,7 @@
         android:layout_marginTop="@dimen/space_150"
     />
     <TextView
+        android:id="@+id/tv_send_msg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="重新获取验证码"
