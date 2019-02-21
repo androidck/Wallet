@@ -1,8 +1,13 @@
 package com.minmai.wallet.moudles.ui.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 
@@ -13,6 +18,7 @@ import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.helper.ActivityStackManager;
 import com.minmai.wallet.common.helper.DoubleClickHelper;
+import com.minmai.wallet.common.jpush.JpushUtil;
 import com.minmai.wallet.moudles.adapter.HomeFragmentAdapter;
 import com.minmai.wallet.moudles.web.SonicRuntimeImpl;
 import com.tencent.sonic.sdk.SonicConfig;
@@ -20,6 +26,7 @@ import com.tencent.sonic.sdk.SonicEngine;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.jpush.android.api.JPushInterface;
 
 /**
  * 首页
@@ -43,6 +50,8 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
 
     private static final int PERMISSION_REQUEST_CODE_STORAGE = 1;
 
+    public static boolean isForeground = false;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -60,18 +69,20 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
         // 不使用图标默认变色
         bvHomeNavigation.setItemIconTintList(null);
         bvHomeNavigation.setOnNavigationItemSelectedListener(this);
+
+        //注册极光推送广播
+        registerMessageReceiver();
+        init();
     }
 
     @Override
     protected void initData() {
         mPagerAdapter = new HomeFragmentAdapter(this);
         vpHomePager.setAdapter(mPagerAdapter);
-
         // 限制页面数量
         vpHomePager.setOffscreenPageLimit(mPagerAdapter.getCount());
-       // init();
-    }
 
+    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -138,11 +149,31 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
         }
     }
 
+    // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+    private void init(){
+        JPushInterface.init(getApplicationContext());
+    }
+
+
+    @Override
+    protected void onResume() {
+        isForeground = true;
+        super.onResume();
+    }
+
+
+    @Override
+    protected void onPause() {
+        isForeground = false;
+        super.onPause();
+    }
+
     @Override
     protected void onDestroy() {
         vpHomePager.removeOnPageChangeListener(this);
         vpHomePager.setAdapter(null);
         bvHomeNavigation.setOnNavigationItemSelectedListener(null);
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         super.onDestroy();
     }
 
@@ -150,5 +181,42 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
     public boolean isSupportSwipeBack() {
         // 不使用侧滑功能
         return !super.isSupportSwipeBack();
+    }
+
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+
+    /**
+     * 极光推送广播
+     */
+    public class MessageReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!JpushUtil.isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                }
+            } catch (Exception e){
+            }
+        }
     }
 }

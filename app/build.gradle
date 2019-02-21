@@ -42,6 +42,18 @@ android {
             signingConfig signingConfigs.wallet
         }
     }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs', 'src/main/jniLibs/']
+        }
+    }
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets', 'src/main/assets/']
+        }
+    }
+
     greendao {
         schemaVersion 1//数据库版本号
         daoPackage 'com.minmai.wallet.common.greendao'//设置DaoMaster、DaoSession、Dao包名
@@ -124,7 +136,7 @@ dependencies {
     //加快webview 加载速度
     implementation 'com.tencent.sonic:sdk:3.1.0'
 
-    /** **************************** 第三方服务  *******************************/
+    /** **************************** 第三方服务    *******************************/
 
     //latest.release指代最新的版本号
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
@@ -139,6 +151,9 @@ dependencies {
 
     // 指定tinker依赖版本（注：应用升级1.3.5版本起，不再内置tinker）
     implementation 'com.tencent.tinker:tinker-android-lib:1.9.9'
+    implementation files('libs/ocr-sdk.jar')
+    implementation files('libs/jcore-android-1.2.7.jar')
+    implementation files('libs/jpush-android-3.1.8.jar')
 }
 
 

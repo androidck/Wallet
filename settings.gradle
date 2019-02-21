@@ -1,1 +1,1 @@
-include ':app',':base',':dialog',':widget'
+include ':app',':base',':dialog',':widget',':ocr_ui'
