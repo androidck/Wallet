@@ -16,7 +16,6 @@ package com.minmai.wallet.moudles.web;
 import android.os.Bundle;
 import android.webkit.WebView;
 
-import com.minmai.wallet.common.uitl.X5WebView;
 import com.tencent.sonic.sdk.SonicSessionClient;
 
 import java.util.HashMap;

@@ -1,40 +1,37 @@
 package com.minmai.wallet.common.base;
 
-import android.annotation.TargetApi;
-import android.app.Application;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.StrictMode;
+import android.os.Build;
 import android.support.multidex.MultiDex;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.BuildConfig;
+import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.common.enumcode.EnumHttpHeaderParam;
+import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.greendao.DaoMaster;
 import com.minmai.wallet.common.greendao.DaoSession;
+import com.minmai.wallet.common.greendao.UserInfoDao;
 import com.minmai.wallet.common.helper.ActivityStackManager;
 import com.minmai.wallet.common.uitl.InterceptorUtil;
+import com.minmai.wallet.common.uitl.SystemUtil;
+import com.minmai.wallet.common.uitl.TokenUtils;
+import com.minmai.wallet.moudles.bean.UserInfo;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
-import com.tencent.bugly.beta.interfaces.BetaPatchListener;
-import com.tencent.bugly.beta.upgrade.UpgradeStateListener;
-import com.tencent.bugly.crashreport.CrashReport;
-import com.tencent.tinker.loader.app.TinkerApplication;
-import com.tencent.tinker.loader.shareutil.ShareConstants;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import cn.jpush.android.api.JPushInterface;
+import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 /**
  *    author : Android 轮子哥
@@ -48,10 +45,13 @@ public class MyApplication extends UIApplication {
     private SQLiteDatabase db;
     private DaoMaster mDaoMaster;
     private DaoSession mDaoSession;
+    public static Context mContext;
 
     public static final int TIMEOUT = 60;
     private static OkHttpClient mOkHttpClient;
-    public static MyApplication myApp;
+    public static MyApplication instances;
+
+    public static String JpushId;
 
     @Override
     public void onCreate() {
@@ -60,6 +60,10 @@ public class MyApplication extends UIApplication {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
+        mContext=getApplicationContext();
+
+        instances=this;
+
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
         JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
@@ -84,6 +88,14 @@ public class MyApplication extends UIApplication {
         // 初始化数据
         setDatabase();
 
+        //极光推送id
+        JpushId=JPushInterface.getRegistrationID(mContext);
+
+    }
+
+
+    public static MyApplication getInstances(){
+        return instances;
     }
 
 
@@ -125,6 +137,8 @@ public class MyApplication extends UIApplication {
     public DaoSession getDaoSession() {
         return mDaoSession;
     }
+
+
     public SQLiteDatabase getDb() {
         return db;
     }
@@ -134,12 +148,29 @@ public class MyApplication extends UIApplication {
      *
      * @return
      */
+    @SuppressLint("NewApi")
     public static OkHttpClient initOKHttp() {
+        final long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         if (mOkHttpClient == null) {
             mOkHttpClient = new OkHttpClient.Builder()
                     .connectTimeout(TIMEOUT, TimeUnit.SECONDS)//设置连接超时时间
                     .readTimeout(TIMEOUT, TimeUnit.SECONDS)//设置读取超时时间
                     .writeTimeout(TIMEOUT, TimeUnit.SECONDS)//设置写入超时时间
+                    .addInterceptor(new Interceptor() {
+                        @Override
+                        public Response intercept(Chain chain) throws IOException {
+                            Request request = chain.request()
+                                    .newBuilder()
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(2), EnumService.getEnumServiceByServiceName(1))
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(EnumHttpHeaderParam.APPID.getCode()), Constant.APP_ID)//极光推送token
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(EnumHttpHeaderParam.DEVICETOKEN.getCode()), JpushId)//极光推送token
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(EnumHttpHeaderParam.DEVICETYPE.getCode()), "1")
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(EnumHttpHeaderParam.DEVICEIMEL.getCode()), SystemUtil.getInstance().getGenerateIMEI(mContext))
+                                    .addHeader(EnumHttpHeaderParam.getHeaderParam(EnumHttpHeaderParam.DEVICEMODEL.getCode()), Build.MODEL)
+                                    .build();
+                           return chain.proceed(request);
+                        }
+                    })
                     .addInterceptor(InterceptorUtil.LogInterceptor())//添加日志拦截器
                     .build();
         }

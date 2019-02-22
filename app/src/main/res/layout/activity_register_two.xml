@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
     <include layout="@layout/view_title"/>
-
+    <include layout="@layout/division_line"/>
     <TextView
         android:id="@+id/tv_show_phone"
         android:layout_width="match_parent"

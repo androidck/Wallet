@@ -1,7 +1,7 @@
 package com.minmai.wallet.moudles.ui.register.one;
 
-import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Button;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -11,14 +11,12 @@ import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.common.uitl.EnumCodeUse;
+import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.UserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -78,11 +76,8 @@ public class RegisterOneActivity extends MyActivity implements UserContract.View
     }
 
     @Override
-    public void setContent(UserInfo userInfo) {
-
-    }
-    @Override
     public void success(String msg,Object object) {
+        Log.d("objectString",object.toString());
         ARouter.getInstance()
                 .build(ActivityConstant.USER_REGISTER_TWO)
                 .withString("codeId",object.toString())

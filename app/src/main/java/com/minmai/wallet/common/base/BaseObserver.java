@@ -14,6 +14,7 @@ import java.util.concurrent.TimeoutException;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+import okhttp3.OkHttpClient;
 
 /**
  * @author: Allen.
@@ -26,11 +27,16 @@ public abstract class BaseObserver<T> implements Observer<BaseEntry<T>> {
     private KProgressHUD progressHUD;
     private String labelTxt;
 
+    public static final int TIMEOUT = 60;
+    private static OkHttpClient mOkHttpClient;
+
     public BaseObserver(Context cxt, String text) {
         this.mContext = cxt;
         this.labelTxt = text;
         progressHUD = ProgressHUD.show(mContext);
     }
+
+
 
     //开始
     @Override
@@ -44,7 +50,9 @@ public abstract class BaseObserver<T> implements Observer<BaseEntry<T>> {
         try {
             //成功返回成功的数据
             if (tBaseEntity.getCode()==BusinessCode.SUCCESS.getCode()){
-                onSuccess(tBaseEntity);
+               if (!(tBaseEntity.getMsg().equals("访问成功"))){
+                   onSuccess(tBaseEntity);
+               }
             }else if (tBaseEntity.getCode()==BusinessCode.INCONSISTENT.getCode()){
                 //强制下线处理
                 mandatoryOffline();

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:background="@android:color/white">
     <include layout="@layout/view_title"/>
-
+    <include layout="@layout/division_line"/>
 
     <ImageView
         android:layout_width="@dimen/space_200"

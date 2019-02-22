@@ -8,9 +8,15 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
+import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
+import com.minmai.wallet.moudles.ui.identity.IdentifyThreeActivity;
+import com.minmai.wallet.moudles.ui.identity.IdentifyTwoActivity;
+import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
 
@@ -52,6 +58,10 @@ public abstract class MyActivity extends UIActivity
         if (getRequestedOrientation() == ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+    }
+
+    protected void startRequestInterface() {
+
     }
 
     /**
@@ -140,10 +150,7 @@ public abstract class MyActivity extends UIActivity
         ToastUtils.show(object);
     }
 
-    //必填验证
-    protected void startRequestInterface() {
 
-    }
 
     //跳转到浏览器
     public void startBrowserActivity(Context context,int mode, String url) {
@@ -204,6 +211,26 @@ public abstract class MyActivity extends UIActivity
         }
     }
 
+    /**
+     * 认证
+     * @param registerState
+     */
+    public void Authentication(int registerState){
+        if (1==registerState){
+            //实名认证第一步
+            startActivityFinish(IdentifyOneActivity.class);
+        }else if (2==registerState){
+            //实名认字第二部
+            startActivityFinish(IdentifyTwoActivity.class);
+        }else if (3==registerState){
+            //实名认证第三部
+            startActivityFinish(IdentifyThreeActivity.class);
+        }else if (6==registerState){
+            toast("进件失败");
+        }else {
+            startActivityFinish(MainActivity.class);
+        }
+    }
 
 
 

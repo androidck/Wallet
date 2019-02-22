@@ -1,8 +1,6 @@
 package com.minmai.wallet.moudles.ui.register.two;
 
-import android.graphics.Color;
-import android.os.Bundle;
-import android.os.CountDownTimer;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -12,14 +10,13 @@ import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.common.uitl.EnumCodeUse;
+import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.view.VerificationCodeInput;
 import com.minmai.wallet.moudles.bean.UserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -45,6 +42,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
     TimeCount timeCount;
 
     private UserPresenter presenter;
+    private String code;//验证码
 
     @Override
     protected int getLayoutId() {
@@ -58,8 +56,8 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
 
     @Override
     protected void initView() {
-        timeCount = new TimeCount(10000, 1000,tvSendMsg);
         ARouter.getInstance().inject(this);
+        timeCount = new TimeCount(10000, 1000,tvSendMsg);
         tbLoginTitle.setTitle("注册");
         presenter = new UserPresenter(this, this);
         tvShowPhone.setText("我们已向" + phone + "发送验证码短信");
@@ -81,16 +79,25 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
     //网络请求
     private void request(String content) {
         presenter.userRegisterValidateCode(codeId, phone, content);
+        code=content;
     }
 
-    @Override
-    public void setContent(UserInfo userInfo) {
 
-    }
+
 
     @Override
     public void success(String msg, Object object) {
         toast(msg);
+        if ("发送成功".equals(msg)){
+            toast(msg);
+        }else {
+            ARouter.getInstance()
+                    .build(ActivityConstant.USER_REGISTER_THREE)
+                    .withString("codeId",codeId)
+                    .withString("phone",phone)
+                    .withString("code",code)
+                    .navigation();
+        }
     }
 
     @Override
@@ -104,7 +111,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
     @OnClick(R.id.tv_send_msg)
     public void onViewClicked() {
         //重新发送验证码
-        //presenter.userRegisterSendMsg(EnumCodeUse.getEnumCodeUse(R.string.registered),phone);
+        presenter.userRegisterSendMsg(EnumCodeUse.getEnumCodeUse(R.string.registered),phone);
         timeCount.start();
     }
 

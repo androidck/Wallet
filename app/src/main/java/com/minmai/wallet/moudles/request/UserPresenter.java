@@ -7,8 +7,13 @@ import com.minmai.wallet.common.base.BaseEntry;
 import com.minmai.wallet.common.base.BaseObserver;
 import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
+import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.common.enumcode.EnumService;
+import com.minmai.wallet.common.uitl.DateUtil;
 import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
+import com.minmai.wallet.common.uitl.SystemUtil;
+import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.NewsList;
 import com.minmai.wallet.moudles.bean.UserInfo;
 
@@ -62,6 +67,12 @@ public class UserPresenter implements UserContract.presenter{
                 });
     }
 
+    /**
+     * 注册验证短信
+     * @param codeId
+     * @param phone
+     * @param code
+     */
     @Override
     public void userRegisterValidateCode(String codeId, String phone, String code) {
         RetrofitUtil
@@ -82,6 +93,66 @@ public class UserPresenter implements UserContract.presenter{
                     }
                     @Override
                     protected void onError(BaseEntry<String> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 完成注册
+     * @param loginName
+     * @param pwd
+     * @param codeId
+     * @param code
+     * @param recommendCode
+     */
+    @Override
+    public void userRegister(String loginName, String pwd, String codeId, String code, String recommendCode) {
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().userRegister(Constant.APP_ID,loginName,pwd,codeId,code,recommendCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<UserInfo>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<UserInfo> t) throws Exception {
+                        view.success(t.getMsg(),t.getData());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<UserInfo> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    @Override
+    public void userPwdLogin(UserInfo userInfo) {
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(userInfo),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().userPwdLogin(currentTimeMillis,sign,userInfo.getLoginName(),userInfo.getPwd())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<UserInfo>(context,MainUtil.loadLogin) {
+                    @Override
+                    protected void onSuccess(BaseEntry<UserInfo> t) throws Exception {
+                        view.success(t.getMsg(),t.getData());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<UserInfo> t) {
                         view.fail(t.getMsg());
                     }
                 });

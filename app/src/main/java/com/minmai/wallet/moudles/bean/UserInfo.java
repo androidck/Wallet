@@ -27,6 +27,27 @@ public class UserInfo {
      * 创建时间
      */
     private String createDate;
+
+    private String loginName; // 登录账号（注册手机号）
+
+    private String pwd;// 登录密码
+
+    public String getLoginName() {
+        return loginName;
+    }
+
+    public void setLoginName(String loginName) {
+        this.loginName = loginName;
+    }
+
+    public String getPwd() {
+        return pwd;
+    }
+
+    public void setPwd(String pwd) {
+        this.pwd = pwd;
+    }
+
     /**
      * 更新时间
      */
@@ -139,11 +160,11 @@ public class UserInfo {
     private boolean isStartOrdering;
 
 
-    @Generated(hash = 1355642528)
-    public UserInfo(String id, String userHead, String createDate,
-            String updateDate, String companyId, String userNo, String phone,
-            String sex, String email, String loginAccount, String loginStatus,
-            int registerState, String isOpenDateRepayment,
+    @Generated(hash = 1088921754)
+    public UserInfo(String id, String userHead, String createDate, String loginName,
+            String pwd, String updateDate, String companyId, String userNo,
+            String phone, String sex, String email, String loginAccount,
+            String loginStatus, int registerState, String isOpenDateRepayment,
             String registerDeviceModel, String registerDeviceImel,
             String registerDeviceType, String loginPasswordSalt,
             String loginPassword, String paymentPasswordSalt, String lastLoginDate,
@@ -152,6 +173,8 @@ public class UserInfo {
         this.id = id;
         this.userHead = userHead;
         this.createDate = createDate;
+        this.loginName = loginName;
+        this.pwd = pwd;
         this.updateDate = updateDate;
         this.companyId = companyId;
         this.userNo = userNo;
@@ -396,5 +419,37 @@ public class UserInfo {
 
     public void setIsStartOrdering(boolean isStartOrdering) {
         this.isStartOrdering = isStartOrdering;
+    }
+
+    @Override
+    public String toString() {
+        return "UserInfo{" +
+                "id='" + id + '\'' +
+                ", userHead='" + userHead + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", updateDate='" + updateDate + '\'' +
+                ", companyId='" + companyId + '\'' +
+                ", userNo='" + userNo + '\'' +
+                ", phone='" + phone + '\'' +
+                ", sex='" + sex + '\'' +
+                ", email='" + email + '\'' +
+                ", loginAccount='" + loginAccount + '\'' +
+                ", loginStatus='" + loginStatus + '\'' +
+                ", registerState=" + registerState +
+                ", isOpenDateRepayment='" + isOpenDateRepayment + '\'' +
+                ", registerDeviceModel='" + registerDeviceModel + '\'' +
+                ", registerDeviceImel='" + registerDeviceImel + '\'' +
+                ", registerDeviceType='" + registerDeviceType + '\'' +
+                ", loginPasswordSalt='" + loginPasswordSalt + '\'' +
+                ", loginPassword='" + loginPassword + '\'' +
+                ", paymentPasswordSalt='" + paymentPasswordSalt + '\'' +
+                ", lastLoginDate='" + lastLoginDate + '\'' +
+                ", recommendCode='" + recommendCode + '\'' +
+                ", qrCode='" + qrCode + '\'' +
+                ", recommendUrl='" + recommendUrl + '\'' +
+                ", registerWay='" + registerWay + '\'' +
+                ", userType='" + userType + '\'' +
+                ", isStartOrdering=" + isStartOrdering +
+                '}';
     }
 }

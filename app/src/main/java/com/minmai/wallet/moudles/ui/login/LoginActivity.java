@@ -2,8 +2,10 @@ package com.minmai.wallet.moudles.ui.login;
 
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,8 +17,15 @@ import com.hjq.bar.TitleBar;
 import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.greendao.UserInfoDao;
+import com.minmai.wallet.common.uitl.MD5;
+import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
+import com.minmai.wallet.moudles.bean.UserInfo;
+import com.minmai.wallet.moudles.request.UserContract;
+import com.minmai.wallet.moudles.request.UserPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +35,7 @@ import butterknife.OnClick;
  * 用户登录页面
  */
 @Route(path = ActivityConstant.USER_LOGIN)
-public class LoginActivity extends MyActivity {
+public class LoginActivity extends MyActivity implements UserContract.View {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;//标题
     @BindView(R.id.et_login_phone)
@@ -48,6 +57,13 @@ public class LoginActivity extends MyActivity {
 
     private int loginType = 1;//登录类型
 
+    UserPresenter presenter;
+
+    String phone;
+
+    String loginPwd;
+    UserInfoDao userInfoDao;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_login;
@@ -62,11 +78,12 @@ public class LoginActivity extends MyActivity {
     protected void initView() {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("登录");
+        userInfoDao=MyApplication.getInstances().getDaoSession().getUserInfoDao();
     }
 
     @Override
     protected void initData() {
-
+        presenter=new UserPresenter(this,this);
     }
 
 
@@ -76,6 +93,7 @@ public class LoginActivity extends MyActivity {
             case R.id.tv_login_forget:
                 break;
             case R.id.btn_login_commit:
+                startRequestInterface();
                 break;
             case R.id.tv_register:
                 ARouter.getInstance().build(ActivityConstant.USER_REGISTER_ONE).navigation();
@@ -89,6 +107,29 @@ public class LoginActivity extends MyActivity {
         }
     }
 
+
+    @Override
+    protected void startRequestInterface() {
+        super.startRequestInterface();
+        phone=etLoginPhone.getText().toString().trim().replace(" ","");
+        loginPwd=etLoginPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(phone)){
+            toast("手机号不能为空");
+        }else if (!ValidateUtils.Mobile(phone)){
+            toast("手机号格式不正确");
+        }else if (loginType==1&&TextUtils.isEmpty(loginPwd)){
+            toast("密码不能为空");
+        }else if (loginType==2&&TextUtils.isEmpty(loginPwd)){
+            toast("验证码不能为空");
+        }else if (loginType==1){
+            UserInfo userInfo=new UserInfo();
+            userInfo.setLoginName(phone);
+            userInfo.setPwd(MD5.md5Str(loginPwd));
+            presenter.userPwdLogin(userInfo);
+        }else if (loginType==2){
+
+        }
+    }
 
     //设置登录
     private void setLoginType() {
@@ -111,6 +152,17 @@ public class LoginActivity extends MyActivity {
         }
     }
 
+    @Override
+    public void success(String msg, Object object) {
 
+        UserInfo userInfo= (UserInfo) object;
+        //登录成功保存数据
+        userInfoDao.insert(userInfo);
 
+    }
+
+    @Override
+    public void fail(String msg) {
+        toast(msg);
+    }
 }

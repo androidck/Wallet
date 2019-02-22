@@ -1,4 +1,4 @@
-package com.minmai.wallet.common.uitl;
+package com.minmai.wallet.common.view;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

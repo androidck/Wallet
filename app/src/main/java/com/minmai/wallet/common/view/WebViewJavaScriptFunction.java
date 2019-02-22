@@ -1,4 +1,4 @@
-package com.minmai.wallet.common.uitl;
+package com.minmai.wallet.common.view;
 
 public interface WebViewJavaScriptFunction {
 
