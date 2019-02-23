@@ -16,13 +16,16 @@ import com.hjq.bar.TitleBar;
 import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
+import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.common.uitl.MD5;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
+import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 
@@ -60,6 +63,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     String loginPwd;
     String codeId;
     TimeCount timeCount;
+    DbUserInfoDao userInfoDao;
 
 
     @Override
@@ -77,6 +81,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("登录");
         timeCount = new TimeCount(10000, 1000,tvGetCode);
+        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
     }
 
     @Override
@@ -172,8 +177,10 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     @Override
     public void onSetContent(Object object) {
         UserInfo userInfoResp = (UserInfo) object;
-        Log.d("sadasd",userInfoResp.toString());
+
         //登录成功保存数据
+        DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId());
+        userInfoDao.insert(userInfo);
         Authentication(userInfoResp.getRegisterState());
     }
 
