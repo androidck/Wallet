@@ -15,12 +15,9 @@ import com.minmai.wallet.common.enumcode.EnumHttpHeaderParam;
 import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.greendao.DaoMaster;
 import com.minmai.wallet.common.greendao.DaoSession;
-import com.minmai.wallet.common.greendao.UserInfoDao;
 import com.minmai.wallet.common.helper.ActivityStackManager;
 import com.minmai.wallet.common.uitl.InterceptorUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
-import com.minmai.wallet.common.uitl.TokenUtils;
-import com.minmai.wallet.moudles.bean.UserInfo;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 

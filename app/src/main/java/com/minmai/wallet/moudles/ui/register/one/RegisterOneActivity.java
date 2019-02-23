@@ -14,7 +14,6 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
-import com.minmai.wallet.moudles.bean.UserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 
@@ -75,14 +74,25 @@ public class RegisterOneActivity extends MyActivity implements UserContract.View
         startRequestInterface();
     }
 
+
+
     @Override
-    public void success(String msg,Object object) {
-        Log.d("objectString",object.toString());
+    public void onSetContent(Object object) {
+
+    }
+
+    @Override
+    public void onSetCodeId(String codeId) {
         ARouter.getInstance()
                 .build(ActivityConstant.USER_REGISTER_TWO)
-                .withString("codeId",object.toString())
+                .withString("codeId",codeId)
                 .withString("phone",phone)
                 .navigation();
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        toast(msg);
     }
 
     @Override

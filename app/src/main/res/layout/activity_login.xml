@@ -60,7 +60,7 @@
         <TextView
             android:id="@+id/tv_get_code"
             android:layout_width="0dp"
-            android:layout_weight="1.5"
+            android:layout_weight="2"
             android:layout_height="match_parent"
             android:gravity="center"
             android:text="获取动态验证码"

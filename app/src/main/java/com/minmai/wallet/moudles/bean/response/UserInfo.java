@@ -1,4 +1,4 @@
-package com.minmai.wallet.moudles.bean;
+package com.minmai.wallet.moudles.bean.response;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Id;
@@ -11,7 +11,6 @@ import org.greenrobot.greendao.annotation.Generated;
  * @author wangxiangyi
  * @date 2018/09/20
  */
-@Entity
 public class UserInfo {
 
     /**
@@ -158,51 +157,6 @@ public class UserInfo {
      * false：关闭接单
      */
     private boolean isStartOrdering;
-
-
-    @Generated(hash = 1088921754)
-    public UserInfo(String id, String userHead, String createDate, String loginName,
-            String pwd, String updateDate, String companyId, String userNo,
-            String phone, String sex, String email, String loginAccount,
-            String loginStatus, int registerState, String isOpenDateRepayment,
-            String registerDeviceModel, String registerDeviceImel,
-            String registerDeviceType, String loginPasswordSalt,
-            String loginPassword, String paymentPasswordSalt, String lastLoginDate,
-            String recommendCode, String qrCode, String recommendUrl,
-            String registerWay, String userType, boolean isStartOrdering) {
-        this.id = id;
-        this.userHead = userHead;
-        this.createDate = createDate;
-        this.loginName = loginName;
-        this.pwd = pwd;
-        this.updateDate = updateDate;
-        this.companyId = companyId;
-        this.userNo = userNo;
-        this.phone = phone;
-        this.sex = sex;
-        this.email = email;
-        this.loginAccount = loginAccount;
-        this.loginStatus = loginStatus;
-        this.registerState = registerState;
-        this.isOpenDateRepayment = isOpenDateRepayment;
-        this.registerDeviceModel = registerDeviceModel;
-        this.registerDeviceImel = registerDeviceImel;
-        this.registerDeviceType = registerDeviceType;
-        this.loginPasswordSalt = loginPasswordSalt;
-        this.loginPassword = loginPassword;
-        this.paymentPasswordSalt = paymentPasswordSalt;
-        this.lastLoginDate = lastLoginDate;
-        this.recommendCode = recommendCode;
-        this.qrCode = qrCode;
-        this.recommendUrl = recommendUrl;
-        this.registerWay = registerWay;
-        this.userType = userType;
-        this.isStartOrdering = isStartOrdering;
-    }
-
-    @Generated(hash = 1279772520)
-    public UserInfo() {
-    }
 
 
     public String getId() {

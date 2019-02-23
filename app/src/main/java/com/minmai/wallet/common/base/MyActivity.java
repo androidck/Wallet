@@ -226,7 +226,7 @@ public abstract class MyActivity extends UIActivity
             //实名认证第三部
             startActivityFinish(IdentifyThreeActivity.class);
         }else if (6==registerState){
-            toast("进件失败");
+            startActivityFinish(MainActivity.class);
         }else {
             startActivityFinish(MainActivity.class);
         }

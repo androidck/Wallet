@@ -1,8 +1,6 @@
 package com.minmai.wallet.moudles.ui.register.three;
 
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -16,19 +14,17 @@ import com.hjq.bar.TitleBar;
 import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
-import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.common.greendao.UserInfoDao;
 import com.minmai.wallet.common.uitl.MD5;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
-import com.minmai.wallet.moudles.bean.UserInfo;
+import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.UserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 import com.minmai.wallet.moudles.ui.main.MainActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -63,7 +59,6 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
 
     UserPresenter presenter;
 
-    UserInfoDao mUserDao;
 
     @Override
     protected int getLayoutId() {
@@ -104,7 +99,13 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
         }else if (!isCheckRead.isChecked()){
             toast("请先阅读和同意注册协议");
         }else {
-            presenter.userRegister(phone,MD5.md5Str(loginPwd),codeId,code,recommendPhone);
+            UserInfoReq userInfoReq=new UserInfoReq();
+            userInfoReq.setPhone(phone);
+            userInfoReq.setPwd(MD5.md5Str(loginPwd));
+            userInfoReq.setCodeId(codeId);
+            userInfoReq.setCode(code);
+            userInfoReq.setRecommendCode(recommendPhone);
+            presenter.userRegister(userInfoReq);
         }
     }
 
@@ -125,19 +126,24 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
 
 
     @Override
-    public void success(String msg, Object object) {
-        toast(msg);
-        mUserDao = MyApplication.getInstances().getDaoSession().getUserInfoDao();
-        UserInfo userInfo= (UserInfo) object;
-        //保存数据到greenDao
-        mUserDao.insert(userInfo);
-        Log.d("USerID",mUserDao.getKey(userInfo));
-        Authentication(userInfo.getRegisterState());
+    public void Authentication(int registerState) {
+        super.Authentication(registerState);
     }
 
     @Override
-    public void Authentication(int registerState) {
-        super.Authentication(registerState);
+    public void onSetContent(Object object) {
+        UserInfo userInfoResp = (UserInfo) object;
+        Authentication(userInfoResp.getRegisterState());
+    }
+
+    @Override
+    public void onSetCodeId(String codeId) {
+
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        toast(msg);
     }
 
     @Override

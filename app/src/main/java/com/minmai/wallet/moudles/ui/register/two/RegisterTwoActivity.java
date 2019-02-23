@@ -1,6 +1,6 @@
 package com.minmai.wallet.moudles.ui.register.two;
 
-import android.util.Log;
+import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -12,7 +12,7 @@ import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.view.VerificationCodeInput;
-import com.minmai.wallet.moudles.bean.UserInfo;
+import com.minmai.wallet.moudles.bean.request.UserInfoReq;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 
@@ -42,6 +42,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
     TimeCount timeCount;
 
     private UserPresenter presenter;
+
     private String code;//验证码
 
     @Override
@@ -78,19 +79,32 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
 
     //网络请求
     private void request(String content) {
-        presenter.userRegisterValidateCode(codeId, phone, content);
+        UserInfoReq userInfoReq=new UserInfoReq();
+        userInfoReq.setCodeId(codeId);
+        userInfoReq.setPhone(phone);
+        userInfoReq.setCode(content);
+        presenter.userRegisterValidateCode(userInfoReq);
         code=content;
     }
 
 
+    @Override
+    public void onSetContent(Object object) {
 
+    }
 
     @Override
-    public void success(String msg, Object object) {
+    public void onSetCodeId(String codeId) {
+        //保存新的验证码ID
+        this.codeId=codeId;
+    }
+
+    @Override
+    public void onSuccess(String msg) {
         toast(msg);
         if ("发送成功".equals(msg)){
             toast(msg);
-        }else {
+        }else if ("访问成功".equals(msg)){
             ARouter.getInstance()
                     .build(ActivityConstant.USER_REGISTER_THREE)
                     .withString("codeId",codeId)
@@ -98,6 +112,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
                     .withString("code",code)
                     .navigation();
         }
+
     }
 
     @Override

@@ -1,18 +1,13 @@
 package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
-import com.minmai.wallet.common.enumcode.EnumHttpHeaderParam;
-import com.minmai.wallet.common.uitl.TokenUtils;
-import com.minmai.wallet.moudles.bean.UserInfo;
-
-import java.util.List;
+import com.minmai.wallet.moudles.bean.response.UserInfo;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
-import retrofit2.http.Query;
 
 /**
  * 请求Api
@@ -36,8 +31,22 @@ public interface WalletApi {
      */
     @FormUrlEncoded
     @POST("code/ajaxValidateCode")
-    Observable<BaseEntry<String>> ajaxValidateCode(@Field("codeId") String codeId,@Field("phone") String phone,@Field("code") String code);
+    Observable<BaseEntry<String>> ajaxValidateCode( @Header("X_Timestamp") long currentTimeMillis,
+                                                     @Header("X_Signature") String sign,
+                                                     @Field("codeId") String codeId,
+                                                     @Field("phone") String phone,
+                                                     @Field("code") String code);
 
+    /**
+     * 手机发送验证码
+     * @param mobile 手机号
+     * @param codeUse 场景值
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("code/userSendCode")
+    Observable<BaseEntry<String>> userSendCode(@Field("mobile")String mobile,
+                                               @Field("codeUse")String codeUse);
     /**
      * 新用户注册
      * @param loginName 手机号
@@ -50,6 +59,8 @@ public interface WalletApi {
     @FormUrlEncoded
     @POST("user/userRegister")
     Observable<BaseEntry<UserInfo>> userRegister(
+                                                 @Header("X_Timestamp") long currentTimeMillis,
+                                                 @Header("X_Signature") String sign,
                                                  @Field("appId") String appIds,
                                                  @Field("loginName") String loginName,
                                                  @Field("pwd") String pwd,
@@ -70,4 +81,21 @@ public interface WalletApi {
                                                  @Header("X_Signature") String sign,
                                                  @Field("loginName") String loginName,
                                                  @Field("pwd") String pwd);
+
+
+    /**
+     * 验证码登录
+     * @param pwd 密码
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/phoneUserLogin")
+    Observable<BaseEntry<UserInfo>> phoneUserLogin(
+                                        @Header("X_Timestamp") long currentTimeMillis,
+                                        @Header("X_Signature") String sign,
+                                        @Field("phone") String phone,
+                                        @Field("code") String pwd,
+                                        @Field("codeId") String codeId
+    );
+
 }

@@ -1,6 +1,5 @@
 package com.minmai.wallet.moudles.ui.login;
 
-import android.os.Bundle;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
@@ -17,18 +16,17 @@ import com.hjq.bar.TitleBar;
 import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
-import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.common.greendao.UserInfoDao;
+import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.uitl.MD5;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
-import com.minmai.wallet.moudles.bean.UserInfo;
+import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.UserInfo;
 import com.minmai.wallet.moudles.request.UserContract;
 import com.minmai.wallet.moudles.request.UserPresenter;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -58,11 +56,11 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     private int loginType = 1;//登录类型
 
     UserPresenter presenter;
-
     String phone;
-
     String loginPwd;
-    UserInfoDao userInfoDao;
+    String codeId;
+    TimeCount timeCount;
+
 
     @Override
     protected int getLayoutId() {
@@ -78,7 +76,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     protected void initView() {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("登录");
-        userInfoDao=MyApplication.getInstances().getDaoSession().getUserInfoDao();
+        timeCount = new TimeCount(10000, 1000,tvGetCode);
     }
 
     @Override
@@ -104,6 +102,19 @@ public class LoginActivity extends MyActivity implements UserContract.View {
             case R.id.btn_weixin_login:
                 toast("正在开发中.....");
                 break;
+            case R.id.tv_get_code:
+                phone=etLoginPhone.getText().toString().trim().replace(" ","");
+                loginPwd=etLoginPassword.getText().toString().trim();
+                if (TextUtils.isEmpty(phone)){
+                    toast("手机号不能为空");
+                }else if (!ValidateUtils.Mobile(phone)){
+                    toast("手机号格式不正确");
+                }else{
+                    //发送验证码
+                    presenter.bindSendCode(phone, EnumCodeUse.getEnumCodeUse(R.string.login));
+                    timeCount.start();
+                }
+                break;
         }
     }
 
@@ -122,12 +133,16 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         }else if (loginType==2&&TextUtils.isEmpty(loginPwd)){
             toast("验证码不能为空");
         }else if (loginType==1){
-            UserInfo userInfo=new UserInfo();
-            userInfo.setLoginName(phone);
-            userInfo.setPwd(MD5.md5Str(loginPwd));
-            presenter.userPwdLogin(userInfo);
+            UserInfoReq userInfoResp =new UserInfoReq();
+            userInfoResp.setLoginName(phone);
+            userInfoResp.setPwd(MD5.md5Str(loginPwd));
+            presenter.userPwdLogin(userInfoResp);
         }else if (loginType==2){
-
+            UserInfoReq userInfoReq=new UserInfoReq();
+            userInfoReq.setCode(loginPwd);
+            userInfoReq.setPhone(phone);
+            userInfoReq.setCodeId(codeId);
+            presenter.userPhoneLogin(userInfoReq);
         }
     }
 
@@ -152,13 +167,25 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         }
     }
 
+
+
     @Override
-    public void success(String msg, Object object) {
-
-        UserInfo userInfo= (UserInfo) object;
+    public void onSetContent(Object object) {
+        UserInfo userInfoResp = (UserInfo) object;
+        Log.d("sadasd",userInfoResp.toString());
         //登录成功保存数据
-        userInfoDao.insert(userInfo);
+        Authentication(userInfoResp.getRegisterState());
+    }
 
+    @Override
+    public void onSetCodeId(String codeId) {
+        this.codeId=codeId;
+    }
+
+
+    @Override
+    public void onSuccess(String msg) {
+        toast(msg);
     }
 
     @Override

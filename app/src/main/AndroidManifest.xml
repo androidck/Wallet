@@ -296,6 +296,21 @@
             android:label="@string/activity_withdraw_cash"
             />
 
+        <activity android:name=".moudles.ui.identity.IdentifyOneActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_identify_one"
+            />
+
+        <activity android:name=".moudles.ui.identity.IdentifyTwoActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_identify_two"
+            />
+
+        <activity android:name=".moudles.ui.identity.IdentifyThreeActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_identify_three"
+            />
+
 
 
     </application>
