@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
     <include layout="@layout/view_title"/>
+    <include layout="@layout/division_line"/>
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,12 +25,20 @@
                 <!--Banner-->
                 <com.zhy.autolayout.AutoLinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/space_280"
+                    android:layout_height="@dimen/space_320"
                     >
                     <com.stx.xhb.xbanner.XBanner
                         android:id="@+id/banner"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent"
+                        app:AutoPlayTime="3000"
+                        app:isClipChildrenMode="true"
+                        app:isHandLoop="true"
+                        app:isShowIndicatorOnlyOne="true"
+                        app:isShowNumberIndicator="false"
+                        app:isShowTips="true"
+                        app:pageChangeDuration="800"
+                        app:pointsPosition="CENTER" />
                 </com.zhy.autolayout.AutoLinearLayout>
 
                 <!--消息-->

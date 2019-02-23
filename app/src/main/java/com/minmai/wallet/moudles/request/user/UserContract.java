@@ -1,4 +1,4 @@
-package com.minmai.wallet.moudles.request;
+package com.minmai.wallet.moudles.request.user;
 
 import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
@@ -7,7 +7,6 @@ import com.minmai.wallet.moudles.bean.request.UserInfoReq;
 public interface UserContract  {
 
     interface View extends BaseView<presenter> {
-
 
         void onSetContent(Object object);
 

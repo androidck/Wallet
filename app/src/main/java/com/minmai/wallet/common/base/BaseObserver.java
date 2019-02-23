@@ -50,9 +50,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntry<T>> {
         try {
             //成功返回成功的数据
             if (tBaseEntity.getCode()==BusinessCode.SUCCESS.getCode()){
-               if (!(tBaseEntity.getMsg().equals("访问成功"))){
-                   onSuccess(tBaseEntity);
-               }
+                onSuccess(tBaseEntity);
             }else if (tBaseEntity.getCode()==BusinessCode.INCONSISTENT.getCode()){
                 //强制下线处理
                 mandatoryOffline();

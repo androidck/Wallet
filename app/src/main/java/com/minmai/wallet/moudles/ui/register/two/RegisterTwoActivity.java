@@ -1,6 +1,5 @@
 package com.minmai.wallet.moudles.ui.register.two;
 
-import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -13,8 +12,8 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.view.VerificationCodeInput;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
-import com.minmai.wallet.moudles.request.UserContract;
-import com.minmai.wallet.moudles.request.UserPresenter;
+import com.minmai.wallet.moudles.request.user.UserContract;
+import com.minmai.wallet.moudles.request.user.UserPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;

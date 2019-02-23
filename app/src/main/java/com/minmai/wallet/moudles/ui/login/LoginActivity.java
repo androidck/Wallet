@@ -4,7 +4,6 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -26,8 +25,8 @@ import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
-import com.minmai.wallet.moudles.request.UserContract;
-import com.minmai.wallet.moudles.request.UserPresenter;
+import com.minmai.wallet.moudles.request.user.UserContract;
+import com.minmai.wallet.moudles.request.user.UserPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;

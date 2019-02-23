@@ -51,4 +51,5 @@ public class BaseEntry<T> {
                 ", data=" + data +
                 '}';
     }
+
 }

@@ -20,8 +20,8 @@ import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
-import com.minmai.wallet.moudles.request.UserContract;
-import com.minmai.wallet.moudles.request.UserPresenter;
+import com.minmai.wallet.moudles.request.user.UserContract;
+import com.minmai.wallet.moudles.request.user.UserPresenter;
 import com.minmai.wallet.moudles.ui.main.MainActivity;
 
 import butterknife.BindView;

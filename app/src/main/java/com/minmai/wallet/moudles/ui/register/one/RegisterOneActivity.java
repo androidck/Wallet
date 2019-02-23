@@ -1,7 +1,6 @@
 package com.minmai.wallet.moudles.ui.register.one;
 
 import android.text.TextUtils;
-import android.util.Log;
 import android.widget.Button;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -14,8 +13,8 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
-import com.minmai.wallet.moudles.request.UserContract;
-import com.minmai.wallet.moudles.request.UserPresenter;
+import com.minmai.wallet.moudles.request.user.UserContract;
+import com.minmai.wallet.moudles.request.user.UserPresenter;
 
 import butterknife.BindView;
 import butterknife.OnClick;

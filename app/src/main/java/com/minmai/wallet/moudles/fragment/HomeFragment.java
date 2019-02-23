@@ -1,33 +1,35 @@
 package com.minmai.wallet.moudles.fragment;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.net.Uri;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.dialog.LoginTipDialog;
-import com.minmai.wallet.moudles.dialog.ShareDialog;
+import com.minmai.wallet.moudles.request.banner.BannerContract;
+import com.minmai.wallet.moudles.request.banner.BannerPresenter;
 import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.stx.xhb.xbanner.XBanner;
 import com.zhy.autolayout.AutoLinearLayout;
 
+import java.util.List;
+
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * 主页
  */
-public class HomeFragment extends MyLazyFragment {
+public class HomeFragment extends MyLazyFragment implements BannerContract.View {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
     @BindView(R.id.banner)
@@ -55,6 +57,10 @@ public class HomeFragment extends MyLazyFragment {
     @BindView(R.id.ly_network_online)
     AutoLinearLayout lyNetworkOnline;
 
+    BannerPresenter presenter;
+    private Context context;
+
+
 
     @Override
     protected int getLayoutId() {
@@ -74,13 +80,17 @@ public class HomeFragment extends MyLazyFragment {
 
     @Override
     protected void initView() {
+        context=getContext();
         tbLoginTitle.setTitle("首页");
         tbLoginTitle.setTitleColor(Color.parseColor("#323232"));
+        presenter=new BannerPresenter(context,this);
+
     }
 
     @Override
     protected void initData() {
-
+        presenter=new BannerPresenter(context,this);
+        presenter.getBannerList();
     }
 
     public static HomeFragment newInstance() {
@@ -125,5 +135,42 @@ public class HomeFragment extends MyLazyFragment {
         }
     }
 
+
+    @Override
+    public void setOnSuccess(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void setContent(List<BannerInfo> o) {
+        banner.setBannerData(R.layout.view_banner_img,o);
+        banner.setAutoPlayAble(true);
+        banner.loadImage(new XBanner.XBannerAdapter() {
+            @Override
+            public void loadBanner(XBanner banner, Object model, View view, int position) {
+                SimpleDraweeView draweeView = (SimpleDraweeView) view;
+                BannerInfo bannerInfo= (BannerInfo) model;
+                draweeView.setImageURI(Uri.parse(bannerInfo.getImageUrl()));
+
+            }
+        });
+    }
+
+    @Override
+    public void fail(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        banner.startAutoPlay();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        banner.stopAutoPlay();
+    }
 
 }

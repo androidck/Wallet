@@ -1,4 +1,4 @@
-package com.minmai.wallet.moudles.request;
+package com.minmai.wallet.moudles.request.user;
 
 import android.content.Context;
 

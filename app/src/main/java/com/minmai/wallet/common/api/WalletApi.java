@@ -1,7 +1,10 @@
 package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
+import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -98,4 +101,10 @@ public interface WalletApi {
                                         @Field("codeId") String codeId
     );
 
+    /***
+     * 首页轮播图
+     * @return
+     */
+    @POST("banner/queryBanner")
+    Observable<BaseEntry<List<BannerInfo>>> getBannerList();
 }

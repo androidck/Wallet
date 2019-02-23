@@ -16,7 +16,6 @@ public class UserInfo {
     /**
      * 用户id
      */
-    @Id
     private String id;
     /**
      * 用户头像

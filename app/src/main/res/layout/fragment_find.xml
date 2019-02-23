@@ -10,6 +10,7 @@
         android:orientation="vertical"
         >
         <include layout="@layout/view_title"/>
+        <include layout="@layout/division_line"/>
         <!-- 顶部数据 -->
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
