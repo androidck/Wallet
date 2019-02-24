@@ -7,6 +7,7 @@ import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.request.banner.BannerContract;
 import com.minmai.wallet.moudles.request.banner.BannerPresenter;
 
@@ -49,10 +50,6 @@ public class TestActivity extends MyActivity implements BannerContract.View {
         presenter.getBannerList();
     }
 
-    @Override
-    public void setOnSuccess(String msg) {
-        toast(msg);
-    }
 
     @Override
     public void setContent(List<BannerInfo> list) {
@@ -62,5 +59,10 @@ public class TestActivity extends MyActivity implements BannerContract.View {
     @Override
     public void fail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void setRollMessage(List<RollMessage> list) {
+
     }
 }

@@ -62,7 +62,6 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     String loginPwd;
     String codeId;
     TimeCount timeCount;
-    DbUserInfoDao userInfoDao;
 
 
     @Override
@@ -80,7 +79,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("登录");
         timeCount = new TimeCount(10000, 1000,tvGetCode);
-        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+
     }
 
     @Override
@@ -178,8 +177,8 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         UserInfo userInfoResp = (UserInfo) object;
 
         //登录成功保存数据
-        DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId());
-        userInfoDao.insert(userInfo);
+        DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId(),userInfoResp.getPhone());
+        userInfoDao.save(userInfo);
         Authentication(userInfoResp.getRegisterState());
     }
 

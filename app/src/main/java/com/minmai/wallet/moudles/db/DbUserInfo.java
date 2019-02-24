@@ -7,15 +7,18 @@ import org.greenrobot.greendao.annotation.Id;
 @Entity
 public class DbUserInfo {
 
-    @Id(autoincrement = true)
+    @Id
     private Long id;
 
     private String userId;
 
-    @Generated(hash = 2031681393)
-    public DbUserInfo(Long id, String userId) {
+    private String phone;
+
+    @Generated(hash = 870601090)
+    public DbUserInfo(Long id, String userId, String phone) {
         this.id = id;
         this.userId = userId;
+        this.phone = phone;
     }
 
     @Generated(hash = 1930983001)
@@ -37,6 +40,18 @@ public class DbUserInfo {
     public void setUserId(String userId) {
         this.userId = userId;
     }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+
+
+
 
     
 }

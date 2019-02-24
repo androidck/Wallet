@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.hjq.toast.ToastUtils;
+import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
@@ -26,11 +27,14 @@ import butterknife.Unbinder;
 public abstract class MyLazyFragment extends UILazyFragment {
 
     private Unbinder mButterKnife;// View注解
+    public DbUserInfoDao userInfoDao;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mButterKnife = ButterKnife.bind(this, view);
+        userInfoDao= MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         return view;
     }
 

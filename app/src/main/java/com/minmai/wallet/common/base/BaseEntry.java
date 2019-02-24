@@ -2,6 +2,8 @@ package com.minmai.wallet.common.base;
 
 import com.minmai.wallet.common.uitl.MainUtil;
 
+import java.math.BigDecimal;
+
 /**
  * @author: Allen.
  * @date: 2018/7/25
@@ -14,6 +16,9 @@ public class BaseEntry<T> {
     private String msg;
 
     private T data;
+
+
+
 
     public T getData() {
         return data;

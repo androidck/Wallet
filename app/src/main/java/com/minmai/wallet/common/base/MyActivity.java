@@ -13,6 +13,7 @@ import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
 import com.minmai.wallet.moudles.ui.identity.IdentifyThreeActivity;
 import com.minmai.wallet.moudles.ui.identity.IdentifyTwoActivity;
@@ -34,6 +35,8 @@ public abstract class MyActivity extends UIActivity
 
     private Unbinder mButterKnife;//View注解
 
+    public DbUserInfoDao userInfoDao;
+
     @Override
     protected void initLayout() {
         super.initLayout();
@@ -46,7 +49,7 @@ public abstract class MyActivity extends UIActivity
         }
 
         mButterKnife = ButterKnife.bind(this);
-
+        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         initOrientation();
     }
 

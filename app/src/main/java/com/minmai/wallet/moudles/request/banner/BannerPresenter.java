@@ -7,6 +7,7 @@ import com.minmai.wallet.common.base.BaseObserver;
 import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.RollMessage;
 
 import java.util.List;
 
@@ -43,6 +44,31 @@ public class BannerPresenter implements BannerContract.presenter {
                     }
                     @Override
                     protected void onError(BaseEntry <List<BannerInfo>>t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    @Override
+    public void getRollMessageList() {
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().getRollMessageList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<List<RollMessage>>(context, MainUtil.loadLogin) {
+                    @Override
+                    protected void onSuccess(BaseEntry<List<RollMessage>>t) throws Exception {
+                       view.setRollMessage(t.getData());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry <List<RollMessage>>t) {
                         view.fail(t.getMsg());
                     }
                 });

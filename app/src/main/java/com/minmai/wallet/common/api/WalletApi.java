@@ -2,6 +2,8 @@ package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.RollMessage;
+import com.minmai.wallet.moudles.bean.response.UserGounpCount;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 
 import java.util.List;
@@ -107,4 +109,23 @@ public interface WalletApi {
      */
     @POST("banner/queryBanner")
     Observable<BaseEntry<List<BannerInfo>>> getBannerList();
+
+    /**
+     * 轮播
+     * @return
+     */
+    @POST("trade/queryAppRollMessage")
+    Observable<BaseEntry<List<RollMessage>>> getRollMessageList();
+
+    /**
+     * 发现页面查询分润
+     * @param userId
+     * @return
+     */
+    @POST("found/getFoundPageAllInitInfo")
+    Observable<BaseEntry<UserGounpCount>>getFoundPageAllInitInfo(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId
+            );
 }
