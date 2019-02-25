@@ -22,6 +22,7 @@ public class CallUpDialog extends Dialog implements View.OnClickListener {
     private Context context;
     private String phone;//电话号码
 
+
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
     public CallUpDialog(Context context, boolean isCancelable,String phoneNo) {
         super(context, R.style.ActionSheetDialogStyle);

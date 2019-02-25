@@ -24,6 +24,7 @@ import com.minmai.wallet.common.uitl.MD5Utils;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.request.user.UserContract;
@@ -199,5 +200,10 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     @Override
     public void fail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void setPerCenterInfo(PerCenterInfo perCenterInfo) {
+
     }
 }

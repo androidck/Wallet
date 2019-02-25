@@ -11,6 +11,8 @@ import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
+import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -169,7 +171,7 @@ public class UserPresenter implements UserContract.presenter{
                 .initRetrofit().userSendCode(mobile,codeUse)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<String>(context,MainUtil.loadLogin) {
+                .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<String> t) throws Exception {
                         view.onSuccess(t.getMsg());
@@ -215,6 +217,68 @@ public class UserPresenter implements UserContract.presenter{
                     }
                     @Override
                     protected void onError(BaseEntry<UserInfo> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 获取个人中心资料
+     * @param userId
+     */
+    @Override
+    public void getUserPerCenterInfo(String userId) {
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().getUserPersonalCenter(currentTimeMillis,sign,userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<PerCenterInfo>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<PerCenterInfo> t) throws Exception {
+                        view.setPerCenterInfo(t.getData());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<PerCenterInfo> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 获取用户id
+     * @param userId
+     */
+    @Override
+    public void getRefereeUserInfo(String userId) {
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().getRefereeUserInfo(currentTimeMillis,sign,userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<RefereeUserInfo>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<RefereeUserInfo> t) throws Exception {
+                       view.onSetContent(t.getData());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<RefereeUserInfo> t) {
                         view.fail(t.getMsg());
                     }
                 });

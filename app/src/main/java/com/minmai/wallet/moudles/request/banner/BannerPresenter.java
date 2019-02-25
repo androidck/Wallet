@@ -31,7 +31,7 @@ public class BannerPresenter implements BannerContract.presenter {
                 .initRetrofit().getBannerList()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<List<BannerInfo>>(context, MainUtil.loadLogin) {
+                .subscribe(new BaseObserver<List<BannerInfo>>(context, MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<List<BannerInfo>>t) throws Exception {
                         view.setContent(t.getData());

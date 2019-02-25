@@ -19,7 +19,6 @@
                 android:id="@+id/tv_nickname"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="白小白"
                 android:gravity="center"
                 android:textSize="@dimen/font_size_30px"
                 android:layout_marginTop="@dimen/space_80"
@@ -28,7 +27,6 @@
                 android:id="@+id/tv_user_no"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ID:12345678"
                 android:gravity="center"
                 android:textSize="@dimen/font_size_30px"
                 android:layout_marginTop="@dimen/space_10"
@@ -63,6 +61,7 @@
                 />
 
             <Button
+                android:id="@+id/btn_leaving_msg"
                 android:layout_width="@dimen/space_160"
                 android:layout_height="@dimen/space_60"
                 android:background="@drawable/selector_bg"

@@ -12,6 +12,7 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.view.VerificationCodeInput;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.request.user.UserContract;
 import com.minmai.wallet.moudles.request.user.UserPresenter;
 
@@ -119,7 +120,10 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
         toast(msg);
     }
 
+    @Override
+    public void setPerCenterInfo(PerCenterInfo perCenterInfo) {
 
+    }
 
 
     @OnClick(R.id.tv_send_msg)

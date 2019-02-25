@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
@@ -66,6 +67,7 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
             case R.id.tv_login:
                 userInfoDao.deleteAll();
                 ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
+                ToastUtils.show("账号已退出");
                 dismiss();
                 break;
         }

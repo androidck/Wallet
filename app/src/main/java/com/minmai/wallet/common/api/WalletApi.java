@@ -2,6 +2,8 @@ package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
+import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
@@ -128,4 +130,45 @@ public interface WalletApi {
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Field("userId") String userId);
+
+
+    /**
+     * 查询个人资料
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @return
+     */
+    @POST("user/getUserPersonalCenter")
+    Observable<BaseEntry<PerCenterInfo>>getUserPersonalCenter(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId);
+
+
+    /**
+     * 获取推荐人信息
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @return
+     */
+    @POST("user/getRefereeUserInfo")
+    Observable<BaseEntry<RefereeUserInfo>>getRefereeUserInfo(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId);
+
+    /**
+     * 给推荐人留言
+     * @return
+     */
+    @POST("user/userLeaveMessage")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>userLeaveMessage(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("refereeId") String refereeId,
+            @Field("leaveMessageContent") String leaveMessageContent);
 }

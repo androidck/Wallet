@@ -3,6 +3,7 @@ package com.minmai.wallet.moudles.request.user;
 import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 
 public interface UserContract  {
 
@@ -15,6 +16,9 @@ public interface UserContract  {
         void onSuccess(String msg);
         //请求失败
         void fail(String msg);
+
+        //设置个人中心资料
+        void setPerCenterInfo(PerCenterInfo perCenterInfo);
     }
 
 
@@ -37,5 +41,11 @@ public interface UserContract  {
 
         //手机短信登录
         void userPhoneLogin(UserInfoReq userInfoReq);
+
+        //获取个人中心资料
+        void getUserPerCenterInfo(String userId);
+
+        //获取推荐人信息
+        void getRefereeUserInfo(String userId);
     }
 }

@@ -13,6 +13,7 @@ import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
+import com.minmai.wallet.moudles.dialog.LoginTipDialog;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
 
@@ -71,6 +72,10 @@ public abstract class MyLazyFragment extends UILazyFragment {
 
     public void toast(Object object) {
         ToastUtils.show(object);
+    }
+
+    public void showLoginDialog(){
+        new LoginTipDialog(getActivity(),false).show();
     }
 
     //跳转到浏览器

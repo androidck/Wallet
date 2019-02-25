@@ -13,6 +13,7 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
+import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.request.user.UserContract;
 import com.minmai.wallet.moudles.request.user.UserPresenter;
 
@@ -97,5 +98,10 @@ public class RegisterOneActivity extends MyActivity implements UserContract.View
     @Override
     public void fail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void setPerCenterInfo(PerCenterInfo perCenterInfo) {
+
     }
 }
