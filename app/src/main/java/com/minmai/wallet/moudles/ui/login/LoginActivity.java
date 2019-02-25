@@ -20,6 +20,7 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.enumcode.EnumCodeUse;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.common.uitl.MD5;
+import com.minmai.wallet.common.uitl.MD5Utils;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
@@ -27,6 +28,7 @@ import com.minmai.wallet.moudles.bean.response.UserInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.request.user.UserContract;
 import com.minmai.wallet.moudles.request.user.UserPresenter;
+import com.minmai.wallet.moudles.ui.forget.ForGetActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -78,7 +80,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     protected void initView() {
         etLoginPhone.addTextChangedListener(new PhoneTextWatcher(etLoginPhone));
         tbLoginTitle.setTitle("登录");
-        timeCount = new TimeCount(10000, 1000,tvGetCode);
+        timeCount = new TimeCount(60000, 1000,tvGetCode);
 
     }
 
@@ -92,6 +94,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forget:
+                ARouter.getInstance().build(ActivityConstant.FORGET_PASSWORD).navigation();
                 break;
             case R.id.btn_login_commit:
                 startRequestInterface();
@@ -138,7 +141,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         }else if (loginType==1){
             UserInfoReq userInfoResp =new UserInfoReq();
             userInfoResp.setLoginName(phone);
-            userInfoResp.setPwd(MD5.md5Str(loginPwd));
+            userInfoResp.setPwd(MD5Utils.stringToMD5(loginPwd));
             presenter.userPwdLogin(userInfoResp);
         }else if (loginType==2){
             UserInfoReq userInfoReq=new UserInfoReq();
@@ -178,7 +181,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
 
         //登录成功保存数据
         DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId(),userInfoResp.getPhone());
-        userInfoDao.save(userInfo);
+        userInfoDao.insert(userInfo);
         Authentication(userInfoResp.getRegisterState());
     }
 

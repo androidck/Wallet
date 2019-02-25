@@ -7,6 +7,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.dialog.ProgressHUD;
+import com.minmai.wallet.common.greendao.DbUserInfoDao;
 
 import java.net.ConnectException;
 import java.net.UnknownHostException;
@@ -29,11 +30,13 @@ public abstract class BaseObserver<T> implements Observer<BaseEntry<T>> {
 
     public static final int TIMEOUT = 60;
     private static OkHttpClient mOkHttpClient;
+    DbUserInfoDao userInfoDao;
 
     public BaseObserver(Context cxt, String text) {
         this.mContext = cxt;
         this.labelTxt = text;
         progressHUD = ProgressHUD.show(mContext);
+        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
     }
 
 
@@ -129,6 +132,7 @@ public abstract class BaseObserver<T> implements Observer<BaseEntry<T>> {
     //强制下线
     public void mandatoryOffline(){
         //同时清空本地登录数据
+        userInfoDao.deleteAll();
         //跳转到登录页面
         ARouter.getInstance().build(ActivityConstant.USER_LOGIN).navigation();
     }

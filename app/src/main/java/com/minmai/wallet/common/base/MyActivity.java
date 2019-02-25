@@ -14,12 +14,15 @@ import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
+import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
 import com.minmai.wallet.moudles.ui.identity.IdentifyThreeActivity;
 import com.minmai.wallet.moudles.ui.identity.IdentifyTwoActivity;
 import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
+
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
@@ -211,6 +214,16 @@ public abstract class MyActivity extends UIActivity
             textView.setClickable(true);
             textView.setTextColor(Color.parseColor("#0096ff"));
 
+        }
+    }
+
+    //判断用户是否登录
+    public boolean isLogin(){
+        List<DbUserInfo> userInfos=userInfoDao.loadAll();
+        if (userInfos==null||userInfos.size()==0){
+            return false;
+        }else {
+            return true;
         }
     }
 

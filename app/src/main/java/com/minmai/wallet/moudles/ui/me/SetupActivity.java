@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.moudles.dialog.LoginOutTipDialog;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import butterknife.BindView;
@@ -29,6 +30,7 @@ public class SetupActivity extends MyActivity {
     AutoLinearLayout tvCleanCache;
     @BindView(R.id.btn_login_out)
     Button btnLoginOut;
+
 
     @Override
     protected int getLayoutId() {
@@ -61,6 +63,7 @@ public class SetupActivity extends MyActivity {
             case R.id.tv_clean_cache:
                 break;
             case R.id.btn_login_out:
+                new LoginOutTipDialog(SetupActivity.this,false).show();
                 break;
             case R.id.tv_abount_me:
                 startActivity(AboutUsActivity.class);

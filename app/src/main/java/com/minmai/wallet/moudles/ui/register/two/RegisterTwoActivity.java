@@ -57,7 +57,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
     @Override
     protected void initView() {
         ARouter.getInstance().inject(this);
-        timeCount = new TimeCount(10000, 1000,tvSendMsg);
+        timeCount = new TimeCount(60000, 1000,tvSendMsg);
         tbLoginTitle.setTitle("注册");
         presenter = new UserPresenter(this, this);
         tvShowPhone.setText("我们已向" + phone + "发送验证码短信");

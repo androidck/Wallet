@@ -123,9 +123,9 @@ public interface WalletApi {
      * @return
      */
     @POST("found/getFoundPageAllInitInfo")
+    @FormUrlEncoded
     Observable<BaseEntry<UserGounpCount>>getFoundPageAllInitInfo(
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
-            @Header("X_UserId") String userId
-            );
+            @Field("userId") String userId);
 }

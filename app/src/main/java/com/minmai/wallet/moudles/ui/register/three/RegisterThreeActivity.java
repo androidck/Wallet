@@ -16,6 +16,7 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.uitl.MD5;
+import com.minmai.wallet.common.uitl.MD5Utils;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.moudles.bean.request.UserInfoReq;
@@ -101,7 +102,7 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
         }else {
             UserInfoReq userInfoReq=new UserInfoReq();
             userInfoReq.setPhone(phone);
-            userInfoReq.setPwd(MD5.md5Str(loginPwd));
+            userInfoReq.setPwd(MD5Utils.stringToMD5(loginPwd));
             userInfoReq.setCodeId(codeId);
             userInfoReq.setCode(code);
             userInfoReq.setRecommendCode(recommendPhone);

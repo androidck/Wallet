@@ -14,6 +14,7 @@ import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
 import com.minmai.wallet.moudles.db.DbUserInfo;
+import com.minmai.wallet.moudles.dialog.LoginTipDialog;
 import com.minmai.wallet.moudles.request.find.FoundPageContract;
 import com.minmai.wallet.moudles.request.find.FoundPagePresenter;
 import com.minmai.wallet.moudles.ui.find.WithdrawCashActivity;
@@ -86,9 +87,13 @@ public class FindFragment extends MyLazyFragment implements FoundPageContract.Vi
 
     @Override
     protected void initData() {
-        userInfoDao= MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+
         presenter=new FoundPagePresenter(context,this);
-        getFindInfo();
+        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+        //登录了才获取数据
+        if (isLogin()==true){
+            getFindInfo();
+        }
     }
 
     public static FindFragment newInstance() {
@@ -98,26 +103,30 @@ public class FindFragment extends MyLazyFragment implements FoundPageContract.Vi
 
     @OnClick({ R.id.img_open_close, R.id.img_sign_in,  R.id.tv_credit_card, R.id.tv_upgrade, R.id.tv_share_details, R.id.tv_profit, R.id.tv_all_count, R.id.recyclerView})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.img_open_close:
-                showMoney();
-                break;
-            case R.id.img_sign_in:
-                break;
-            case R.id.tv_credit_card:
-                break;
-            case R.id.tv_upgrade:
-                break;
-            case R.id.tv_share_details:
-                break;
-            case R.id.tv_profit:
-                startActivity(WithdrawCashActivity.class);
-                break;
-            case R.id.tv_all_count:
-                break;
-            case R.id.recyclerView:
-                break;
-        }
+       if (isLogin()==false){
+            new LoginTipDialog(context,false).show();
+       }else {
+           switch (view.getId()) {
+               case R.id.img_open_close:
+                   showMoney();
+                   break;
+               case R.id.img_sign_in:
+                   break;
+               case R.id.tv_credit_card:
+                   break;
+               case R.id.tv_upgrade:
+                   break;
+               case R.id.tv_share_details:
+                   break;
+               case R.id.tv_profit:
+                   startActivity(WithdrawCashActivity.class);
+                   break;
+               case R.id.tv_all_count:
+                   break;
+               case R.id.recyclerView:
+                   break;
+           }
+       }
     }
 
     //显示/隐藏金额
@@ -147,9 +156,9 @@ public class FindFragment extends MyLazyFragment implements FoundPageContract.Vi
     @Override
     public void setContent(Object o) {
         UserGounpCount userGounpCount= (UserGounpCount) o;
-        allMoney=userGounpCount.getTotalBalance().toString();
-        yjMoney=userGounpCount.getYjMoney().toString();
-        frMoney=userGounpCount.getFeMoney().toString();
+        allMoney=userGounpCount.getTotalBalance();
+        yjMoney=userGounpCount.getYjMoney();
+        frMoney=userGounpCount.getFeMoney();
         tvMoney.setText(allMoney);
         tvCommission.setText(yjMoney);
         tvShareProfit.setText(frMoney);
@@ -159,5 +168,15 @@ public class FindFragment extends MyLazyFragment implements FoundPageContract.Vi
     @Override
     public void fail(String msg) {
         toast(msg);
+    }
+
+    //判断用户是否登录
+    public boolean isLogin(){
+        List<DbUserInfo> userInfos=userInfoDao.loadAll();
+        if (userInfos==null||userInfos.size()==0){
+            return false;
+        }else {
+            return true;
+        }
     }
 }

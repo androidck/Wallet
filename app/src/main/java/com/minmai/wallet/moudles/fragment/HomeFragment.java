@@ -65,6 +65,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
 
     BannerPresenter presenter;
     private Context context;
+    DbUserInfoDao userInfoDao;
 
 
 
@@ -96,6 +97,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
     @Override
     protected void initData() {
         presenter=new BannerPresenter(context,this);
+        userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         getBanner();
         getRollMessage();
     }
@@ -107,8 +109,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
 
     @OnClick({R.id.banner, R.id.tv_notice, R.id.tv_quick_pay, R.id.tv_date_repayment, R.id.tv_share_profit, R.id.tv_upgrade, R.id.lv_finance_service, R.id.tv_life_service, R.id.tv_credit_card_knowledge, R.id.ly_extension, R.id.ly_loan,R.id.ly_network_online})
     public void onViewClicked(View view) {
-        List<DbUserInfo> list=userInfoDao.loadAll();
-        if (list==null||list.size()==0){
+        if (isLogin()==false){
             new LoginTipDialog(getActivity(),false).show();
         }else {
             switch (view.getId()) {
@@ -135,7 +136,6 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
                 case R.id.tv_credit_card_knowledge:
                     break;
                 case R.id.ly_extension:
-
                     break;
                 case R.id.ly_loan:
                     break;
@@ -200,4 +200,12 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
         tvNotice.stopScroll();
     }
 
+    public boolean isLogin(){
+        List<DbUserInfo> userInfos=userInfoDao.loadAll();
+        if (userInfos==null||userInfos.size()==0){
+            return false;
+        }else {
+            return true;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package com.minmai.wallet.moudles.bean.response;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -9,66 +10,81 @@ import java.util.List;
 public class UserGounpCount {
 
     /**
-     * levelId : 111
-     * levelName : 黄金
-     * levelCount : 1
-     * levelIco :
+     * 总资产
      */
-    private BigDecimal totalBalance;//总金额
+    private String totalBalance;
+    /**
+     * 分润
+     */
+    private String feMoney;
+    /**
+     * 佣金
+     */
+    private String yjMoney;
+    /**
+     * 商户人数
+     */
+    private String countByNum;
 
-    private int countByNum;//总人数
+    public List<LevelUserGroupCountList> levelUserGroupCountList;
 
-    private BigDecimal feMoney;//分润金额
-
-    private BigDecimal yjMoney;//佣金金额
-
-    private List<Grade> list;//嵌套的列表
-
-    public BigDecimal getTotalBalance() {
+    public String getTotalBalance() {
         return totalBalance;
     }
 
-    public void setTotalBalance(BigDecimal totalBalance) {
+    public void setTotalBalance(String totalBalance) {
         this.totalBalance = totalBalance;
     }
 
-    public int getCountByNum() {
-        return countByNum;
-    }
-
-    public void setCountByNum(int countByNum) {
-        this.countByNum = countByNum;
-    }
-
-    public BigDecimal getFeMoney() {
+    public String getFeMoney() {
         return feMoney;
     }
 
-    public void setFeMoney(BigDecimal feMoney) {
+    public void setFeMoney(String feMoney) {
         this.feMoney = feMoney;
     }
 
-    public BigDecimal getYjMoney() {
+    public String getYjMoney() {
         return yjMoney;
     }
 
-    public void setYjMoney(BigDecimal yjMoney) {
+    public void setYjMoney(String yjMoney) {
         this.yjMoney = yjMoney;
     }
 
-    public List<Grade> getList() {
-        return list;
+    public String getCountByNum() {
+        return countByNum;
     }
 
-    public void setList(List<Grade> list) {
-        this.list = list;
+    public void setCountByNum(String countByNum) {
+        this.countByNum = countByNum;
     }
 
-    public class Grade{
+    public List<LevelUserGroupCountList> getLevelUserGroupCountList() {
+        return levelUserGroupCountList;
+    }
+
+    public void setLevelUserGroupCountList(List<LevelUserGroupCountList> levelUserGroupCountList) {
+        this.levelUserGroupCountList = levelUserGroupCountList;
+    }
+
+    class LevelUserGroupCountList implements Serializable {
+        /**
+         * 等级id
+         */
         private String levelId;
-        private String levelName;
-        private String levelCount;
+        /**
+         * 等级图片
+         */
         private String levelIco;
+        /**
+         * 等级名称
+         */
+        private String levelName;
+        /**
+         * 等级人数
+         */
+        private String levelCount;
 
         public String getLevelId() {
             return levelId;
@@ -76,6 +92,14 @@ public class UserGounpCount {
 
         public void setLevelId(String levelId) {
             this.levelId = levelId;
+        }
+
+        public String getLevelIco() {
+            return levelIco;
+        }
+
+        public void setLevelIco(String levelIco) {
+            this.levelIco = levelIco;
         }
 
         public String getLevelName() {
@@ -93,17 +117,6 @@ public class UserGounpCount {
         public void setLevelCount(String levelCount) {
             this.levelCount = levelCount;
         }
-
-        public String getLevelIco() {
-            return levelIco;
-        }
-
-        public void setLevelIco(String levelIco) {
-            this.levelIco = levelIco;
-        }
     }
-
-
-
 
 }

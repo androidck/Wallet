@@ -7,7 +7,7 @@ import org.greenrobot.greendao.annotation.Id;
 @Entity
 public class DbUserInfo {
 
-    @Id
+    @Id(autoincrement = true)
     private Long id;
 
     private String userId;
