@@ -40,6 +40,9 @@ public abstract class MyActivity extends UIActivity
 
     public DbUserInfoDao userInfoDao;
 
+    int currentPage=1;
+    int pageSize=10;
+
     @Override
     protected void initLayout() {
         super.initLayout();

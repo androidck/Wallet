@@ -14,11 +14,7 @@ public class BaseEntry<T> {
 
     private int code;
     private String msg;
-
     private T data;
-
-
-
 
     public T getData() {
         return data;

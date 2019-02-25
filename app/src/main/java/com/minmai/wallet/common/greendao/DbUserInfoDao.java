@@ -27,6 +27,7 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
         public final static Property Phone = new Property(2, String.class, "phone", false, "PHONE");
+        public final static Property RegisterState = new Property(3, int.class, "registerState", false, "REGISTER_STATE");
     }
 
 
@@ -44,7 +45,8 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         db.execSQL("CREATE TABLE " + constraint + "\"DB_USER_INFO\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER_ID\" TEXT," + // 1: userId
-                "\"PHONE\" TEXT);"); // 2: phone
+                "\"PHONE\" TEXT," + // 2: phone
+                "\"REGISTER_STATE\" INTEGER NOT NULL );"); // 3: registerState
     }
 
     /** Drops the underlying database table. */
@@ -71,6 +73,7 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         if (phone != null) {
             stmt.bindString(3, phone);
         }
+        stmt.bindLong(4, entity.getRegisterState());
     }
 
     @Override
@@ -91,6 +94,7 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         if (phone != null) {
             stmt.bindString(3, phone);
         }
+        stmt.bindLong(4, entity.getRegisterState());
     }
 
     @Override
@@ -103,7 +107,8 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         DbUserInfo entity = new DbUserInfo( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userId
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2) // phone
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // phone
+            cursor.getInt(offset + 3) // registerState
         );
         return entity;
     }
@@ -113,6 +118,7 @@ public class DbUserInfoDao extends AbstractDao<DbUserInfo, Long> {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setPhone(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setRegisterState(cursor.getInt(offset + 3));
      }
     
     @Override

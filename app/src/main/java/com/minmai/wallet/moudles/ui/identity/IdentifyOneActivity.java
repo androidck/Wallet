@@ -2,13 +2,18 @@ package com.minmai.wallet.moudles.ui.identity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.hjq.bar.TitleBar;
+import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 完善信息第一步
@@ -16,6 +21,18 @@ import butterknife.ButterKnife;
 public class IdentifyOneActivity extends MyActivity {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
+    @BindView(R.id.img_font)
+    ImageView imgFont;//身份证正面
+    @BindView(R.id.ed_real_name)
+    ClearEditText edRealName;//真实姓名
+    @BindView(R.id.ed_id_no)
+    ClearEditText edIdNo;//身份证号
+    @BindView(R.id.img_back)
+    ImageView imgBack;//身份证反面
+    @BindView(R.id.ed_validity)
+    ClearEditText edValidity;//
+    @BindView(R.id.btn_next)
+    Button btnNext;//提交
 
     @Override
     protected int getLayoutId() {
@@ -39,10 +56,15 @@ public class IdentifyOneActivity extends MyActivity {
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    @OnClick({R.id.img_font, R.id.img_back, R.id.btn_next})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.img_font:
+                break;
+            case R.id.img_back:
+                break;
+            case R.id.btn_next:
+                break;
+        }
     }
 }

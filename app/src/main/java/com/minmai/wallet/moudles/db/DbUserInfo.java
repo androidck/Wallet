@@ -14,11 +14,14 @@ public class DbUserInfo {
 
     private String phone;
 
-    @Generated(hash = 870601090)
-    public DbUserInfo(Long id, String userId, String phone) {
+    private int registerState;
+
+    @Generated(hash = 2131077017)
+    public DbUserInfo(Long id, String userId, String phone, int registerState) {
         this.id = id;
         this.userId = userId;
         this.phone = phone;
+        this.registerState = registerState;
     }
 
     @Generated(hash = 1930983001)
@@ -48,6 +51,16 @@ public class DbUserInfo {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public int getRegisterState() {
+        return this.registerState;
+    }
+
+    public void setRegisterState(int registerState) {
+        this.registerState = registerState;
+    }
+
+   
 
 
 

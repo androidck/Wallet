@@ -70,6 +70,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/img_font"
                         android:layout_width="150dp"
                         android:layout_height="105dp"
                         android:layout_centerHorizontal="true"
@@ -93,6 +94,7 @@
                         android:layout_marginLeft="@dimen/space_30"
                         />
                     <com.hjq.widget.ClearEditText
+                        android:id="@+id/ed_real_name"
                         android:layout_width="0dp"
                         android:layout_weight="3.5"
                         android:layout_height="match_parent"
@@ -125,6 +127,7 @@
                         android:layout_marginLeft="@dimen/space_30"
                         />
                     <com.hjq.widget.ClearEditText
+                        android:id="@+id/ed_id_no"
                         android:layout_width="0dp"
                         android:layout_weight="3.5"
                         android:layout_height="match_parent"
@@ -147,6 +150,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                     <ImageView
+                        android:id="@+id/img_back"
                         android:layout_width="150dp"
                         android:layout_height="105dp"
                         android:layout_centerHorizontal="true"
@@ -170,6 +174,7 @@
                         android:layout_marginLeft="@dimen/space_30"
                         />
                     <com.hjq.widget.ClearEditText
+                        android:id="@+id/ed_validity"
                         android:layout_width="0dp"
                         android:layout_weight="3.5"
                         android:layout_height="match_parent"

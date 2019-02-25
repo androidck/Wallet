@@ -15,6 +15,9 @@ import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -279,6 +282,40 @@ public class UserPresenter implements UserContract.presenter{
                     }
                     @Override
                     protected void onError(BaseEntry<RefereeUserInfo> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    /**
+     * 修改昵称
+     * @param userId
+     * @param nickName
+     */
+    @Override
+    public void updateUserNiceName(String userId, String nickName) {
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        Map<String,String> map=new HashMap<>();
+        map.put("nickName",nickName);
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().updateUserNiceName(currentTimeMillis,sign,userId,nickName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<String> t) throws Exception {
+                        view.onSuccess(t.getMsg());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<String> t) {
                         view.fail(t.getMsg());
                     }
                 });

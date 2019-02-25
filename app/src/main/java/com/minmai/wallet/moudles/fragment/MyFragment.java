@@ -276,7 +276,12 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
                 break;
             case R.id.img_ed_nickname://编辑昵称
                 if (isLogin()==true){
-                    new NickNameDialog(getActivity(), true).show();
+                    new NickNameDialog(getContext(), tvNickName.getText().toString().trim(), true, new NickNameDialog.OnNickNameListenter() {
+                        @Override
+                        public void setNickName(String str) {
+                            tvNickName.setText(str);
+                        }
+                    }).show();
                 }else {
                     showLoginDialog();
                 }
@@ -326,6 +331,7 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
             tvRefereeName.setText(HideDataUtil.hideRealName(perCenterInfo.getRefereeUser()));
         }
         refereeName=tvRefereeName.getText().toString().trim();
+        tvNickName.setText(perCenterInfo.getNickName());
 
     }
 

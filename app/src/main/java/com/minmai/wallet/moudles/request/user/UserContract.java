@@ -47,5 +47,8 @@ public interface UserContract  {
 
         //获取推荐人信息
         void getRefereeUserInfo(String userId);
+
+        //修改昵称
+        void updateUserNiceName(String userId,String nickName);
     }
 }

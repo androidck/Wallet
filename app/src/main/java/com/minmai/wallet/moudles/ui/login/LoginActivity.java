@@ -181,7 +181,7 @@ public class LoginActivity extends MyActivity implements UserContract.View {
         UserInfo userInfoResp = (UserInfo) object;
 
         //登录成功保存数据
-        DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId(),userInfoResp.getPhone());
+        DbUserInfo userInfo=new DbUserInfo(null,userInfoResp.getId(),userInfoResp.getPhone(),userInfoResp.getRegisterState());
         userInfoDao.insert(userInfo);
         Authentication(userInfoResp.getRegisterState());
     }

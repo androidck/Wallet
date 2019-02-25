@@ -2,6 +2,7 @@ package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.LeavingMsg;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
@@ -171,4 +172,29 @@ public interface WalletApi {
             @Header("X_UserId") String userId,
             @Field("refereeId") String refereeId,
             @Field("leaveMessageContent") String leaveMessageContent);
+
+    /**
+     * 修改用户昵称
+     * @return
+     */
+    @POST("user/updateUserNiceName")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>updateUserNiceName(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("nickName") String nickName);
+
+    /**
+     * 修改用户昵称
+     * @return
+     */
+    @POST("user/listLevMessage")
+    @FormUrlEncoded
+    Observable<BaseEntry<LeavingMsg>>listLevMessage(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("pageCurrent") String pageCurrent,
+            @Field("pageSize") String pageSize);
 }
