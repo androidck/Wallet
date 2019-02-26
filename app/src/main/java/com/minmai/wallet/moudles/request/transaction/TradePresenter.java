@@ -1,4 +1,4 @@
-package com.minmai.wallet.moudles.request.leave;
+package com.minmai.wallet.moudles.request.transaction;
 
 import android.content.Context;
 
@@ -17,18 +17,19 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class LeavePresenter implements LeaveContract.presenter{
+public class TradePresenter implements TradeContract.presenter{
 
-    private Context context;
-    private LeaveContract.View view;
+    public Context context;
+    private TradeContract.View view;
 
-    public LeavePresenter(Context context,LeaveContract.View view){
+    public TradePresenter(Context context,TradeContract.View view){
         this.context=context;
         this.view=view;
     }
 
-    //获取列表
-    public void getListLevMessage(String userId,LeavingMsg leavingMsg){
+    //交易记录
+    @Override
+    public void queryTradingRecord(String userId, LeavingMsg leavingMsg) {
         Map<String,String> map=new HashMap<>();
         map.put("pageCurrent",leavingMsg.getPageCurrent()+"");
         map.put("pageSize",leavingMsg.getPageSize()+"");
@@ -36,13 +37,13 @@ public class LeavePresenter implements LeaveContract.presenter{
         String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
-                .initRetrofit().listLevMessage(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
+                .initRetrofit().queryTradingRecord(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<LeavingMsg>(context,MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<LeavingMsg> t) throws Exception {
-                        view.onContent(t.getData());
+                        view.onSetContent(t.getData());
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {

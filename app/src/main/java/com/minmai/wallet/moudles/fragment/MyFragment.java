@@ -16,6 +16,7 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
@@ -244,6 +245,8 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
                 break;
             case R.id.tv_online_customer://在线客服
                 if (isLogin()==true){
+                    String userId=userInfoDao.loadAll().get(0).getUserId();
+                    startBrowserActivity(getContext(),1,Constant.BASE_URL+"H5/chatApp/index.html?userId="+userId);
                 }
                 break;
             case R.id.tv_more_setup://更多设置

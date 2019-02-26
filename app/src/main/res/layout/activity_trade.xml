@@ -5,6 +5,8 @@
     android:orientation="vertical"
     >
     <include layout="@layout/view_title"/>
+    <include layout="@layout/division_line"/>
+    <include layout="@layout/view_nodate"/>
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"

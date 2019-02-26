@@ -38,10 +38,10 @@ public abstract class MyActivity extends UIActivity
 
     private Unbinder mButterKnife;//View注解
 
-    public DbUserInfoDao userInfoDao;
+    public static DbUserInfoDao userInfoDao;
 
-    int currentPage=1;
-    int pageSize=10;
+    public int currentPage=1;
+    public int pageSize=10;
 
     @Override
     protected void initLayout() {
@@ -91,6 +91,15 @@ public abstract class MyActivity extends UIActivity
         if (titleBar != null) {
             titleBar.setTitle(title);
         }
+    }
+
+
+    /**
+     * 获取userId
+     * @return
+     */
+    public static String getUserId(){
+        return userInfoDao.loadAll().get(0).getUserId();
     }
 
     public TitleBar getTitleBar() {

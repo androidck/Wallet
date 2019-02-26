@@ -9,7 +9,7 @@ public class LeavingMsg {
 
     private String pageNo;
 
-    private String pageSize;
+    private int pageSize;
 
     private String count;
 
@@ -23,27 +23,21 @@ public class LeavingMsg {
 
     private String maxResults;
 
-    private String pageCurrent;
+    private int pageCurrent;
 
     private String userId;
 
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getPageCurrent() {
-        return pageCurrent;
-    }
-
-    public void setPageCurrent(String pageCurrent) {
-        this.pageCurrent = pageCurrent;
-    }
-
     private List<ListLeaving> list;
+
+    private List<Trade> trades;
+
+    public List<Trade> getTrades() {
+        return trades;
+    }
+
+    public void setTrades(List<Trade> trades) {
+        this.trades = trades;
+    }
 
     public String getPageNo() {
         return pageNo;
@@ -53,11 +47,11 @@ public class LeavingMsg {
         this.pageNo = pageNo;
     }
 
-    public String getPageSize() {
+    public int getPageSize() {
         return pageSize;
     }
 
-    public void setPageSize(String pageSize) {
+    public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
     }
 
@@ -109,6 +103,22 @@ public class LeavingMsg {
         this.maxResults = maxResults;
     }
 
+    public int getPageCurrent() {
+        return pageCurrent;
+    }
+
+    public void setPageCurrent(int pageCurrent) {
+        this.pageCurrent = pageCurrent;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
     public List<ListLeaving> getList() {
         return list;
     }
@@ -116,5 +126,4 @@ public class LeavingMsg {
     public void setList(List<ListLeaving> list) {
         this.list = list;
     }
-
 }

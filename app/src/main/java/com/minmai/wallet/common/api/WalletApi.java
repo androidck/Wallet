@@ -195,6 +195,43 @@ public interface WalletApi {
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Header("X_UserId") String userId,
-            @Field("pageCurrent") String pageCurrent,
-            @Field("pageSize") String pageSize);
+            @Field("pageCurrent") int pageCurrent,
+            @Field("pageSize") int pageSize);
+
+
+    /**
+     * 查询交易记录
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @param pageCurrent
+     * @param pageSize
+     * @return
+     */
+    @POST("trade/queryTradingRecord")
+    @FormUrlEncoded
+    Observable<BaseEntry<LeavingMsg>>queryTradingRecord(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("pageCurrent") int pageCurrent,
+            @Field("pageSize") int pageSize);
+
+
+    /**
+     * 用户反馈
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @param feedbackContent
+     * @return
+     */
+    @POST("user/userFeedback")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>userFeedback(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("feedbackContent") String feedbackContent);
+
 }

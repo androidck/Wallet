@@ -1,4 +1,4 @@
-package com.minmai.wallet.moudles.request.leave;
+package com.minmai.wallet.moudles.request.user;
 
 import android.content.Context;
 
@@ -9,7 +9,6 @@ import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
-import com.minmai.wallet.moudles.bean.response.LeavingMsg;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,32 +16,33 @@ import java.util.Map;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class LeavePresenter implements LeaveContract.presenter{
+public class FeedBackPresenter implements FeedBackContract.present {
 
     private Context context;
-    private LeaveContract.View view;
+    private FeedBackContract.View view;
 
-    public LeavePresenter(Context context,LeaveContract.View view){
+    public FeedBackPresenter(Context context,FeedBackContract.View view){
         this.context=context;
         this.view=view;
     }
 
-    //获取列表
-    public void getListLevMessage(String userId,LeavingMsg leavingMsg){
+
+    //意见反馈
+    @Override
+    public void userFeedBack(String userId, String feedbackContent) {
         Map<String,String> map=new HashMap<>();
-        map.put("pageCurrent",leavingMsg.getPageCurrent()+"");
-        map.put("pageSize",leavingMsg.getPageSize()+"");
+        map.put("feedbackContent",feedbackContent);
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
-                .initRetrofit().listLevMessage(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
+                .initRetrofit().userFeedback(currentTimeMillis,sign,userId,feedbackContent)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<LeavingMsg>(context,MainUtil.loadTxt) {
+                .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
                     @Override
-                    protected void onSuccess(BaseEntry<LeavingMsg> t) throws Exception {
-                        view.onContent(t.getData());
+                    protected void onSuccess(BaseEntry<String> t) throws Exception {
+                        view.onSuccess(t.getMsg());
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
@@ -51,12 +51,8 @@ public class LeavePresenter implements LeaveContract.presenter{
                         }
                     }
                     @Override
-                    protected void onError(BaseEntry<LeavingMsg> t) {
-                        if (t.getCode()==100){
-                            view.noDate();
-                        }else {
-                            view.fail(t.getMsg());
-                        }
+                    protected void onError(BaseEntry<String> t) {
+                        view.fail(t.getMsg());
                     }
                 });
     }
