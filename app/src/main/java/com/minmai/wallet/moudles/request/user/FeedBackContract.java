@@ -19,5 +19,8 @@ public interface FeedBackContract {
 
         //用户反馈
         void userFeedBack(String userId,String feedbackContent);
+
+        //是否允许下级查看手机号
+        void updateExtendOne(String userId,String extendOne);
     }
 }

@@ -13,6 +13,7 @@ import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
@@ -39,6 +40,7 @@ public abstract class MyActivity extends UIActivity
     private Unbinder mButterKnife;//View注解
 
     public static DbUserInfoDao userInfoDao;
+    public static DbCenterInfoDao centerInfoDao;
 
     public int currentPage=1;
     public int pageSize=10;
@@ -56,6 +58,7 @@ public abstract class MyActivity extends UIActivity
 
         mButterKnife = ButterKnife.bind(this);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+        centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         initOrientation();
     }
 
@@ -100,6 +103,11 @@ public abstract class MyActivity extends UIActivity
      */
     public static String getUserId(){
         return userInfoDao.loadAll().get(0).getUserId();
+    }
+
+    //是否展示手机号
+    public static String isShowPhone(){
+        return centerInfoDao.loadAll().get(0).getExtendOne();
     }
 
     public TitleBar getTitleBar() {

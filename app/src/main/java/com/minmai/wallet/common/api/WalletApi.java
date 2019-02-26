@@ -234,4 +234,20 @@ public interface WalletApi {
             @Header("X_UserId") String userId,
             @Field("feedbackContent") String feedbackContent);
 
+    /**
+     * 是否允许下级查看手机号
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @param extendOne
+     * @return
+     */
+    @POST("user/updateExtendOne")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>updateExtendOne(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String userId,
+            @Field("extendOne") String extendOne);
+
 }

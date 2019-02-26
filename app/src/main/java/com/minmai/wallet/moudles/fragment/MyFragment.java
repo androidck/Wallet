@@ -2,8 +2,8 @@ package com.minmai.wallet.moudles.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +17,8 @@ import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.common.greendao.DbCenterInfo;
+import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
@@ -26,13 +28,15 @@ import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.dialog.CallUpDialog;
 import com.minmai.wallet.moudles.dialog.LeavingMsgDialog;
-import com.minmai.wallet.moudles.dialog.LoginTipDialog;
 import com.minmai.wallet.moudles.dialog.NickNameDialog;
 import com.minmai.wallet.moudles.request.user.UserContract;
 import com.minmai.wallet.moudles.request.user.UserPresenter;
 import com.minmai.wallet.moudles.ui.me.MessageBoardActivity;
 import com.minmai.wallet.moudles.ui.me.PersonalportraitActivity;
 import com.minmai.wallet.moudles.ui.me.SetupActivity;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
@@ -108,9 +112,12 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
     TextView tvRefereePhone;
     @BindView(R.id.tv_referee_name)
     TextView tvRefereeName;
+    @BindView(R.id.smart_refresh)
+    SmartRefreshLayout smartRefresh;
 
     private UserPresenter presenter;
     DbUserInfoDao userInfoDao;
+    DbCenterInfoDao centerInfoDao;
     List<DbUserInfo> userInfos;
 
     String refereeName;//推荐人姓名
@@ -145,6 +152,7 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
     protected void initData() {
         presenter = new UserPresenter(getActivity(), this);
         userInfoDao = MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+        centerInfoDao = MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         list = new ArrayList<>();
         list.add("完善个人信息");
         list.add("发布招聘信息");
@@ -158,6 +166,20 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
             }
         });
         getPerCenterInfo();
+        //关闭上拉加载
+        smartRefresh.setEnableLoadMore(false);
+        smartRefresh.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        getPerCenterInfo();
+                        refreshLayout.finishRefresh();
+                    }
+                },300);
+            }
+        });
     }
 
     //获取个人中心资料
@@ -178,114 +200,114 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_head://头像
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     startActivity(PersonalportraitActivity.class);
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_integral://积分
-                if (isLogin()==true){
+                if (isLogin() == true) {
 
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_credit_num://信用卡
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     ARouter.getInstance().build(ActivityConstant.CREDIT_CARD).navigation();
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_savings_num://储蓄卡
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     ARouter.getInstance().build(ActivityConstant.SAVING_CARD).navigation();
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_agency://代办
-                if (isLogin()==true){
+                if (isLogin() == true) {
 
                 }
                 break;
             case R.id.tv_my_video://我的视频
-                if (isLogin()==true){
+                if (isLogin() == true) {
 
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.tv_message://留言板
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     startActivity(MessageBoardActivity.class);
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.tv_trade_record://交易记录
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     ARouter.getInstance().build(ActivityConstant.TRADE).navigation();
                 }
                 break;
             case R.id.tv_share_download://分享连接
-                if (isLogin()==true){
+                if (isLogin() == true) {
 
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.my_customer://我的客服
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     new CallUpDialog(getContext(), false, tvPhoneNumber.getText().toString().trim()).show();
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.tv_online_customer://在线客服
-                if (isLogin()==true){
-                    String userId=userInfoDao.loadAll().get(0).getUserId();
-                    startBrowserActivity(getContext(),1,Constant.BASE_URL+"H5/chatApp/index.html?userId="+userId);
+                if (isLogin() == true) {
+                    String userId = userInfoDao.loadAll().get(0).getUserId();
+                    startBrowserActivity(getContext(), 1, Constant.BASE_URL + "H5/chatApp/index.html?userId=" + userId);
                 }
                 break;
             case R.id.tv_more_setup://更多设置
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     startActivity(SetupActivity.class);
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.tv_help://帮助
-                if (isLogin()==true){
-                }else {
+                if (isLogin() == true) {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_salesman://我是业务元
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     bottomDialog = new BottomDialog(getContext(), false, adapter);
                     bottomDialog.show();
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.ly_recommend://留言
-                if (isLogin()==true){
-                    new LeavingMsgDialog(getContext(),true, refereeName,refereePhone,refereeUserId,refereeHeadUrl,refereeLevelName).show();
-                }else {
+                if (isLogin() == true) {
+                    new LeavingMsgDialog(getContext(), true, refereeName, refereePhone, refereeUserId, refereeHeadUrl, refereeLevelName).show();
+                } else {
                     showLoginDialog();
                 }
                 break;
             case R.id.img_ed_nickname://编辑昵称
-                if (isLogin()==true){
+                if (isLogin() == true) {
                     new NickNameDialog(getContext(), tvNickName.getText().toString().trim(), true, new NickNameDialog.OnNickNameListenter() {
                         @Override
                         public void setNickName(String str) {
                             tvNickName.setText(str);
                         }
                     }).show();
-                }else {
+                } else {
                     showLoginDialog();
                 }
                 break;
@@ -295,11 +317,11 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
 
     @Override
     public void onSetContent(Object object) {
-        RefereeUserInfo refereeUserInfo= (RefereeUserInfo) object;
-        refereeUserId=refereeUserInfo.getRefereeId();
-        refereeHeadUrl=refereeUserInfo.getUserHead();
-        refereeLevelName=refereeUserInfo.getLevelName();
-        refereePhone=refereeUserInfo.getUserNo();
+        RefereeUserInfo refereeUserInfo = (RefereeUserInfo) object;
+        refereeUserId = refereeUserInfo.getRefereeId();
+        refereeHeadUrl = refereeUserInfo.getUserHead();
+        refereeLevelName = refereeUserInfo.getLevelName();
+        refereePhone = refereeUserInfo.getUserNo();
 
     }
 
@@ -333,9 +355,10 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
             tvRefereePhone.setText(HideDataUtil.hideCardNo(perCenterInfo.getRefereePhone()));
             tvRefereeName.setText(HideDataUtil.hideRealName(perCenterInfo.getRefereeUser()));
         }
-        refereeName=tvRefereeName.getText().toString().trim();
+        refereeName = tvRefereeName.getText().toString().trim();
         tvNickName.setText(perCenterInfo.getNickName());
-
+        DbCenterInfo dbCenterInfo = new DbCenterInfo(null, userInfos.get(0).getUserId(), perCenterInfo.getExtendOne(), perCenterInfo.getUserNo());
+        centerInfoDao.save(dbCenterInfo);
     }
 
 
@@ -347,17 +370,5 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
         } else {
             return true;
         }
-    }
-
-    /**
-     * 显示
-     */
-
-
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
     }
 }

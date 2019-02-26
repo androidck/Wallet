@@ -56,4 +56,38 @@ public class FeedBackPresenter implements FeedBackContract.present {
                     }
                 });
     }
+
+    /**
+     * 是否允许下级查看手机号
+     * @param userId
+     * @param extendOne
+     */
+    @Override
+    public void updateExtendOne(String userId, String extendOne) {
+        Map<String,String> map=new HashMap<>();
+        map.put("extendOne",extendOne);
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().updateExtendOne(currentTimeMillis,sign,userId,extendOne)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<String> t) throws Exception {
+                        view.onSuccess(t.getMsg());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<String> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
 }

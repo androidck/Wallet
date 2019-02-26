@@ -14,6 +14,7 @@ import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 
 /**
@@ -25,6 +26,7 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
     private View view;
     private Context context;
     DbUserInfoDao userInfoDao;
+    DbCenterInfoDao centerInfoDao;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
     public LoginOutTipDialog(Context context, boolean isCancelable) {
         super(context, R.style.ActionSheetDialogStyle);
@@ -44,6 +46,7 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+        centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         initView();
     }
 
@@ -66,6 +69,7 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
                 break;
             case R.id.tv_login:
                 userInfoDao.deleteAll();
+                centerInfoDao.deleteAll();
                 ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
                 ToastUtils.show("账号已退出");
                 dismiss();

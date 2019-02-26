@@ -1,5 +1,9 @@
 package com.minmai.wallet.moudles.bean.response;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Generated;
+
 /**
  * 个人中心实体类
  */
@@ -21,27 +25,6 @@ public class PerCenterInfo {
     private String extendTwo; // 是否允许补录信息1是2否
     private String refereePhone; // 推荐人手机号
     private String refereeExtendOne; // 是否展示推荐人手机号  1 是 2 否
-
-    @Override
-    public String toString() {
-        return "PerCenterInfo{" +
-                "userNo='" + userNo + '\'' +
-                ", userHead='" + userHead + '\'' +
-                ", nickName='" + nickName + '\'' +
-                ", integralCalculus='" + integralCalculus + '\'' +
-                ", membersLevelId='" + membersLevelId + '\'' +
-                ", levelName='" + levelName + '\'' +
-                ", refereeUser='" + refereeUser + '\'' +
-                ", debitCardCount='" + debitCardCount + '\'' +
-                ", creditCardCount='" + creditCardCount + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", needTo='" + needTo + '\'' +
-                ", extendOne='" + extendOne + '\'' +
-                ", extendTwo='" + extendTwo + '\'' +
-                ", refereePhone='" + refereePhone + '\'' +
-                ", refereeExtendOne='" + refereeExtendOne + '\'' +
-                '}';
-    }
 
     public String getUserNo() {
         return userNo;

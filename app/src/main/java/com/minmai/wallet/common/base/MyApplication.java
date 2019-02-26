@@ -11,14 +11,24 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.BuildConfig;
+import com.minmai.wallet.R;
 import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.enumcode.EnumHttpHeaderParam;
 import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.greendao.DaoMaster;
 import com.minmai.wallet.common.greendao.DaoSession;
 import com.minmai.wallet.common.helper.ActivityStackManager;
+import com.minmai.wallet.common.uitl.DynamicTimeFormat;
 import com.minmai.wallet.common.uitl.InterceptorUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.bugly.Bugly;
 import com.tencent.bugly.beta.Beta;
 
@@ -58,6 +68,8 @@ public class MyApplication extends UIApplication {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
+
+
         Fresco.initialize(this);
         mContext=getApplicationContext();
 
@@ -92,6 +104,24 @@ public class MyApplication extends UIApplication {
 
     }
 
+    static {
+        //设置全局的Header构建器
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator(new DefaultRefreshHeaderCreator() {
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                layout.setPrimaryColorsId(R.color.colorPrimary, R.color.colorDeep);//全局设置主题颜色
+                return new ClassicsHeader(context);//指定为经典Header，默认是 贝塞尔雷达Header
+            }
+        });
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator(new DefaultRefreshFooterCreator() {
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                //指定为经典Footer，默认是 BallPulseFooter
+                return new ClassicsFooter(context).setDrawableSize(20);
+            }
+        });
+    }
 
     public static MyApplication getInstances(){
         return instances;
