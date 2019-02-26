@@ -105,6 +105,14 @@ public abstract class MyActivity extends UIActivity
         return userInfoDao.loadAll().get(0).getUserId();
     }
 
+    /**
+     * 获取手机号
+     * @return
+     */
+    public static String getPhone(){
+        return userInfoDao.loadAll().get(0).getPhone();
+    }
+
     //是否展示手机号
     public static String isShowPhone(){
         return centerInfoDao.loadAll().get(0).getExtendOne();

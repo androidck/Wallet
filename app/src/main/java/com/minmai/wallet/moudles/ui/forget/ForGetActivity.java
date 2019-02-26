@@ -1,6 +1,7 @@
 package com.minmai.wallet.moudles.ui.forget;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,7 +12,12 @@ import com.hjq.widget.ClearEditText;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.enumcode.EnumCodeUse;
+import com.minmai.wallet.common.uitl.MD5Utils;
+import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
+import com.minmai.wallet.moudles.request.user.AccountContract;
+import com.minmai.wallet.moudles.request.user.AccountPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +27,7 @@ import butterknife.OnClick;
  * 找回密码
  */
 @Route(path = ActivityConstant.FORGET_PASSWORD)
-public class ForGetActivity extends MyActivity {
+public class ForGetActivity extends MyActivity implements AccountContract.View {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
     @BindView(R.id.et_login_phone)
@@ -34,6 +40,14 @@ public class ForGetActivity extends MyActivity {
     ClearEditText etLoginPassword;
     @BindView(R.id.btn_login_commit)
     Button btnLoginCommit;
+
+    TimeCount timeCount;
+    private AccountPresenter presenter;
+    private String codeId;
+
+    private String loginPhone;
+    private String msgCode;
+    private String newPwd;
 
     @Override
     protected int getLayoutId() {
@@ -54,7 +68,8 @@ public class ForGetActivity extends MyActivity {
 
     @Override
     protected void initData() {
-
+        presenter=new AccountPresenter(this,this);
+        timeCount = new TimeCount(60000, 1000,tvLoginForget);
     }
 
 
@@ -62,9 +77,57 @@ public class ForGetActivity extends MyActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_login_forget:
+                loginPhone=etLoginPhone.getText().toString().trim().replace(" ","");
+                if (TextUtils.isEmpty(loginPhone)){
+                    toast("手机号不能为空");
+                }else if (!ValidateUtils.Mobile(loginPhone)){
+                    toast("手机号格式不正确");
+                }else {
+                    presenter.bindSendMsg(EnumCodeUse.getEnumCodeUse(R.string.modify_login_pwd),getPhone());
+                }
                 break;
             case R.id.btn_login_commit:
+                startRequestInterface();
                 break;
         }
+    }
+
+    @Override
+    protected void startRequestInterface() {
+        super.startRequestInterface();
+        loginPhone=etLoginPhone.getText().toString().trim().replace(" ","");
+        msgCode=etMsgCode.getText().toString().trim();
+        newPwd=etLoginPassword.getText().toString().trim();
+        if (TextUtils.isEmpty(loginPhone)){
+            toast("手机号不能为空");
+        }else if (!ValidateUtils.Mobile(loginPhone)){
+            toast("手机号格式不正确");
+        }else if (TextUtils.isEmpty(msgCode)){
+            toast("验证码不能为空");
+        }else if (TextUtils.isEmpty(newPwd)){
+            toast("密码不能为空");
+        }else {
+            presenter.forgetUserPwwd(loginPhone,msgCode,codeId,MD5Utils.stringToMD5(newPwd));
+        }
+    }
+
+    @Override
+    public void onSuccess(String msg) {
+        toast(msg);
+        timeCount.start();
+        if ("修改成功".equals(msg)){
+            toast(msg);
+            finish();
+        }
+    }
+
+    @Override
+    public void fail(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void setCodeId(String codeId) {
+        this.codeId=codeId;
     }
 }

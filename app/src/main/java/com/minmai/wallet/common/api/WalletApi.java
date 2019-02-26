@@ -32,6 +32,8 @@ public interface WalletApi {
     @POST("code/bindSendCode")
     Observable<BaseEntry<String>> userRegisterSendMsg(@Field("codeUse") String codeUse,@Field("mobile") String phone);
 
+
+
     /**
      * 验证验证码
      * @param phone
@@ -250,4 +252,54 @@ public interface WalletApi {
             @Header("X_UserId") String userId,
             @Field("extendOne") String extendOne);
 
+    /**
+     * 设置支付密码
+     * @param currentTimeMillis
+     * @param sign
+     * @param userId
+     * @param paymentPassword
+     * @return
+     */
+    @POST("user/addPaymentPassword")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>addPaymentPassword(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("userId") String userId,
+            @Field("paymentPassword") String paymentPassword);
+
+    /**
+     * 修改登录密码
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param userId
+     * @return
+     */
+    @POST("user/uPUserPwwd")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>uPUserPwwd(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("userId") String userId,
+            @Field("oldPwd") String oldPwd,
+            @Field("newPwd") String newPwd);
+
+    /**
+     * 忘记密码修改密码
+     * @param userId
+     * @param code
+     * @param codeId
+     * @param newPwd
+     * @return
+     */
+    @POST("user/forgetUserPwwd")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>forgetUserPwwd(
+            @Field("phone") String userId,
+            @Field("code") String code,
+            @Field("codeId") String codeId,
+            @Field("newPwd") String newPwd);
 }
