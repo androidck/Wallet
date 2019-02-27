@@ -39,7 +39,7 @@ public class ViewUtil {
     }
 
     //设置圆角圆角北京
-    private Drawable setDrawable(String colorStr) {
+    public static Drawable setDrawable(String colorStr) {
         RoundRectShape rr = new RoundRectShape(new float[]{15, 15, 15, 15, 15, 15, 15, 15},
                 null, null); //60px = 20dp
         ShapeDrawable drawable = new ShapeDrawable(rr);

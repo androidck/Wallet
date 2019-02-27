@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -58,6 +59,7 @@ public class ManageAcountActivity extends MyActivity {
 
     @Override
     protected void initData() {
+        tvPhone.setText(HideDataUtil.hidePhoneNo(getPhone()));
         list=new ArrayList<>();
         list.add("更换手机号");
         adapter.setData(list);

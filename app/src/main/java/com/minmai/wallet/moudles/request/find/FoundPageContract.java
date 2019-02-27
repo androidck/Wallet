@@ -17,6 +17,6 @@ public interface FoundPageContract {
     }
 
     interface presenter extends BasePresenter{
-
+        void getFoundPageAllInitInfo(String userId);
     }
 }

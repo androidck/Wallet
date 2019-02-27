@@ -1,11 +1,12 @@
 package com.minmai.wallet.moudles.bean.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 留言数据
  */
-public class LeavingMsg {
+public class ListBaseData<T>{
 
     private String pageNo;
 
@@ -27,16 +28,14 @@ public class LeavingMsg {
 
     private String userId;
 
-    private List<ListLeaving> list;
+    public List<T> list;
 
-    private List<Trade> trades;
-
-    public List<Trade> getTrades() {
-        return trades;
+    public List<T> getList() {
+        return list;
     }
 
-    public void setTrades(List<Trade> trades) {
-        this.trades = trades;
+    public void setList(List<T> list) {
+        this.list = list;
     }
 
     public String getPageNo() {
@@ -119,11 +118,5 @@ public class LeavingMsg {
         this.userId = userId;
     }
 
-    public List<ListLeaving> getList() {
-        return list;
-    }
 
-    public void setList(List<ListLeaving> list) {
-        this.list = list;
-    }
 }

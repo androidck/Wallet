@@ -41,6 +41,7 @@ public abstract class MyActivity extends UIActivity
 
     public static DbUserInfoDao userInfoDao;
     public static DbCenterInfoDao centerInfoDao;
+    public Context context;
 
     public int currentPage=1;
     public int pageSize=10;
@@ -59,6 +60,7 @@ public abstract class MyActivity extends UIActivity
         mButterKnife = ButterKnife.bind(this);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
+        context=this;
         initOrientation();
     }
 

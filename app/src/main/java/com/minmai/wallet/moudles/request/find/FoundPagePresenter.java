@@ -17,7 +17,7 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class FoundPagePresenter {
+public class FoundPagePresenter implements FoundPageContract.presenter {
 
     private Context context;
     private FoundPageContract.View view;
@@ -31,6 +31,7 @@ public class FoundPagePresenter {
      * 获取发现页数据
      * @param userId
      */
+    @Override
     public void getFoundPageAllInitInfo(String userId){
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         String sign= TokenUtils.getSign(TokenUtils.objectMap(null), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);

@@ -3,6 +3,7 @@ package com.minmai.wallet.common.base;
 import com.minmai.wallet.common.uitl.MainUtil;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author: Allen.

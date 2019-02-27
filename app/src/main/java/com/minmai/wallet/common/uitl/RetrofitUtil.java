@@ -2,6 +2,7 @@ package com.minmai.wallet.common.uitl;
 
 
 
+import com.google.gson.Gson;
 import com.minmai.wallet.common.api.WalletApi;
 import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.constant.Constant;
@@ -23,6 +24,7 @@ public class RetrofitUtil {
     private static volatile RetrofitUtil mInstance;
 
     private WalletApi mainApi;
+    private Gson gson;
 
     /**
      * 单例封装
@@ -44,6 +46,7 @@ public class RetrofitUtil {
      * 初始化Retrofit
      */
     public WalletApi initRetrofit() {
+
         if (mainApi == null) {
             Retrofit mRetrofit = new Retrofit.Builder()
                     .client(MyApplication.initOKHttp())

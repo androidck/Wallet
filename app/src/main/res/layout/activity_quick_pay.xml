@@ -15,7 +15,7 @@
         <com.zhy.autolayout.AutoRelativeLayout
             android:id="@+id/ly_add_card"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/space_300"
+            android:layout_height="@dimen/space_250"
             android:background="@mipmap/unadd_card_state"
             android:layout_margin="@dimen/space_24"
             >

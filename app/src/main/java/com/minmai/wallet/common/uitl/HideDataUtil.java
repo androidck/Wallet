@@ -58,4 +58,16 @@ public class HideDataUtil {
         builder.append(str.substring(0,1)).append("**");
         return builder.toString();
     }
+
+
+    /**
+     * 格式化银行卡号
+     * @param cardNo
+     * @return
+     */
+    public static String formatCarNo(String cardNo){
+        String before=cardNo.substring(0,4);
+        String after=cardNo.substring(cardNo.length()-4,cardNo.length());
+        return before+"\t****\t****\t"+after;
+    }
 }

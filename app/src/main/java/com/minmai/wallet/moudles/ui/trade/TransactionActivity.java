@@ -1,6 +1,5 @@
 package com.minmai.wallet.moudles.ui.trade;
 
-import android.os.Bundle;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -8,14 +7,13 @@ import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
-import com.minmai.wallet.moudles.bean.response.LeavingMsg;
+import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.request.transaction.TradeContract;
 import com.minmai.wallet.moudles.request.transaction.TradePresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * 交易记录
@@ -57,7 +55,7 @@ public class TransactionActivity extends MyActivity implements TradeContract.Vie
     //获取交易记录
     public void getQueryTrade() {
         String userId = userInfoDao.loadAll().get(0).getUserId();
-        LeavingMsg leavingMsg = new LeavingMsg();
+        ListBaseData leavingMsg = new ListBaseData();
         leavingMsg.setPageCurrent(currentPage);
         leavingMsg.setPageSize(pageSize);
         presenter.queryTradingRecord(userId, leavingMsg);
@@ -65,7 +63,7 @@ public class TransactionActivity extends MyActivity implements TradeContract.Vie
 
 
     @Override
-    public void onSetContent(LeavingMsg leavingMsg) {
+    public void onSetContent(ListBaseData leavingMsg) {
         lyLayout.setVisibility(View.GONE);
     }
 

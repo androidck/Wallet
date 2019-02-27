@@ -1,8 +1,11 @@
 package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
+import com.minmai.wallet.common.base.BaseResponse;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
-import com.minmai.wallet.moudles.bean.response.LeavingMsg;
+import com.minmai.wallet.moudles.bean.response.Channel;
+import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
@@ -193,7 +196,7 @@ public interface WalletApi {
      */
     @POST("user/listLevMessage")
     @FormUrlEncoded
-    Observable<BaseEntry<LeavingMsg>>listLevMessage(
+    Observable<BaseEntry<ListBaseData>>listLevMessage(
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Header("X_UserId") String userId,
@@ -212,7 +215,7 @@ public interface WalletApi {
      */
     @POST("trade/queryTradingRecord")
     @FormUrlEncoded
-    Observable<BaseEntry<LeavingMsg>>queryTradingRecord(
+    Observable<BaseEntry<ListBaseData>>queryTradingRecord(
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Header("X_UserId") String userId,
@@ -302,4 +305,37 @@ public interface WalletApi {
             @Field("code") String code,
             @Field("codeId") String codeId,
             @Field("newPwd") String newPwd);
+
+
+
+    /**
+     * 获取通道列表
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("trade/queryChannel")
+    Observable<BaseEntry<List<Channel>>>queryChannel(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId);
+
+    /**
+     * 信用卡列表
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param pageCurrent
+     * @param pageSize
+     * @return
+     */
+    @POST("trade/queryCreditCard")
+    @FormUrlEncoded
+    Observable<BaseEntry<ListBaseData<CreditCard>>>queryCreditCard(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("pageCurrent") int pageCurrent,
+            @Field("pageSize") int pageSize);
 }

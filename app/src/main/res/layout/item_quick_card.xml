@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_card_bg"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/space_250"
+    android:background="@drawable/item_creditr_card_bg"
+    android:layout_margin="@dimen/space_20"
+    android:orientation="horizontal">
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2.5"
+        android:orientation="vertical">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/bank_img"
+                android:layout_width="@dimen/space_70"
+                android:layout_height="@dimen/space_70"
+                android:layout_gravity="center"
+                android:layout_marginLeft="@dimen/space_30"
+                android:src="@mipmap/jiaotong_logo" />
+
+            <TextView
+                android:id="@+id/tv_bank_name"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_20"
+                android:gravity="center_vertical"
+                android:text="交通银行"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_36px" />
+
+            <TextView
+                android:id="@+id/tv_bank_type"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/space_20"
+                android:gravity="center_vertical"
+                android:text="信用卡"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/font_size_24px" />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <TextView
+            android:id="@+id/tv_bank_no"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="@dimen/space_30"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:text="6226 **** **** 0575"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/font_size_36px" />
+
+
+    </com.zhy.autolayout.AutoLinearLayout>
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/ly_bank_bg"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <TextView
+            android:id="@+id/tv_bank_nick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_30"
+            android:layout_marginRight="@dimen/space_20"
+            android:gravity="center_vertical|right"
+            android:text="QQ卡"
+            android:textColor="@android:color/white" />
+        <ImageView
+            android:id="@+id/img_big_logo"
+            android:layout_width="@dimen/space_150"
+            android:layout_height="@dimen/space_150"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/jiaotong_logo_big" />
+    </com.zhy.autolayout.AutoRelativeLayout>
+</com.zhy.autolayout.AutoLinearLayout>

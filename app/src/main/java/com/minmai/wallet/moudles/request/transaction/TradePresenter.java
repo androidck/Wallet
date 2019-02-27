@@ -9,7 +9,7 @@ import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
-import com.minmai.wallet.moudles.bean.response.LeavingMsg;
+import com.minmai.wallet.moudles.bean.response.ListBaseData;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +29,7 @@ public class TradePresenter implements TradeContract.presenter{
 
     //交易记录
     @Override
-    public void queryTradingRecord(String userId, LeavingMsg leavingMsg) {
+    public void queryTradingRecord(String userId, ListBaseData leavingMsg) {
         Map<String,String> map=new HashMap<>();
         map.put("pageCurrent",leavingMsg.getPageCurrent()+"");
         map.put("pageSize",leavingMsg.getPageSize()+"");
@@ -40,9 +40,9 @@ public class TradePresenter implements TradeContract.presenter{
                 .initRetrofit().queryTradingRecord(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<LeavingMsg>(context,MainUtil.loadTxt) {
+                .subscribe(new BaseObserver<ListBaseData>(context,MainUtil.loadTxt) {
                     @Override
-                    protected void onSuccess(BaseEntry<LeavingMsg> t) throws Exception {
+                    protected void onSuccess(BaseEntry<ListBaseData> t) throws Exception {
                         view.onSetContent(t.getData());
                     }
                     @Override
@@ -52,7 +52,7 @@ public class TradePresenter implements TradeContract.presenter{
                         }
                     }
                     @Override
-                    protected void onError(BaseEntry<LeavingMsg> t) {
+                    protected void onError(BaseEntry<ListBaseData> t) {
                         if (t.getCode()==100){
                             view.noDate();
                         }else {
