@@ -117,6 +117,7 @@ public class ConfirmPayActivity extends MyActivity implements IdentifyContract.V
         quickPayReq.setCreditCardId(creditCardId);
         quickPayReq.setDebitCardId(debitCardId);
         quickPayReq.setMoney(money);
+
         quickPayReq.setCity("山东省,济南市,370100");
         quickPayReq.setReturnUrl(Constant.RETURN_URL);
         presenter.createQuickPay(getUserId(),quickPayReq);

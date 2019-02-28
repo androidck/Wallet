@@ -16,13 +16,15 @@ public class Trade {
      * bankName : 农业银行
      */
 
-    private String consumptiongSeq;
-    private String tradingAmount;
-    private String creditId;
-    private String creditCard;
-    private String tradingStatus;
-    private String tradingDate;
-    private String bankName;
+    private String consumptiongSeq; // 流水号
+    private String tradingAmount; // 交易金额
+    private String creditId; // 信用卡ID
+    private String creditCard; // 信用卡卡号
+    private String tradingStatus; // 交易状态 交易状态1.交易成功、2.交易失败、3.交易申请中 4 其他状态
+    private String tradingDate; // 交易时间
+    private String bankName; // 银行名称
+    private String extendedField1; //状态为4的展示的内容  保存交易中除了成功失败之外的状态
+    private String channelName; //通道名称
 
     public String getConsumptiongSeq() {
         return consumptiongSeq;
@@ -78,5 +80,21 @@ public class Trade {
 
     public void setBankName(String bankName) {
         this.bankName = bankName;
+    }
+
+    public String getExtendedField1() {
+        return extendedField1;
+    }
+
+    public void setExtendedField1(String extendedField1) {
+        this.extendedField1 = extendedField1;
+    }
+
+    public String getChannelName() {
+        return channelName;
+    }
+
+    public void setChannelName(String channelName) {
+        this.channelName = channelName;
     }
 }

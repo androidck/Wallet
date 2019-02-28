@@ -10,6 +10,7 @@ import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
+import com.minmai.wallet.moudles.bean.response.Trade;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -40,9 +41,9 @@ public class TradePresenter implements TradeContract.presenter{
                 .initRetrofit().queryTradingRecord(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<ListBaseData>(context,MainUtil.loadTxt) {
+                .subscribe(new BaseObserver<ListBaseData<Trade>>(context,MainUtil.loadTxt) {
                     @Override
-                    protected void onSuccess(BaseEntry<ListBaseData> t) throws Exception {
+                    protected void onSuccess(BaseEntry<ListBaseData<Trade>> t) throws Exception {
                         view.onSetContent(t.getData());
                     }
                     @Override
@@ -52,7 +53,7 @@ public class TradePresenter implements TradeContract.presenter{
                         }
                     }
                     @Override
-                    protected void onError(BaseEntry<ListBaseData> t) {
+                    protected void onError(BaseEntry<ListBaseData<Trade>> t) {
                         if (t.getCode()==100){
                             view.noDate();
                         }else {

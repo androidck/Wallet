@@ -13,6 +13,7 @@ import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
+import com.minmai.wallet.moudles.bean.response.Trade;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
 
@@ -219,7 +220,7 @@ public interface WalletApi {
      */
     @POST("trade/queryTradingRecord")
     @FormUrlEncoded
-    Observable<BaseEntry<ListBaseData>>queryTradingRecord(
+    Observable<BaseEntry<ListBaseData<Trade>>>queryTradingRecord(
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Header("X_UserId") String userId,

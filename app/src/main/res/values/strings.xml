@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name" tools:ignore="ExtraTranslation">民麦金服</string>
+    <string name="app_name" tools:ignore="ExtraTranslation">云智还</string>
 
     <!-- 页面 -->
     <string name="activity_login">登录</string>

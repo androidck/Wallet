@@ -19,6 +19,13 @@
     <!-- 分割线的颜色 -->
     <color name="colorLine">#E5E5E5</color>
 
+    <!-- 交易成功 -->
+    <color name="tradeSuccess">#0ba71d</color>
+    <!-- 交易失败 -->
+    <color name="tradeFail">#E5E5E5</color>
+    <!-- 交易中 -->
+    <color name="tradeLoading">#ffc000</color>
+
     <!-- 分割线的颜色 -->
     <color name="colorLines">#F0F0F0</color>
 

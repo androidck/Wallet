@@ -30,4 +30,14 @@ public class TextUtil {
         String str2 =df2.format(str);
         return str2;
     }
+
+    /**
+     * 街区银行卡后四位
+     * @param str
+     * @return
+     */
+    public static String subCardNo(String str){
+        String content=str.substring(str.length()-4);
+        return content;
+    }
 }
