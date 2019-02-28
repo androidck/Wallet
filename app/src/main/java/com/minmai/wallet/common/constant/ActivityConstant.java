@@ -52,4 +52,9 @@ public class ActivityConstant {
 
     //交易记录
     public static final String TRADE = "/trade/TransactionActivity";
+
+    //交易记录
+    public static final String CONFIRM_PAY = "/pay/ConfirmPayActivity";
+
+
 }

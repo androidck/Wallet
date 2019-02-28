@@ -29,14 +29,22 @@ public class PassagewayDialog extends Dialog implements View.OnClickListener{
     private Context context;
     List<Channel> list;
     private ChannelAdapter adapter;
+    private Channel channels;
+    private int positions;
+
+    private OnSelectChannelListener onSelectChannelListener;
 
     private int isSelctChannel;//是否选中通道
+
+    private String channelId;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
-    public PassagewayDialog(Context context,List<Channel> list, boolean isCancelable) {
+    public PassagewayDialog(Context context,List<Channel> list,String channelId, boolean isCancelable,OnSelectChannelListener onSelectChannelListener) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.iscancelable = isCancelable;
         this.list=list;
+        this.onSelectChannelListener=onSelectChannelListener;
+        this.channelId=channelId;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +73,14 @@ public class PassagewayDialog extends Dialog implements View.OnClickListener{
         adapter=new ChannelAdapter(context);
         adapter.setData(list);
         recyclerView.setAdapter(adapter);
-
+        adapter.setOnItemCheckClickListener(new ChannelAdapter.OnItemCheckClickListener() {
+            @Override
+            public void onCheck(int position, Channel channel) {
+                isSelctChannel=1;
+                positions=position;
+                channels=channel;
+            }
+        });
     }
 
     @Override
@@ -78,21 +93,19 @@ public class PassagewayDialog extends Dialog implements View.OnClickListener{
                 if (isSelctChannel!=1){
                     ToastUtils.show("请选择快捷通道");
                 }else {
-                    checkedChannel();
+                    onSelectChannelListener.onSelectChannel(positions,channels);
                     dismiss();
                 }
                 break;
         }
     }
 
-    //已选择的通道
-    public void checkedChannel(){
-        adapter.setOnItemCheckClickListener(new ChannelAdapter.OnItemCheckClickListener() {
-            @Override
-            public void onCheck(int position, Channel channel) {
-                isSelctChannel=1;
-            }
-        });
 
+
+    //通道选则回掉接口
+    public interface OnSelectChannelListener{
+        void onSelectChannel(int position,Channel channel);
     }
+
+
 }

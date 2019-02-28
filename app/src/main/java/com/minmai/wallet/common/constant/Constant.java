@@ -6,15 +6,16 @@ package com.minmai.wallet.common.constant;
 public class Constant {
 
     //host 地址
-    private static final String URL="http://192.168.1.3:8080/";
+    //private static final String URL="http://192.168.1.3:8080/";
 
+    public static final String URL = "http://admin.zhonghuatech.com/";
     //public static final String URL = "http://admin.minmai1688.com/";
 
     //项目名
-   private static final String PROJECT="qike/app/";
+    //private static final String PROJECT="qike/app/";
 
     //项目名
-    //  private static final String PROJECT="app/";
+      private static final String PROJECT="app/";
 
     //请求地址
     public static final String BASE_URL=URL+PROJECT;
@@ -26,4 +27,11 @@ public class Constant {
 
     //设备id
     public static final String APP_ID="e18911500bd243e390fb32d86adf1076";
+
+    //快捷刷卡key
+    public static final int QUICK_KEY=1;
+
+    public static final String RETURN_URL="https://m.baidu.com";
+
+    public static final String NOTIFY_URL="https://m.baidu.com";
 }

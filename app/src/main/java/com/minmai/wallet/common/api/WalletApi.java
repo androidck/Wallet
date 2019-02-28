@@ -4,9 +4,13 @@ import com.minmai.wallet.common.base.BaseEntry;
 import com.minmai.wallet.common.base.BaseResponse;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.Channel;
+import com.minmai.wallet.moudles.bean.response.ChannelBank;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
+import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
+import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
@@ -338,4 +342,67 @@ public interface WalletApi {
             @Header("X_UserId") String xUserId,
             @Field("pageCurrent") int pageCurrent,
             @Field("pageSize") int pageSize);
+
+
+    /**
+     * 查询交易上线
+     * @param creditCardId
+     * @param channelId
+     * @return
+     */
+    @POST("trade/queryBankLimit")
+    @FormUrlEncoded
+    Observable<BaseEntry<ChannelBank>>queryBankLimit(
+            @Field("creditCardId") String creditCardId,
+            @Field("channelId") String channelId);
+
+
+    /**
+     * 查询实名信息
+     * @param xUserId
+     * @return
+     */
+    @POST("user/queryIdentityAuth")
+    Observable<BaseEntry<IdentityAuth>>queryIdentityAuth(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId);
+
+    /**
+     * 查询默认储蓄卡
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("user/getDefaultDebitCardVo")
+    Observable<BaseEntry<DebitCard>>getDefaultDebitCardVo(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId);
+
+    /**
+     * 刷卡交易
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param channelId
+     * @param money
+     * @param debitCardId
+     * @param creditCardId
+     * @return
+     */
+    @POST("trade/createQuickpay")
+    @FormUrlEncoded
+    Observable<BaseEntry<QuickPayResp>>createQuickPay(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("channelId") String channelId,
+            @Field("money") String money,
+            @Field("debitCardId") String debitCardId,
+            @Field("creditCardId") String creditCardId,
+            @Field("returnUrl") String returnUrl,
+            @Field("city") String city);
+
 }

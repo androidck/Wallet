@@ -2,6 +2,7 @@ package com.minmai.wallet.moudles.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,6 +26,8 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     List<CreditCard> mData;
     private Context context;
 
+    private OnItemResultDataListener onItemResultDataListener;
+
     public CrediteCardAdapter(Context context) {
         super(context);
         this.context=context;
@@ -37,14 +40,19 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.tvBankName.setText(mData.get(i).getBankName());
         viewHolder.tvBankType.setText(mData.get(i).getType());
         viewHolder.tvBankNo.setText(HideDataUtil.formatCarNo(mData.get(i).getCarNumber()));
-        Glide.with(context).load(mData.get(i).getLogo() ).into(viewHolder.imgBank);
+        Glide.with(context).load(mData.get(i).getLogo()).into(viewHolder.imgBank);
         Glide.with(context).load(mData.get(i).getBankBackground()).into(viewHolder.imgBigLogo);
         viewHolder.lyBg.setBackground(ViewUtil.setDrawable(mData.get(i).getBackgroundColor()));
-
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onItemResultDataListener.onResultData(i);
+            }
+        });
     }
 
     //设置数据
@@ -76,4 +84,17 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
             tvBankNick= (TextView) findViewById(R.id.tv_bank_nick);
         }
     }
+
+    //信用卡信息回掉的接口
+    public interface OnItemResultDataListener{
+        void onResultData(int i);
+    }
+
+    public void setOnItemResultDataListener(OnItemResultDataListener onItemResultDataListener){
+        this.onItemResultDataListener=onItemResultDataListener;
+    }
+
+
+
+
 }

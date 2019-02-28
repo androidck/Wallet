@@ -43,9 +43,7 @@ public class ChannelAdapter extends BaseRecyclerViewAdapter<ChannelAdapter.ViewH
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, final int i) {
         viewHolder.tvChannelName.setText(mData.get(i).getChannelName());
-        DecimalFormat df2 =new DecimalFormat("#.00");
-        String str2 =df2.format(mData.get(i).getFee());
-        viewHolder.tvMerType.setText("商户类型："+mData.get(i).getExtendedField1()+"\t\t单笔手续费："+str2 +"元");
+        viewHolder.tvMerType.setText("商户类型："+mData.get(i).getExtendedField1()+"\t\t单笔手续费："+TextUtil.format2(Double.valueOf(mData.get(i).getFee())) +"元");
         viewHolder.tvSupportBank.setText("支持银行："+mData.get(i).getSupportBanks());
         if (mData.get(i).getScoreFlag().equals("1")){
             viewHolder.tvRate.setText("费率："+mData.get(i).getRate()+"%\t有积分");
@@ -92,21 +90,6 @@ public class ChannelAdapter extends BaseRecyclerViewAdapter<ChannelAdapter.ViewH
                 onItemCheckClickListener.onCheck(currentNum,channel);
             }
         });
-      /*  viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                channel=new Channel();
-                channel.setChannelId(mData.get(currentNum).getChannelId());//通道id
-                channel.setChannelName(mData.get(currentNum).getChannelName());//通道名称
-                channel.setRate(mData.get(currentNum).getRate());//通道费率
-                channel.setFee(mData.get(currentNum).getFee());//通道手续费
-                channel.setSupportBanks(mData.get(currentNum).getSupportBanks());//通道支持银行
-                channel.setScoreFlag(mData.get(currentNum).getScoreFlag());//是否有积分
-                channel.setExtendedField1(mData.get(currentNum).getExtendedField1());//商户类型
-                onItemCheckClickListener.onCheck(currentNum,channel);
-            }
-        });*/
-
     }
 
     public void setData(List<Channel> list){

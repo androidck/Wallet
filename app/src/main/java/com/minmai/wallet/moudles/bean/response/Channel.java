@@ -13,7 +13,7 @@ public class Channel {
     private String rate; // 通道费率
     private String channelType;// 1 刷卡 2代付
     private String supportBanks;// 支持银行
-    private BigDecimal fee; // 单笔手续费
+    private String fee; // 单笔手续费
     private String scoreFlag; // 是否有积分   1 ：有积分   2：没积分
     private String extendedField1; // 商户类型
 
@@ -91,11 +91,11 @@ public class Channel {
         this.supportBanks = supportBanks;
     }
 
-    public BigDecimal getFee() {
+    public String getFee() {
         return fee;
     }
 
-    public void setFee(BigDecimal fee) {
+    public void setFee(String fee) {
         this.fee = fee;
     }
 

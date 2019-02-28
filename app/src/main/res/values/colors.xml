@@ -9,6 +9,8 @@
 
     <color name="textColor">#323232</color>
 
+    <color name="textRate">#ffa752</color>
+    ffa752
     <color name="colorDeep">#8d8d8d</color>
     <!-- 按钮按压时的颜色 -->
     <color name="colorButtonPressed">#0096ff</color>

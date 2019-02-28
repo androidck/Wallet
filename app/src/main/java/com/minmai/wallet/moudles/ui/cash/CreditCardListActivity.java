@@ -1,11 +1,14 @@
 package com.minmai.wallet.moudles.ui.cash;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
@@ -37,6 +40,13 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
     CreditCardPresenter presenter;
 
     private CrediteCardAdapter adapter;
+
+    List<CreditCard> creditCards;
+
+    int RESULT_OK=200;
+
+    @Autowired
+    int quickPay;//交易类型
     @Override
     protected int getLayoutId() {
         return R.layout.activity_credit_list_card;
@@ -57,9 +67,9 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
 
     @Override
     protected void initData() {
+        ARouter.getInstance().inject(this);
         presenter=new CreditCardPresenter(this,this);
         adapter=new CrediteCardAdapter(context);
-
         getCreditCard();
     }
 
@@ -79,11 +89,22 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
         listBaseData.setPageCurrent(currentPage);
         listBaseData.setPageSize(pageSize);
         presenter.queryCreditCard(getUserId(),listBaseData);
+        adapter.setOnItemResultDataListener(new CrediteCardAdapter.OnItemResultDataListener() {
+            @Override
+            public void onResultData(int i) {
+                CreditCard creditCard=creditCards.get(i);
+                Intent intent=new Intent();
+                intent.putExtra("creditCard",creditCard);
+                setResult(RESULT_OK,intent);
+                finish();
+            }
+        });
     }
 
 
     @Override
     public void setCreditCard(List<CreditCard> list) {
+        creditCards=list;
         adapter.setData(list);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

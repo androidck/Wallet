@@ -1,9 +1,11 @@
 package com.minmai.wallet.moudles.bean.response;
 
+import java.io.Serializable;
+
 /**
  * 信用卡实体类
  */
-public class CreditCard {
+public class CreditCard implements Serializable {
 
 
     private String creditId; //  出金卡主键

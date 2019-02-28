@@ -31,6 +31,7 @@
     <string name="activity_browser">浏览器</string>
     <string name="activity_withdraw_cash">提现</string>
     <string name="activity_withdraw_cash_details">提现明细</string>
+    <string name="activity_confirm_pay">确认收款</string>
 
     <!-- 登录 -->
     <string name="tv_login_title">登录</string>

@@ -311,6 +311,10 @@
             android:label="@string/activity_identify_three"
             />
 
+        <activity android:name=".moudles.ui.pay.ConfirmPayActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_confirm_pay"
+            />
 
 
     </application>
