@@ -102,7 +102,7 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
             toast("请先阅读和同意注册协议");
         }else {
             UserInfoReq userInfoReq=new UserInfoReq();
-            userInfoReq.setPhone(phone);
+            userInfoReq.setLoginName(phone);
             userInfoReq.setPwd(MD5Utils.stringToMD5(loginPwd));
             userInfoReq.setCodeId(codeId);
             userInfoReq.setCode(code);
@@ -136,6 +136,7 @@ public class RegisterThreeActivity extends MyActivity implements UserContract.Vi
     public void onSetContent(Object object) {
         UserInfo userInfoResp = (UserInfo) object;
         Authentication(userInfoResp.getRegisterState());
+        finish();
     }
 
     @Override

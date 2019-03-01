@@ -109,9 +109,12 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
 
     @OnClick({R.id.banner, R.id.tv_notice, R.id.tv_quick_pay, R.id.tv_date_repayment, R.id.tv_share_profit, R.id.tv_upgrade, R.id.lv_finance_service, R.id.tv_life_service, R.id.tv_credit_card_knowledge, R.id.ly_extension, R.id.ly_loan,R.id.ly_network_online})
     public void onViewClicked(View view) {
+
         if (isLogin()==false){
             new LoginTipDialog(getActivity(),false).show();
         }else {
+            int registerStatus=userInfoDao.loadAll().get(0).getRegisterState();
+            if (Authentication(registerStatus)==false){
             switch (view.getId()) {
                 case R.id.banner:
                     break;
@@ -142,6 +145,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
                 case R.id.ly_network_online:
                     startBrowserActivity(getActivity(), MainActivity.MODE_SONIC, Constant.CREDIT_CARD_URL);
                     break;
+                }
             }
         }
     }

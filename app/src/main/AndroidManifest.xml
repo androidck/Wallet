@@ -27,6 +27,10 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
 
+    <!-- 8.0两个新权限 -->
+    <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,12 +40,12 @@
         android:name=".common.base.MyApplication"
         android:theme="@style/AppTheme">
 
-
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
 
+<!--
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.minmai.wallet.fileProvider"
@@ -51,6 +55,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths"/>
         </provider>
+-->
 
         <meta-data android:name="design_width" android:value="768"/>
         <meta-data android:name="design_height" android:value="1280"/>
@@ -114,6 +119,16 @@
             android:name="cn.jpush.android.service.DownloadProvider"
             android:exported="true"
             />
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.minmai.wallet.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- Required SDK核心功能-->
         <receiver
             android:name="cn.jpush.android.service.PushReceiver"
@@ -164,10 +179,8 @@
         <meta-data android:name="JPUSH_APPKEY" android:value="34fdf8aada9f4dd965c27e8d" />
         <!--  </>值来自开发者平台取得的AppKey  极光推送结束-->
 
-        <activity android:name=".moudles.ui.main.MainActivity"
-            android:alwaysRetainTaskState="true"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
+        <activity android:name=".moudles.ui.startup.StartupActivity"
+            android:theme="@style/LauncherTheme"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -176,6 +189,9 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".moudles.ui.main.MainActivity"
+            android:screenOrientation="portrait"
+            />
 
         <activity android:name=".moudles.ui.login.LoginActivity"
             android:screenOrientation="portrait"
@@ -196,7 +212,7 @@
             android:label="@string/activity_register_three"
             />
         <activity android:name=".moudles.ui.cash.QuickPayActivity"
-            android:screenOrientation="portrait"
+
             android:label="@string/activity_quick_pay"
             />
         <activity android:name=".moudles.ui.cash.CardKnowledgeActivity"

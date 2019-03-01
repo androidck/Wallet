@@ -145,4 +145,9 @@ public class ConfirmPayActivity extends MyActivity implements IdentifyContract.V
         startBrowserActivity(context,1,quickPayResp.getCodeUrl());
         finish();
     }
+
+    @Override
+    public void success(String msg) {
+
+    }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+    <Button
+        android:id="@+id/btn_skip"
+        android:layout_width="@dimen/space_100"
+        android:layout_height="@dimen/space_50"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/item_btn_skip"
+        android:layout_marginTop="@dimen/space_80"
+        android:layout_marginRight="@dimen/space_40"
+        android:text="跳过"
+        android:textColor="@android:color/white" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:src="@mipmap/start_up" />
+</com.zhy.autolayout.AutoRelativeLayout>

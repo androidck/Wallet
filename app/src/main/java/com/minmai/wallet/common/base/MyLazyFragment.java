@@ -14,6 +14,10 @@ import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.dialog.LoginTipDialog;
+import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
+import com.minmai.wallet.moudles.ui.identity.IdentifyThreeActivity;
+import com.minmai.wallet.moudles.ui.identity.IdentifyTwoActivity;
+import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
 
@@ -85,6 +89,24 @@ public abstract class MyLazyFragment extends UILazyFragment {
         intent.putExtra(BrowserActivity.PARAM_MODE, mode);
         intent.putExtra(SonicJavaScriptInterface.PARAM_CLICK_TIME, System.currentTimeMillis());
         startActivityForResult(intent, -1);
+    }
+
+    public boolean Authentication(int registerState){
+        if (1==registerState){
+            //实名认证第一步
+            startActivity(IdentifyOneActivity.class);
+            return true;
+        }else if (2==registerState){
+            //实名认字第二部
+            startActivity(IdentifyTwoActivity.class);
+            return true;
+        }else if (3==registerState){
+            //实名认证第三部
+            startActivity(IdentifyThreeActivity.class);
+            return true;
+        }else {
+            return false;
+        }
     }
 
 

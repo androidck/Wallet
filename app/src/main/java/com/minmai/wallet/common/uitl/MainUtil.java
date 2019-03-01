@@ -24,5 +24,6 @@ public class MainUtil {
 
     public static String loadTxt = "正在加载";
     public static String loadLogin = "正在登录";
+    public static String loadDistinguish = "正在识别";
 
 }

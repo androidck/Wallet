@@ -406,4 +406,34 @@ public interface WalletApi {
             @Field("returnUrl") String returnUrl,
             @Field("city") String city);
 
+    /**
+     * 完善信息第一步
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param userId
+     * @param realName
+     * @param idCard
+     * @param effectiveDate
+     * @param cardFrontPic
+     * @param cardBackPic
+     * @param nation
+     * @param detailedAddress
+     * @return
+     */
+    @POST("user/userRealNameAuthenticationOne")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>userRealNameAuthenticationOne(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("userId") String userId,
+            @Field("realName") String realName,
+            @Field("idCard") String idCard,
+            @Field("effectiveDate") String effectiveDate,
+            @Field("cardFrontPic") String cardFrontPic,
+            @Field("cardBackPic") String cardBackPic,
+            @Field("nation") String nation,
+            @Field("detailedAddress") String detailedAddress);
+
 }

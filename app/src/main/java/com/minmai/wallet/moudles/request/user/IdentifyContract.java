@@ -2,6 +2,7 @@ package com.minmai.wallet.moudles.request.user;
 
 import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
+import com.minmai.wallet.moudles.bean.request.IdentfiyOneReq;
 import com.minmai.wallet.moudles.bean.request.QuickPayReq;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
@@ -21,6 +22,8 @@ public interface IdentifyContract {
         void fail(String msg);
 
         void onSuccess(QuickPayResp quickPayResp);
+
+        void success(String msg);
     }
 
     interface presenter extends BasePresenter{
@@ -30,5 +33,8 @@ public interface IdentifyContract {
         void getDefaultDebitCardVo(String userId);
 
         void createQuickPay(String user, QuickPayReq quickPayReq);
+
+        //实名认证第一步
+        void userRealNameAuthenticationOne(String userId, IdentfiyOneReq identfiyOneReq);
     }
 }

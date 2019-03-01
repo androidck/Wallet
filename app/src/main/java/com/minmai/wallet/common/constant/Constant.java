@@ -6,16 +6,16 @@ package com.minmai.wallet.common.constant;
 public class Constant {
 
     //host 地址
-    //private static final String URL="http://192.168.1.3:8080/";
+    private static final String URL="http://192.168.1.3:8080/";
 
-    public static final String URL = "http://admin.zhonghuatech.com/";
-    //public static final String URL = "http://admin.minmai1688.com/";
-
-    //项目名
-    //private static final String PROJECT="qike/app/";
+    // public static final String URL = "http://admin.zhonghuatech.com/";
+    //  public static final String URL = "http://admin.minmai1688.com/";
 
     //项目名
-      private static final String PROJECT="app/";
+     private static final String PROJECT="qike/app/";
+
+    //项目名
+    //private static final String PROJECT="app/";
 
     //请求地址
     public static final String BASE_URL=URL+PROJECT;
@@ -34,4 +34,13 @@ public class Constant {
     public static final String RETURN_URL="https://m.baidu.com";
 
     public static final String NOTIFY_URL="https://m.baidu.com";
+
+    //七牛云AK
+    public static final String QINIU_AK="Ob4ET-G7l6ysV3RWoUqIE7Ke56ZDPiQawK-14-zA";
+    //七牛云sk
+    public static final String QINIU_SK="unXoTd5CS8t18vGQ43RuTA0We-Qs9D7E_3llY_Zh";
+    //七牛云空间名
+    public static final String QINIU_BUCKET="bucket-one";
+    //七牛云域名
+    public static final String QINIU_URL="http://img.zhonghuatech.com/";
 }

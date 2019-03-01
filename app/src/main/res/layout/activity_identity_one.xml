@@ -99,6 +99,8 @@
                         android:layout_weight="3.5"
                         android:layout_height="match_parent"
                         android:hint="不可编辑"
+                        android:enabled="false"
+                        android:textColor="@color/textColor"
                         android:textSize="@dimen/space_24"
                         android:layout_marginRight="@dimen/space_30"
                         android:background="@null"
@@ -135,7 +137,7 @@
                         android:textSize="@dimen/space_24"
                         android:layout_marginRight="@dimen/space_30"
                         android:background="@null"
-                        android:inputType="number"
+                        android:textColor="@color/textColor"
                         />
                 </com.zhy.autolayout.AutoLinearLayout>
                 <View
@@ -182,6 +184,7 @@
                         android:textSize="@dimen/space_24"
                         android:layout_marginRight="@dimen/space_30"
                         android:background="@null"
+                        android:textColor="@color/textColor"
                         />
                 </com.zhy.autolayout.AutoLinearLayout>
             </com.zhy.autolayout.AutoLinearLayout>

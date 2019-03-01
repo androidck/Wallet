@@ -83,7 +83,7 @@ public class ForGetActivity extends MyActivity implements AccountContract.View {
                 }else if (!ValidateUtils.Mobile(loginPhone)){
                     toast("手机号格式不正确");
                 }else {
-                    presenter.bindSendMsg(EnumCodeUse.getEnumCodeUse(R.string.modify_login_pwd),getPhone());
+                    presenter.bindSendMsg(EnumCodeUse.getEnumCodeUse(R.string.modify_login_pwd),loginPhone);
                 }
                 break;
             case R.id.btn_login_commit:

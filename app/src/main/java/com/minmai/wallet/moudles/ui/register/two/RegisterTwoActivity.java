@@ -111,6 +111,7 @@ public class RegisterTwoActivity extends MyActivity implements UserContract.View
                     .withString("phone",phone)
                     .withString("code",code)
                     .navigation();
+            finish();
         }
 
     }

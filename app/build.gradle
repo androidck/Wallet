@@ -158,6 +158,9 @@ dependencies {
     implementation 'com.facebook.fresco:fresco:1.10.0'
     implementation 'org.apache.commons:commons-lang3:3.4'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation project(path: ':ocr_ui')
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
+    implementation 'com.qiniu:happy-dns-java:0.1.2'
 }
 
 

@@ -5,14 +5,24 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.baidu.ocr.sdk.OCR;
+import com.baidu.ocr.sdk.OnResultListener;
+import com.baidu.ocr.sdk.exception.OCRError;
+import com.baidu.ocr.sdk.model.AccessToken;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
+import com.hjq.permissions.OnPermission;
+import com.hjq.permissions.Permission;
+import com.hjq.permissions.XXPermissions;
 import com.hjq.toast.ToastUtils;
+import com.kaopiz.kprogresshud.KProgressHUD;
 import com.minmai.wallet.common.constant.ActivityConstant;
+import com.minmai.wallet.common.dialog.ProgressHUD;
 import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.moudles.db.DbUserInfo;
@@ -39,6 +49,8 @@ public abstract class MyActivity extends UIActivity
 
     private Unbinder mButterKnife;//View注解
 
+    public KProgressHUD progressHUD;
+
     public static DbUserInfoDao userInfoDao;
     public static DbCenterInfoDao centerInfoDao;
     public Context context;
@@ -61,6 +73,7 @@ public abstract class MyActivity extends UIActivity
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         context=this;
+
         initOrientation();
     }
 
@@ -97,6 +110,7 @@ public abstract class MyActivity extends UIActivity
             titleBar.setTitle(title);
         }
     }
+
 
 
     /**
@@ -257,6 +271,14 @@ public abstract class MyActivity extends UIActivity
         }
     }
 
+    //修改本地状态
+    public void modifyStatus(String userId,int status){
+      DbUserInfo userInfo= userInfoDao.queryBuilder().where(DbUserInfoDao.Properties.UserId.eq(userId)).build().unique();
+      if (userInfo!=null){
+          userInfo.setRegisterState(status);
+          userInfoDao.update(userInfo);
+      }
+    }
     /**
      * 认证
      * @param registerState
@@ -276,6 +298,22 @@ public abstract class MyActivity extends UIActivity
         }else {
             startActivityFinish(MainActivity.class);
         }
+    }
+
+    //获取身份证识别token
+    public void getOcrSing() {
+        OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
+            @Override
+            public void onResult(AccessToken result) {
+                String token = result.getAccessToken();
+                Log.i("getOcrSing", "成功:" + "," + token);
+            }
+            @Override
+            public void onError(OCRError error) {
+                // 调用失败，返回OCRError子类SDKError对象
+                Log.e("getOcrSing", "失败:" + error);
+            }
+        }, getApplicationContext());
     }
 
 
