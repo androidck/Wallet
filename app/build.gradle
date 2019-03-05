@@ -161,10 +161,12 @@ dependencies {
     implementation project(path: ':ocr_ui')
     implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
     implementation 'com.qiniu:happy-dns-java:0.1.2'
-    //银行列表选择器
-    ///implementation 'com.contrarywind:Android-PickerView:3.2.7'
+
     //银行列表选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+
+    implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation 'liji.library.dev:citypickerview:4.1.1'
 
 }
 

@@ -2,6 +2,8 @@ package com.minmai.wallet.moudles.ui.identity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,21 +27,41 @@ import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.hjq.bar.TitleBar;
 import com.hjq.widget.ClearEditText;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.common.constant.Constant;
+import com.minmai.wallet.common.qiniu.Auth;
 import com.minmai.wallet.common.uitl.FileUtil;
 import com.minmai.wallet.common.uitl.TextUtil;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.common.watcher.BankCardNumAddSpaceWatcher;
+import com.minmai.wallet.moudles.bean.request.UserBankCardReq;
 import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.CityResp;
+import com.minmai.wallet.moudles.bean.response.DistBankCard;
+import com.minmai.wallet.moudles.db.DbBankInfo;
 import com.minmai.wallet.moudles.request.banner.BannerPresenter;
 import com.minmai.wallet.moudles.request.card.BankCardContract;
 import com.minmai.wallet.moudles.request.card.BankCardPresenter;
+import com.qiniu.android.common.FixedZone;
+import com.qiniu.android.http.ResponseInfo;
+import com.qiniu.android.storage.Configuration;
+import com.qiniu.android.storage.UpCompletionHandler;
+import com.qiniu.android.storage.UploadManager;
+
+import org.json.JSONObject;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -74,21 +96,36 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
     private String openAddress;//开户地区
     private String phone;//预留手机号
 
+    private int visibleItems = 5;//显示item 的数量
+
+    private boolean isProvinceCyclic = true;//是否显示省份
+
+    private boolean isCityCyclic = true;//是否显示城市
+
+    private boolean isDistrictCyclic = true;//是否显示地区
+
+    private boolean isShowBg = true;//是否展示背景颜色
+    private boolean isShowGAT = true;
+
     private static final int REQUEST_CODE_BANKCARD = 111;
     private static String filePath = "";
 
-    private BankCardPresenter presenter;
 
-    private Thread thread;
+
+
+
+    private BankCardPresenter presenter;
+    private String areaCode;//区域id
+
+    private String branchId;//支行id
 
     private ArrayList<String> options1Items=new ArrayList<>();
-    private ArrayList<ArrayList<String>> options2Items=new ArrayList<>();
-    private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
+    ArrayList<String> branchName=new ArrayList<>();
 
-    ArrayList<String> cityList = new ArrayList<>();//该省的城市列表（第二级）
-    ArrayList<String> city_AreaList = new ArrayList<>();//该城市的所有地区列表
-    ArrayList<ArrayList<String>> province_AreaList = new ArrayList<>();//该省的所有地区列表（第三极）
 
+    public CityConfig.WheelType mWheelType = CityConfig.WheelType.PRO_CITY_DIS;
+
+    CityPickerView mCityPickerView = new CityPickerView();
     //省份数据
 
     @Override
@@ -136,24 +173,98 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
                     }
                 });
         presenter=new BankCardPresenter(this,this);
+        //初始化三级联动
+        mCityPickerView.init(this);
 
-        //获取省份数据
-        getProvince();
-
+        //获取总行信息
+        getBankInfo();
 
     }
 
-    @OnClick({R.id.img_bank_card, R.id.tv_open_member, R.id.tv_open_address})
+
+    //获取总行数据
+    public void getBankInfo(){
+        if (isExistenceBankInfo()==false){
+            presenter.getBankInfoVo(getUserId());
+        }
+    }
+
+
+    //城市三级联动
+    private void selectAddress() {
+        CityConfig cityConfig = new CityConfig.Builder()
+                .title("选择城市")//城市选择
+                .titleBackgroundColor("#ffffff")
+                .titleTextColor("#323232")
+                .cancelTextColor("#323232")
+                .visibleItemsCount(visibleItems)
+                .province("山东省")//默认省份
+                .city("济南市")//默认城市
+                .district("历下区")//默认地区
+                .provinceCyclic(isProvinceCyclic)
+                .cityCyclic(isCityCyclic)
+                .districtCyclic(isDistrictCyclic)
+                .setCityWheelType(mWheelType)
+                .setShowGAT(isShowGAT)
+                .showBackground(isShowBg)
+                .build();
+        mCityPickerView.setConfig(cityConfig);
+
+        //监听方法，获取选择结果
+        mCityPickerView.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+                StringBuilder sb = new StringBuilder();
+                sb.append("选择的结果：\n");
+                if (province != null) {
+                    sb.append(province.getName() + " " + province.getId() + "\n");
+                }
+
+                if (city != null) {
+                    sb.append(city.getName() + " " + city.getId() + ("\n"));
+                }
+
+                if (district != null) {
+                    sb.append(district.getName() + " " + district.getId() + ("\n"));
+                }
+
+                areaCode=city.getId();
+                tvOpenAddress.setText(province.getName()+ " " +city.getName() + " " +district.getName());
+
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+        mCityPickerView.showCityPicker();
+    }
+
+
+    @OnClick({R.id.img_bank_card,R.id.tv_open_address, R.id.tv_open_member, R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_bank_card:
                 bankPhoto();
                 break;
-            case R.id.tv_open_member:
-
-                break;
             case R.id.tv_open_address:
-                showPickerView();
+                if (TextUtils.isEmpty(bankNumber.getText().toString().trim())){
+                    toast("请输入银行卡号或扫描银行卡");
+                }else {
+                    selectAddress();
+                }
+                break;
+            case R.id.tv_open_member:
+                if (TextUtils.isEmpty(areaCode)){
+                    toast("请选择开户地区");
+                }else {
+                    String bankNo=bankNumber.getText().toString().trim().replace(" ","");
+                    presenter.visBankCard(bankNo);
+                }
+                break;
+            case R.id.btn_commit:
+                startRequestInterface();
                 break;
         }
     }
@@ -176,7 +287,7 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
         }else if (!ValidateUtils.Mobile(phone)){
             toast("手机号格式不正确");
         }else{
-
+            elementsValidate();
         }
     }
 
@@ -187,6 +298,9 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
         // 识别成功回调，银行卡识别
         if (requestCode == REQUEST_CODE_BANKCARD && resultCode == Activity.RESULT_OK) {
             recBankCard(filePath);
+            Bitmap bitmap = BitmapFactory.decodeFile(filePath);
+            imgBankCard.setImageBitmap(bitmap);
+            uploadImgQiNiu(filePath);
         }
     }
 
@@ -226,15 +340,16 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
                         type = "信用卡";
                     } else if (result.getBankCardType() == BankCardResult.BankCardType.Debit) {
                         type = "借记卡";
-
                     }else {
                         type = "不能识别";
                     }
                     if (!TextUtils.isEmpty(result.getBankCardNumber())) {
                         bankCardNumber = result.getBankCardNumber();
+                        bankNumber.setText(bankCardNumber);
                     }
                     if (!TextUtils.isEmpty(result.getBankName())) {
                         bankName = result.getBankName();
+                        tvBankName.setText(bankName);
                     }
                     if (!TextUtils.isEmpty(type) && !TextUtils.isEmpty(bankCardNumber) &&
                             !TextUtils.isEmpty(bankName)) {
@@ -260,99 +375,129 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
 
     }
 
+    /**
+     * 图片上传工具类
+     * @param filePath
+     */
+    public void uploadImgQiNiu(String filePath) {
+        Configuration config = new Configuration.Builder()
+                .chunkSize(256 * 1024)  //分片上传时，每片的大小。 默认 256K
+                .putThreshhold(512 * 1024)  // 启用分片上传阀值。默认 512K
+                .connectTimeout(10) // 链接超时。默认 10秒
+                .responseTimeout(60) // 服务器响应超时。默认 60秒
+                .zone(FixedZone.zone0) // 设置区域，指默认 Zone.zone0 <span style="font-size:14px;"><strong><span style="color:#FF0000;">注：这步是最关键的 当初错的主要原因也是他 根据自己的地方选</span></strong></span>
+                .build();
+        UploadManager uploadManager = new UploadManager();
+        // 设置图片名字
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String key = "icon_" + sdf.format(new Date()) + ".png";
+        String picPath = filePath;
+        uploadManager.put(picPath, key, Auth.create(Constant.QINIU_AK, Constant.QINIU_SK).uploadToken(Constant.QINIU_BUCKET), new UpCompletionHandler() {
+            @Override
+            public void complete(String key, ResponseInfo info, JSONObject res) {
+                if (info.isOK()) {
+                    String imgUrl  = Constant.QINIU_URL + key;
+                    bankImgUrl=imgUrl;
+                }
+            }
+        }, null);
+
+    }
+
+
+    /**
+     * 四要素验证
+     */
+    public void elementsValidate(){
+        String bankNo=bankNumber.getText().toString().trim().replace(" ","");
+        presenter.elementsValidate(getUserId(),Constant.COMPANY_ID,bankNo,phone);
+    }
+
+    /**
+     * 完善信息第三部
+     */
+    public void userBankCardBinding(){
+        UserBankCardReq userBankCardReq=new UserBankCardReq();
+        userBankCardReq.setUserId(getUserId());
+        userBankCardReq.setAreaCode(areaCode);
+        userBankCardReq.setBankId(branchId);//支行id
+        userBankCardReq.setCarNumber(bankNo);//银行卡号
+        userBankCardReq.setIsDefault("1");
+        userBankCardReq.setOpenBank(tvOpenMember.getText().toString().trim());//支行名称
+        userBankCardReq.setPhone(phone);
+        userBankCardReq.setPhoto(bankImgUrl);
+        presenter.userBankCardBinding(getUserId(),userBankCardReq);
+    }
+
     @Override
     public void onSuccess(String msg) {
-
-    }
-
-    //获取省份
-    public void getProvince(){
-        presenter.getProvince("0");
-    }
-
-    //获取城市
-    public void getCity(String fatherId){
-        presenter.getCity(fatherId);
-    }
-
-    //获取区
-    private void getArea(String fatherId){
-        presenter.getArea(fatherId);
+        toast(msg);
+        if ("1".equals(msg)){
+            toast("实名已完成");
+        }else if ("信息匹配".equals(msg)){
+            userBankCardBinding();
+        }
     }
 
     @Override
     public void fail(String msg) {
-
+        toast(msg);
     }
 
     @Override
     public void setBankInfo(List<BankInfo> bankInfo) {
-
+        List<DbBankInfo> list=new ArrayList<>();
+        for (int i=0;i<bankInfo.size();i++){
+            DbBankInfo dbBankInfo=new DbBankInfo();
+            dbBankInfo.setId(null);
+            dbBankInfo.setBankId(bankInfo.get(i).getId());
+            dbBankInfo.setBankName(bankInfo.get(i).getBankName());
+            dbBankInfo.setBankShortName(bankInfo.get(i).getBankShortName());
+            list.add(dbBankInfo);
+        }
+        bankInfoDao.insertInTx(list);
     }
 
     @Override
-    public void setProvince(List<CityResp> list) {
-        for (int i=0;i<list.size();i++){
-            getCity(list.get(i).getId());
-            options1Items.add(list.get(i).getName());
+    public void setBranchInfo(List<CityResp> cityResps) {
+        options1Items.clear();
+        for (int i=0;i<cityResps.size();i++){
+            options1Items.add(cityResps.get(i).getName()+","+cityResps.get(i).getId());
         }
+        showPickerView();
     }
 
-    //城市
     @Override
-    public void setCity(List<CityResp> list) {
-        for (int i=0;i<list.size();i++){
-            cityList.add(list.get(i).getName());
-            getArea(list.get(i).getId());
-        }
-        options2Items.add(cityList);
-    }
-
-    //城市数据
-    @Override
-    public void setArea(List<CityResp> list) {
-        for (int i=0;i<list.size();i++){
-            city_AreaList.add(list.get(i).getName());
-        }
-        province_AreaList.add(cityList);
-        options3Items.add(province_AreaList);
+    public void setDisBank(DistBankCard bank) {
+        String bankId=getBankInfoAbbreviation(bank.getBank());
+        presenter.getBranchBankInfo(bankId,areaCode);
     }
 
     //弹出窗
     private void showPickerView() {// 弹出选择器
+
+        for (int i=0;i<options1Items.size();i++){
+            String [] name=options1Items.get(i).split(",");
+            branchName.add(name[0]);
+        }
         OptionsPickerView pvOptions = new OptionsPickerBuilder(this, new OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int options2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String opt1tx = options1Items.size() > 0 ?
-                        options1Items.get(options1): "";
-             /*   String opt2tx = options2Items.size() > 0
-                        && options2Items.get(options1).size() > 0 ?
-                        options2Items.get(options1).get(options2) : "";
-
-                String opt3tx = options2Items.size() > 0
-                        && options3Items.get(options1).size() > 0
-                        && options3Items.get(options1).get(options2).size() > 0 ?
-                        options3Items.get(options1).get(options2).get(options3) : "";*/
-
-                String tx = opt1tx;
-             /*   Toast.makeText(JsonDataActivity.this, tx, Toast.LENGTH_SHORT).show();*/
+                String [] branch=options1Items.get(options1).split(",");
+                tvOpenMember.setText(branch[0]);
+                branchId=branch[1];
             }
         })
-
-                .setTitleText("城市选择")
+                .setTitleText("支行选择")
                 .setDividerColor(Color.BLACK)
                 .setTextColorCenter(Color.BLACK) //设置选中项文字颜色
                 .setContentTextSize(20)
                 .build();
 
-        //pvOptions.setPicker(provinceList);//一级选择器
-        //  pvOptions.setPicker(options1Items, options2Items);
-        pvOptions.setPicker(options1Items, options2Items, options3Items);//三级选择器
+        pvOptions.setPicker(branchName);//一级选择器
         pvOptions.show();
     }
-
-
 
 }
 

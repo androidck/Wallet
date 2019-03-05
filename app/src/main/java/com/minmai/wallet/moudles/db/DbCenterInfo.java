@@ -1,4 +1,4 @@
-package com.minmai.wallet.common.greendao;
+package com.minmai.wallet.moudles.db;
 
 
 import org.greenrobot.greendao.annotation.Entity;

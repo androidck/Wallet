@@ -23,8 +23,10 @@ import com.hjq.toast.ToastUtils;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.dialog.ProgressHUD;
+import com.minmai.wallet.common.greendao.DbBankInfoDao;
 import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
+import com.minmai.wallet.moudles.db.DbBankInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
 import com.minmai.wallet.moudles.ui.identity.IdentifyThreeActivity;
@@ -53,6 +55,7 @@ public abstract class MyActivity extends UIActivity
 
     public static DbUserInfoDao userInfoDao;
     public static DbCenterInfoDao centerInfoDao;
+    public static DbBankInfoDao bankInfoDao;
     public Context context;
 
     public int currentPage=1;
@@ -72,6 +75,7 @@ public abstract class MyActivity extends UIActivity
         mButterKnife = ButterKnife.bind(this);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
+        bankInfoDao=MyApplication.getInstances().getDaoSession().getDbBankInfoDao();
         context=this;
 
         initOrientation();
@@ -132,6 +136,13 @@ public abstract class MyActivity extends UIActivity
     //是否展示手机号
     public static String isShowPhone(){
         return centerInfoDao.loadAll().get(0).getExtendOne();
+    }
+
+
+    //获取总行简称获取总行id
+    public static String getBankInfoAbbreviation(String shortName){
+        DbBankInfo dbBankInfo=bankInfoDao.queryBuilder().where(DbBankInfoDao.Properties.BankShortName.eq(shortName)).unique();
+        return dbBankInfo.getBankId();
     }
 
     public TitleBar getTitleBar() {
@@ -316,6 +327,14 @@ public abstract class MyActivity extends UIActivity
         }, getApplicationContext());
     }
 
+    //是否存在总行数据
+    public boolean isExistenceBankInfo(){
+        if (bankInfoDao.loadAll().size()==0||bankInfoDao.loadAll()==null) {
+            return false;
+        }else {
+            return true;
+        }
+    }
 
 
 }

@@ -34,4 +34,14 @@ public class BankInfo {
     public void setBankShortName(String bankShortName) {
         this.bankShortName = bankShortName;
     }
+
+
+    @Override
+    public String toString() {
+        return "BankInfo{" +
+                "id='" + id + '\'' +
+                ", bankName='" + bankName + '\'' +
+                ", bankShortName='" + bankShortName + '\'' +
+                '}';
+    }
 }

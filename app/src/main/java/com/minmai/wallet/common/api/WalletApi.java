@@ -459,11 +459,55 @@ public interface WalletApi {
             @Header("X_UserId") String xUserId);
 
     /**
-     * 获取省市区数据
+     * 获取支行数据
      * @return
      */
-    @POST("area/areaList")
+    @POST("user/bankBranch")
     @FormUrlEncoded
-    Observable<BaseEntry<List<CityResp>>>getCityInfo(@Field("parentId") String parentId);
+    Observable<BaseEntry<List<CityResp>>>getBranchInfo(@Header("X_Timestamp") long currentTimeMillis,
+                                                       @Header("X_Signature") String sign,
+                                                       @Field("parentId") String parentId,
+                                                       @Field("cityId") String cityId);
 
+
+    /**
+     * 完善信息第三部
+     * @param currentTimeMillis
+     * @param sign
+     * @param parentId
+     * @return
+     */
+    @POST("user/userBankCardBinding")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>userBankCardBinding(@Header("X_Timestamp") long currentTimeMillis,
+                                                       @Header("X_Signature") String sign,
+                                                       @Header("X_UserId") String xUserId,
+                                                       @Field("parentId") String parentId,
+                                                       @Field("carNumber") String carNumber,
+                                                       @Field("openBank") String openBank,
+                                                       @Field("phone") String phone,
+                                                       @Field("areaCode") String areaCode,
+                                                       @Field("photo") String photo,
+                                                       @Field("bankId") String bankId,
+                                                       @Field("isDefault") String isDefault);
+
+    /**
+     * 四要素验证
+     *
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param companyId
+     * @param carNumber
+     * @param phone
+     * @return
+     */
+    @POST("element/elementsValidate")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>elementsValidate(@Header("X_Timestamp") long currentTimeMillis,
+                                                     @Header("X_Signature") String sign,
+                                                     @Header("X_UserId") String xUserId,
+                                                     @Field("companyId") String companyId,
+                                                     @Field("carNumber") String carNumber,
+                                                     @Field("phone") String phone);
 }

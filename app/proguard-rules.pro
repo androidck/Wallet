@@ -26,3 +26,15 @@
 -keep class com.tencent.tinker.** { *; }
 
  -keep class android.support.**{*;}
+
+-keep class com.lljjcoder.**{
+	*;
+}
+# 省市区 三级联动格式化
+-dontwarn demo.**
+-keep class demo.**{*;}
+-dontwarn net.sourceforge.pinyin4j.**
+-keep class net.sourceforge.pinyin4j.**{*;}
+-keep class net.sourceforge.pinyin4j.format.**{*;}
+-keep class net.sourceforge.pinyin4j.format.exception.**{*;}
+

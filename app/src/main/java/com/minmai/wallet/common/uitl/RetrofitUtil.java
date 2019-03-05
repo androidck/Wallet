@@ -61,8 +61,5 @@ public class RetrofitUtil {
         return mainApi;
     }
 
-    /**
-     * 初始化Retrofit
-     */
 
 }

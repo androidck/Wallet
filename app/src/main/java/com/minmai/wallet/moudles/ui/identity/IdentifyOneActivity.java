@@ -5,13 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
@@ -21,7 +19,6 @@ import com.baidu.ocr.sdk.model.IDCardResult;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.baidu.ocr.ui.camera.CameraNativeHelper;
 import com.baidu.ocr.ui.camera.CameraView;
-import com.google.gson.Gson;
 import com.hjq.bar.TitleBar;
 import com.hjq.permissions.OnPermission;
 import com.hjq.permissions.XXPermissions;
@@ -34,8 +31,6 @@ import com.minmai.wallet.common.permission.Permission;
 import com.minmai.wallet.common.qiniu.Auth;
 import com.minmai.wallet.common.uitl.FileUtil;
 import com.minmai.wallet.common.uitl.MainUtil;
-import com.minmai.wallet.common.uitl.QiNiuFileUpload;
-import com.minmai.wallet.common.uitl.TextUtil;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.moudles.bean.request.IdentfiyOneReq;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
@@ -43,7 +38,6 @@ import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.request.user.IdentifyContract;
 import com.minmai.wallet.moudles.request.user.IdentifyPresenter;
-import com.minmai.wallet.moudles.ui.startup.StartupActivity;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -58,7 +52,6 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

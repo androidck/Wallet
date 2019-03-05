@@ -1,8 +1,6 @@
 package com.minmai.wallet.moudles.ui.me;
 
-import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -11,16 +9,13 @@ import android.widget.TextView;
 import com.hjq.bar.TitleBar;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
-import com.minmai.wallet.common.greendao.DbCenterInfo;
+import com.minmai.wallet.moudles.db.DbCenterInfo;
 import com.minmai.wallet.moudles.dialog.LoginOutTipDialog;
 import com.minmai.wallet.moudles.request.user.FeedBackContract;
 import com.minmai.wallet.moudles.request.user.FeedBackPresenter;
 import com.zhy.autolayout.AutoLinearLayout;
 
-import org.w3c.dom.Entity;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
