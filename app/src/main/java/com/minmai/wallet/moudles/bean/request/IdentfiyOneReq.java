@@ -12,7 +12,16 @@ public class IdentfiyOneReq {
     private String cardFrontPic;//正面照片
     private String cardBackPic;//背面照片
     private String nation;//民族
+    private String handIdCard;//手持地址
     private String detailedAddress;//详细地址
+
+    public String getHandIdCard() {
+        return handIdCard;
+    }
+
+    public void setHandIdCard(String handIdCard) {
+        this.handIdCard = handIdCard;
+    }
 
     public String getUserId() {
         return userId;

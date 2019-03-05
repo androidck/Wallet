@@ -11,6 +11,7 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,13 @@ import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.permission.Permission;
 import com.minmai.wallet.common.qiniu.Auth;
 import com.minmai.wallet.common.uitl.PhotoUtils;
+import com.minmai.wallet.common.uitl.TextUtil;
+import com.minmai.wallet.moudles.bean.request.IdentfiyOneReq;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
+import com.minmai.wallet.moudles.bean.response.IdentityAuth;
+import com.minmai.wallet.moudles.bean.response.QuickPayResp;
+import com.minmai.wallet.moudles.request.user.IdentifyContract;
+import com.minmai.wallet.moudles.request.user.IdentifyPresenter;
 import com.qiniu.android.common.FixedZone;
 import com.qiniu.android.http.ResponseInfo;
 import com.qiniu.android.storage.Configuration;
@@ -46,15 +54,14 @@ import butterknife.OnClick;
 /**
  * 完善信息第二部
  */
-public class IdentifyTwoActivity extends MyActivity {
+public class IdentifyTwoActivity extends MyActivity implements IdentifyContract.View {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
     @BindView(R.id.img_hold)
     ImageView imgHold;
-    @BindView(R.id.btn_next)
-    Button btnNext;
+    @BindView(R.id.btn_commit)
+    Button btnCommit;
 
-    private String photoPath;//照片路径
     private String imgUrl;
     private File fileUri = new File(Environment.getExternalStorageDirectory().getPath() + "/photo.jpg");
 
@@ -66,6 +73,8 @@ public class IdentifyTwoActivity extends MyActivity {
     private Uri imageUri;
     private Uri cropImageUri;
 
+
+    private IdentifyPresenter presenter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_identify_two;
@@ -85,17 +94,30 @@ public class IdentifyTwoActivity extends MyActivity {
 
     @Override
     protected void initData() {
-
+        presenter=new IdentifyPresenter(this,this);
     }
 
-    @OnClick({R.id.img_hold, R.id.btn_next})
+    @OnClick({R.id.img_hold, R.id.btn_commit})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_hold:
                 requestFilePermission();
                 break;
-            case R.id.btn_next:
+            case R.id.btn_commit:
+                startRequestInterface();
                 break;
+        }
+    }
+
+    @Override
+    protected void startRequestInterface() {
+        super.startRequestInterface();
+        if (TextUtils.isEmpty(imgUrl)){
+            toast("请拍摄手持身份证照片");
+        }else {
+            IdentfiyOneReq identfiyOneReq=new IdentfiyOneReq();
+            identfiyOneReq.setHandIdCard(imgUrl);
+            presenter.userRealNameAuthenticationTwo(getUserId(),identfiyOneReq);
         }
     }
 
@@ -181,18 +203,6 @@ public class IdentifyTwoActivity extends MyActivity {
                 cropImageUri(imageUri);
                 break;
             //相册返回
-            case CODE_GALLERY_REQUEST:
-                if (hasSdcard()) {
-                    cropImageUri = Uri.fromFile(fileCropUri);
-                    Uri newUri = Uri.parse(PhotoUtils.getPath(IdentifyTwoActivity.this, data.getData()));
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        newUri = FileProvider.getUriForFile(getActivity(), "com.mayi.pay.fileprovider", new File(newUri.getPath()));
-                    }
-                    cropImageUri(newUri);
-                } else {
-                  toast("设备没有SD卡！");
-                }
-                break;
             //裁剪返回
             case CODE_RESULT_REQUEST:
                 if (fileCropUri != null) {
@@ -235,5 +245,32 @@ public class IdentifyTwoActivity extends MyActivity {
     public static boolean hasSdcard() {
         String state = Environment.getExternalStorageState();
         return state.equals(Environment.MEDIA_MOUNTED);
+    }
+
+    @Override
+    public void setIdentify(IdentityAuth identify) {
+
+    }
+
+    @Override
+    public void setDebitCard(DebitCard debitCard) {
+
+    }
+
+    @Override
+    public void fail(String msg) {
+        toast(msg);
+    }
+
+    @Override
+    public void onSuccess(QuickPayResp quickPayResp) {
+
+    }
+
+    @Override
+    public void success(String msg) {
+        toast(msg);
+        modifyStatus(getUserId(),3);
+        startActivityFinish(IdentifyThreeActivity.class);
     }
 }

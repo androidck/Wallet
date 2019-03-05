@@ -133,11 +133,42 @@ public class IdentifyPresenter implements IdentifyContract.presenter {
      */
     @Override
     public void userRealNameAuthenticationOne(String userId, IdentfiyOneReq identfiyOneReq) {
+
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         String sign=TokenUtils.getSign(TokenUtils.objectMap(identfiyOneReq),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
                 .initRetrofit().userRealNameAuthenticationOne(currentTimeMillis,sign,userId,userId,identfiyOneReq.getRealName(),identfiyOneReq.getIdCard(),identfiyOneReq.getEffectiveDate(),identfiyOneReq.getCardFrontPic(),identfiyOneReq.getCardBackPic(),identfiyOneReq.getNation(),identfiyOneReq.getDetailedAddress())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<String> t) throws Exception {
+                        view.success(t.getMsg());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<String> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    @Override
+    public void userRealNameAuthenticationTwo(String userId, IdentfiyOneReq identfiyOneReq) {
+        Map<String,String> map=new HashMap<>();
+        map.put("userId",userId);
+        map.put("handIdCard",identfiyOneReq.getHandIdCard());
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().userRealNameAuthenticationTwo(currentTimeMillis,sign,userId,userId,identfiyOneReq.getHandIdCard())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {

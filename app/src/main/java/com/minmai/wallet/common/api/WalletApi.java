@@ -1,10 +1,11 @@
 package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
-import com.minmai.wallet.common.base.BaseResponse;
+import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.Channel;
 import com.minmai.wallet.moudles.bean.response.ChannelBank;
+import com.minmai.wallet.moudles.bean.response.CityResp;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
@@ -435,5 +436,34 @@ public interface WalletApi {
             @Field("cardBackPic") String cardBackPic,
             @Field("nation") String nation,
             @Field("detailedAddress") String detailedAddress);
+
+
+
+    @POST("user/userRealNameAuthenticationTwo")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>userRealNameAuthenticationTwo(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("userId") String userId,
+            @Field("handIdCard") String handIdCard);
+
+    /**
+     * 获取总行信息
+     * @return
+     */
+    @POST("user/getBankInfoVo")
+    Observable<BaseEntry<List<BankInfo>>>getBankInfo(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId);
+
+    /**
+     * 获取省市区数据
+     * @return
+     */
+    @POST("area/areaList")
+    @FormUrlEncoded
+    Observable<BaseEntry<List<CityResp>>>getCityInfo(@Field("parentId") String parentId);
 
 }

@@ -36,5 +36,8 @@ public interface IdentifyContract {
 
         //实名认证第一步
         void userRealNameAuthenticationOne(String userId, IdentfiyOneReq identfiyOneReq);
+
+        //实名认证第一步
+        void userRealNameAuthenticationTwo(String userId, IdentfiyOneReq identfiyOneReq);
     }
 }
