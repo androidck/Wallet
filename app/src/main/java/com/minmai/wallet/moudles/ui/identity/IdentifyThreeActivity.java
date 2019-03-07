@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
@@ -35,6 +36,7 @@ import com.lljjcoder.citywheel.CityConfig;
 import com.lljjcoder.style.citypickerview.CityPickerView;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyActivity;
+import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.qiniu.Auth;
 import com.minmai.wallet.common.uitl.FileUtil;
@@ -421,7 +423,7 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
         userBankCardReq.setUserId(getUserId());
         userBankCardReq.setAreaCode(areaCode);
         userBankCardReq.setBankId(branchId);//支行id
-        userBankCardReq.setCarNumber(bankNo);//银行卡号
+        userBankCardReq.setCarNumber(bankNo.replace(" ",""));//银行卡号
         userBankCardReq.setIsDefault("1");
         userBankCardReq.setOpenBank(tvOpenMember.getText().toString().trim());//支行名称
         userBankCardReq.setPhone(phone);
@@ -434,6 +436,9 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
         toast(msg);
         if ("1".equals(msg)){
             toast("实名已完成");
+            modifyStatus(getUserId(),5);
+            ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
+            finish();
         }else if ("信息匹配".equals(msg)){
             userBankCardBinding();
         }

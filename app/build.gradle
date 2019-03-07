@@ -8,7 +8,7 @@ android {
         wallet {
             keyAlias 'wallet'
             keyPassword '123456'
-            storeFile file('F:/Wallet/app/wallet.jks')
+            storeFile file('E:/Wallet/app/wallet.jks')
             storePassword '123456'
         }
     }
@@ -164,10 +164,8 @@ dependencies {
 
     //银行列表选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
-
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'liji.library.dev:citypickerview:4.1.1'
-
 }
 
 

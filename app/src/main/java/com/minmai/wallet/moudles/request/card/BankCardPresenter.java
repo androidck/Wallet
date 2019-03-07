@@ -114,8 +114,7 @@ public class BankCardPresenter implements BankCardContract.presenter {
         String sign= TokenUtils.getSign(TokenUtils.objectMap(userBankCardReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
-                .initRetrofit().userBankCardBinding(currentTimeMillis,sign,userBankCardReq.getUserId(),userBankCardReq.getBankId(),userBankCardReq.getCarNumber(),userBankCardReq.getOpenBank(),userBankCardReq.getPhone(),userBankCardReq.getAreaCode(),userBankCardReq.getPhoto(),userBankCardReq.getBankId(),userBankCardReq.getIsDefault())
-                .subscribeOn(Schedulers.io())
+                .initRetrofit().userBankCardBinding(currentTimeMillis,sign,userId,userBankCardReq.getUserId(),userBankCardReq.getCarNumber(),userBankCardReq.getOpenBank(),userBankCardReq.getPhone(),userBankCardReq.getAreaCode(),userBankCardReq.getPhoto(),userBankCardReq.getBankId(),userBankCardReq.getIsDefault())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<String>(context, MainUtil.loadTxt) {
                     @Override

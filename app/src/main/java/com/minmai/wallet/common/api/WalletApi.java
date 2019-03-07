@@ -477,19 +477,29 @@ public interface WalletApi {
      * @param parentId
      * @return
      */
+
+/*    private String userId; // 用户id
+    private String carNumber;// 银行卡号
+    private String openBank;// 开户银行名称
+    private String phone;// 预留手机号
+    private String areaCode; // 区域id
+    private String photo; // 银行卡照片
+    private String bankId;// 银行卡id
+    private String isDefault;// 是否默认使用*/
     @POST("user/userBankCardBinding")
     @FormUrlEncoded
     Observable<BaseEntry<String>>userBankCardBinding(@Header("X_Timestamp") long currentTimeMillis,
-                                                       @Header("X_Signature") String sign,
-                                                       @Header("X_UserId") String xUserId,
-                                                       @Field("parentId") String parentId,
-                                                       @Field("carNumber") String carNumber,
-                                                       @Field("openBank") String openBank,
-                                                       @Field("phone") String phone,
-                                                       @Field("areaCode") String areaCode,
-                                                       @Field("photo") String photo,
-                                                       @Field("bankId") String bankId,
-                                                       @Field("isDefault") String isDefault);
+                                                        @Header("X_Signature") String sign,
+                                                        @Header("X_UserId") String xUserId,
+                                                        @Field("userId") String userId,
+                                                        @Field("carNumber") String carNumber,
+                                                        @Field("openBank") String openBank,
+                                                        @Field("phone") String phone,
+                                                        @Field("areaCode") String areaCode,
+                                                        @Field("photo") String photo,
+                                                        @Field("bankId") String bankId,
+                                                        @Field("isDefault") String isDefault
+                                                );
 
     /**
      * 四要素验证
@@ -508,6 +518,6 @@ public interface WalletApi {
                                                      @Header("X_Signature") String sign,
                                                      @Header("X_UserId") String xUserId,
                                                      @Field("companyId") String companyId,
-                                                     @Field("carNumber") String carNumber,
+                                                     @Field("bankcard") String carNumber,
                                                      @Field("phone") String phone);
 }
