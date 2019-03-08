@@ -23,9 +23,16 @@ import com.hjq.toast.ToastUtils;
 import com.kaopiz.kprogresshud.KProgressHUD;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.dialog.ProgressHUD;
+import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.greendao.DbBankInfoDao;
 import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
+import com.minmai.wallet.common.uitl.MainUtil;
+import com.minmai.wallet.common.uitl.RetrofitUtil;
+import com.minmai.wallet.common.uitl.SystemUtil;
+import com.minmai.wallet.common.uitl.TokenUtils;
+import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.RegisterStateResp;
 import com.minmai.wallet.moudles.db.DbBankInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
@@ -39,6 +46,8 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  *    author : Android 轮子哥
@@ -290,6 +299,7 @@ public abstract class MyActivity extends UIActivity
           userInfoDao.update(userInfo);
       }
     }
+
     /**
      * 认证
      * @param registerState
@@ -309,6 +319,64 @@ public abstract class MyActivity extends UIActivity
         }else {
             startActivityFinish(MainActivity.class);
         }
+    }
+
+
+    //获取进件状态
+    public void queryRegisterState(){
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().queryRegisterState(currentTimeMillis,sign,getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<RegisterStateResp>(context, MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<RegisterStateResp>t) throws Exception {
+                        //修改状态
+                        modifyStatus(getUserId(),Integer.parseInt(t.getData().getRegisterState()));
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            toast("网络连接失败，请联系管理员");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry <RegisterStateResp>t) {
+                        toast(t.getMsg());
+                    }
+                });
+    }
+
+
+    //获取是否开始还款
+    public void queryRepaymentState(){
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().queryRegisterState(currentTimeMillis,sign,getUserId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<RegisterStateResp>(context, MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<RegisterStateResp>t) throws Exception {
+
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            toast("网络连接失败，请联系管理员");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry <RegisterStateResp>t) {
+                        toast(t.getMsg());
+                    }
+                });
+
     }
 
     //获取身份证识别token

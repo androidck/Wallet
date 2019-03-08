@@ -13,6 +13,7 @@ import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
+import com.minmai.wallet.moudles.bean.response.RegisterStateResp;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.bean.response.Trade;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
@@ -474,18 +475,10 @@ public interface WalletApi {
      * 完善信息第三部
      * @param currentTimeMillis
      * @param sign
-     * @param parentId
      * @return
      */
 
-/*    private String userId; // 用户id
-    private String carNumber;// 银行卡号
-    private String openBank;// 开户银行名称
-    private String phone;// 预留手机号
-    private String areaCode; // 区域id
-    private String photo; // 银行卡照片
-    private String bankId;// 银行卡id
-    private String isDefault;// 是否默认使用*/
+
     @POST("user/userBankCardBinding")
     @FormUrlEncoded
     Observable<BaseEntry<String>>userBankCardBinding(@Header("X_Timestamp") long currentTimeMillis,
@@ -500,7 +493,6 @@ public interface WalletApi {
                                                         @Field("bankId") String bankId,
                                                         @Field("isDefault") String isDefault
                                                 );
-
     /**
      * 四要素验证
      *
@@ -520,4 +512,19 @@ public interface WalletApi {
                                                      @Field("companyId") String companyId,
                                                      @Field("bankcard") String carNumber,
                                                      @Field("phone") String phone);
+
+
+    /**
+     * 获取用户进件状态
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("user/queryRegisterState")
+    @FormUrlEncoded
+    Observable<BaseEntry<RegisterStateResp>>queryRegisterState(@Header("X_Timestamp") long currentTimeMillis,
+                                                               @Header("X_Signature") String sign,
+                                                               @Header("X_UserId") String xUserId);
 }
+

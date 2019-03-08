@@ -93,7 +93,6 @@ public class BankCardPresenter implements BankCardContract.presenter {
 
     @Override
     public void visBankCard(String cardNo) {
-
         OkHttp.getAsync(Constant.BANK_CARD_URL+cardNo, new OkHttp.DataCallBack() {
             @Override
             public void requestSuccess(String result) throws Exception {
@@ -111,15 +110,19 @@ public class BankCardPresenter implements BankCardContract.presenter {
     @Override
     public void userBankCardBinding(String userId, UserBankCardReq userBankCardReq) {
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+
         String sign= TokenUtils.getSign(TokenUtils.objectMap(userBankCardReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
                 .initRetrofit().userBankCardBinding(currentTimeMillis,sign,userId,userBankCardReq.getUserId(),userBankCardReq.getCarNumber(),userBankCardReq.getOpenBank(),userBankCardReq.getPhone(),userBankCardReq.getAreaCode(),userBankCardReq.getPhoto(),userBankCardReq.getBankId(),userBankCardReq.getIsDefault())
+                .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<String>(context, MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<String> t) throws Exception {
-                        view.onSuccess("1");
+                        if (t.getMsg().equals("访问成功")){
+                            view.onSuccess("1");
+                        }
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {

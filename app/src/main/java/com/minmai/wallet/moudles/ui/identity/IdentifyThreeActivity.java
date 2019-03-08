@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.baidu.ocr.sdk.OCR;
@@ -40,7 +37,6 @@ import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.qiniu.Auth;
 import com.minmai.wallet.common.uitl.FileUtil;
-import com.minmai.wallet.common.uitl.TextUtil;
 import com.minmai.wallet.common.uitl.ValidateUtils;
 import com.minmai.wallet.common.view.PhoneTextWatcher;
 import com.minmai.wallet.common.watcher.BankCardNumAddSpaceWatcher;
@@ -49,7 +45,6 @@ import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.CityResp;
 import com.minmai.wallet.moudles.bean.response.DistBankCard;
 import com.minmai.wallet.moudles.db.DbBankInfo;
-import com.minmai.wallet.moudles.request.banner.BannerPresenter;
 import com.minmai.wallet.moudles.request.card.BankCardContract;
 import com.minmai.wallet.moudles.request.card.BankCardPresenter;
 import com.qiniu.android.common.FixedZone;
@@ -67,7 +62,6 @@ import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -433,13 +427,14 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
 
     @Override
     public void onSuccess(String msg) {
-        toast(msg);
         if ("1".equals(msg)){
             toast("实名已完成");
-            modifyStatus(getUserId(),5);
+            //查询进件状态
+            queryRegisterState();
             ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
             finish();
         }else if ("信息匹配".equals(msg)){
+            toast(msg);
             userBankCardBinding();
         }
     }
