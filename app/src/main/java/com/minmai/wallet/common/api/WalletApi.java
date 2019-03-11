@@ -10,6 +10,7 @@ import com.minmai.wallet.moudles.bean.response.CreditCard;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
+import com.minmai.wallet.moudles.bean.response.ListLeaving;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
@@ -18,6 +19,7 @@ import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.bean.response.Trade;
 import com.minmai.wallet.moudles.bean.response.UserGounpCount;
 import com.minmai.wallet.moudles.bean.response.UserInfo;
+import com.minmai.wallet.moudles.db.BankBackGround;
 
 import java.util.List;
 
@@ -203,7 +205,7 @@ public interface WalletApi {
      */
     @POST("user/listLevMessage")
     @FormUrlEncoded
-    Observable<BaseEntry<ListBaseData>>listLevMessage(
+    Observable<BaseEntry<ListBaseData<ListLeaving>>>listLevMessage(
             @Header("X_Timestamp") long currentTimeMillis,
             @Header("X_Signature") String sign,
             @Header("X_UserId") String userId,
@@ -539,7 +541,6 @@ public interface WalletApi {
      * @return
      */
     @POST("user/queryRegisterState")
-    @FormUrlEncoded
     Observable<BaseEntry<RegisterStateResp>>queryRegisterState(@Header("X_Timestamp") long currentTimeMillis,
                                                                @Header("X_Signature") String sign,
                                                                @Header("X_UserId") String xUserId);
@@ -559,8 +560,41 @@ public interface WalletApi {
     Observable<BaseEntry<String>>updateCreditAlias(@Header("X_Timestamp") long currentTimeMillis,
                                                               @Header("X_Signature") String sign,
                                                               @Header("X_UserId") String xUserId,
-                                                              @Field("creditId") String creditId,
+                                                              @Field("id") String creditId,
                                                               @Field("creditAlias") String creditAlias);
+
+    /**
+     * 添加信用卡
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param creditId
+     * @return
+     */
+    @POST("trade/addCreditCard")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>addCreditCard(@Header("X_Timestamp") long currentTimeMillis,
+                                                   @Header("X_Signature") String sign,
+                                                   @Header("X_UserId") String xUserId,
+                                                   @Field("carNumber") String creditId,
+                                                   @Field("phone") String phone,
+                                                   @Field("cvv") String cvv,
+                                                   @Field("branch_bank") String branchBank,
+                                                   @Field("effectiveDate") String effectiveDate,
+                                                   @Field("photo") String photo,
+                                                   @Field("nickName") String nickName,
+                                                   @Field("statementDate") String statementDate,
+                                                   @Field("repaymentDate") String repaymentDate);
+
+
+    /**
+     * 获取银行卡背景颜色
+     * @param repaymentDate
+     * @return
+     */
+    @POST("user/getBankBackgroundVo")
+    @FormUrlEncoded
+    Observable<BaseEntry<BankBackGround>>getBankBackgroundVo(@Field("bankCarNum") String repaymentDate);
 
 }
 

@@ -13,6 +13,7 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.common.uitl.ViewUtil;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.ui.cash.CreditCardListActivity;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -59,6 +60,7 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
             @Override
             public void onClick(View v) {
                 onItemModifyNickName.bankId(mData.get(i).getCreditId());
+
             }
         });
 
@@ -112,9 +114,6 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     public void setOnItemModifyNickName(OnItemModifyNickName onItemModifyNickName){
         this.onItemModifyNickName=onItemModifyNickName;
     }
-
-
-
 
 
 

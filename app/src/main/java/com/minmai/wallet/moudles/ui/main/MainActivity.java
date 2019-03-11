@@ -70,6 +70,8 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
         //注册极光推送广播
         registerMessageReceiver();
         init();
+
+
     }
 
     @Override
@@ -216,4 +218,6 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
             }
         }
     }
+
+
 }

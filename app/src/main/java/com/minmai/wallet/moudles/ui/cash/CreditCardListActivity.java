@@ -1,9 +1,10 @@
 package com.minmai.wallet.moudles.ui.cash;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
@@ -20,11 +21,15 @@ import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.dialog.OtherDialog;
 import com.minmai.wallet.moudles.request.card.CreditCardContract;
 import com.minmai.wallet.moudles.request.card.CreditCardPresenter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.autolayout.AutoRelativeLayout;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -40,15 +45,19 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
     AutoRelativeLayout addSavingCard;
 
     CreditCardPresenter presenter;
+    @BindView(R.id.refreshLayout)
+    SmartRefreshLayout refreshLayout;
 
     private CrediteCardAdapter adapter;
 
     List<CreditCard> creditCards;
 
-    int RESULT_OK=200;
+
+    int RESULT_OK = 200;
 
     @Autowired
     int quickPay;//交易类型
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_credit_list_card;
@@ -65,13 +74,40 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_black);
         tbLoginTitle.setRightIcon(R.mipmap.choice_add_card);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        //开启自动刷新
+        refreshLayout.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+            @Override
+            public void onLoadMore(@NonNull final RefreshLayout refreshLayout) {
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentPage++;
+                        getCreditCard();
+                        refreshLayout.finishLoadMore();
+                    }
+                },300);
+            }
+
+            @Override
+            public void onRefresh(@NonNull final RefreshLayout refreshLayout) {
+
+                refreshLayout.getLayout().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        currentPage=1;
+                        getCreditCard();
+                        refreshLayout.finishRefresh();
+                    }
+                },300);
+            }
+        });
     }
 
     @Override
     protected void initData() {
         ARouter.getInstance().inject(this);
-        presenter=new CreditCardPresenter(this,this);
-        adapter=new CrediteCardAdapter(context);
+        presenter = new CreditCardPresenter(this, this);
+        adapter = new CrediteCardAdapter(context);
         getCreditCard();
     }
 
@@ -86,21 +122,21 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
     }
 
     //获取信用卡列表
-    public void getCreditCard(){
-        ListBaseData listBaseData=new ListBaseData();
+    public void getCreditCard() {
+        ListBaseData listBaseData = new ListBaseData();
         listBaseData.setPageCurrent(currentPage);
         listBaseData.setPageSize(pageSize);
-        presenter.queryCreditCard(getUserId(),listBaseData);
+        presenter.queryCreditCard(getUserId(), listBaseData);
         adapter.setOnItemResultDataListener(new CrediteCardAdapter.OnItemResultDataListener() {
             @Override
             public void onResultData(int i) {
-                if (quickPay==1){
-                    CreditCard creditCard=creditCards.get(i);
-                    Intent intent=new Intent();
-                    intent.putExtra("creditCard",creditCard);
-                    setResult(RESULT_OK,intent);
+                if (quickPay == 1) {
+                    CreditCard creditCard = creditCards.get(i);
+                    Intent intent = new Intent();
+                    intent.putExtra("creditCard", creditCard);
+                    setResult(RESULT_OK, intent);
                     finish();
-                }else {
+                } else {
                     return;
                 }
             }
@@ -108,7 +144,7 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
         adapter.setOnItemModifyNickName(new CrediteCardAdapter.OnItemModifyNickName() {
             @Override
             public void bankId(String bankId) {
-                new OtherDialog(context,1, bankId, false, new OtherDialog.OnNickNameListenter() {
+                new OtherDialog(context, 1, bankId, false, new OtherDialog.OnNickNameListenter() {
                     @Override
                     public void setNickName(String str) {
 
@@ -121,7 +157,7 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
 
     @Override
     public void setCreditCard(List<CreditCard> list) {
-        creditCards=list;
+        creditCards = list;
         adapter.setData(list);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -135,5 +171,16 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
     @Override
     public void fail(String msg) {
         toast(msg);
+    }
+
+    @Override
+    public void success(String msg) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshLayout.autoRefresh();
     }
 }

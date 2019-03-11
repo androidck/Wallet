@@ -267,7 +267,6 @@ public abstract class MyActivity extends UIActivity
         if (userInfos==null||userInfos.size()==0){
             return false;
         }else {
-            queryRegisterState();
             return true;
         }
     }
@@ -306,7 +305,7 @@ public abstract class MyActivity extends UIActivity
 
 
     //获取进件状态
-    public void queryRegisterState(){
+    public void queryRegisterState(Context context){
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
@@ -317,6 +316,7 @@ public abstract class MyActivity extends UIActivity
                 .subscribe(new BaseObserver<RegisterStateResp>(context, MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<RegisterStateResp>t) throws Exception {
+
                         //修改状态
                         modifyStatus(getUserId(),Integer.parseInt(t.getData().getRegisterState()));
                         //保存数据

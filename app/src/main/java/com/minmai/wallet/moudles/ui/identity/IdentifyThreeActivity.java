@@ -146,6 +146,7 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
     @Override
     protected void initData() {
         getOcrSing();
+
         //  初始化本地质量控制模型,释放代码在onDestory中
         //  调用身份证扫描必须加上 intent.putExtra(CameraActivity.KEY_NATIVE_MANUAL, true); 关闭自动初始化和释放本地模型
         CameraNativeHelper.init(this, OCR.getInstance().getLicense(),
@@ -428,7 +429,8 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
     @Override
     public void onSuccess(String msg) {
         //查询进件状态
-        queryRegisterState();
+        toast(msg);
+        queryRegisterState(IdentifyThreeActivity.this);
         ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
         finish();
 

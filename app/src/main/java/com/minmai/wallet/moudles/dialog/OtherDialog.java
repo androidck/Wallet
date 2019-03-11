@@ -53,9 +53,9 @@ public class OtherDialog extends Dialog implements View.OnClickListener {
     public OtherDialog(Context context, int type,String creditId, boolean isCancelable, OnNickNameListenter onNickNameListenter) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
-        this.iscancelable = isCancelable;
         this.type=type;
         this.creditId=creditId;
+        this.iscancelable = isCancelable;
         this.onNickNameListenter=onNickNameListenter;
     }
     @Override
@@ -76,6 +76,7 @@ public class OtherDialog extends Dialog implements View.OnClickListener {
         TextView tvEsc=findViewById(R.id.btn_esc);
         TextView tvOk=findViewById(R.id.btn_ok);
         editText=findViewById(R.id.ed_nickname);
+
         tvEsc.setOnClickListener(this);
         tvOk.setOnClickListener(this);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
@@ -108,14 +109,15 @@ public class OtherDialog extends Dialog implements View.OnClickListener {
 
     //修改银行卡别称
     public void modifyBankNick(){
+        nickName=editText.getText().toString().trim();
         if (nickName.length()==0||nickName.equals("")||nickName==null){
-            editText.setHint("请输入昵称");
+            ToastUtils.show("请输入昵称");
         }else {
             Map<String,String> map=new HashMap<>();
-            map.put("creditId",creditId);
-            map.put("creditAlias","");
+            map.put("id",creditId);
+            map.put("creditAlias",nickName);
             long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
-            String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+            String sign=TokenUtils.getSign(TokenUtils.objectMap(map),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
             RetrofitUtil
                     .getInstance()
                     .initRetrofit().updateCreditAlias(currentTimeMillis,sign,getUserId(),creditId,nickName)
@@ -124,8 +126,9 @@ public class OtherDialog extends Dialog implements View.OnClickListener {
                     .subscribe(new BaseObserver<String>(context,MainUtil.loadTxt) {
                         @Override
                         protected void onSuccess(BaseEntry<String> t) throws Exception {
-                            ToastUtils.show(t.getMsg());
                             dismiss();
+                            ToastUtils.show(t.getMsg());
+                            onNickNameListenter.setNickName(nickName);
                         }
                         @Override
                         protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {

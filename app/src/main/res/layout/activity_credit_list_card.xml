@@ -7,21 +7,32 @@
     >
     <include layout="@layout/view_title"/>
     <include layout="@layout/division_line"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
-    <com.zhy.autolayout.AutoRelativeLayout
-        android:id="@+id/add_saving_card"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space_250"
-        android:layout_margin="@dimen/space_20"
-        android:background="@drawable/card_dash_line"
-        >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/choice_card" />
-    </com.zhy.autolayout.AutoRelativeLayout>
+        android:layout_height="match_parent">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/add_saving_card"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_250"
+                android:layout_margin="@dimen/space_20"
+                android:background="@drawable/card_dash_line"
+                >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:src="@mipmap/choice_card" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+        </com.zhy.autolayout.AutoLinearLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </com.zhy.autolayout.AutoLinearLayout>

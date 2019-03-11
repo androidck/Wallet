@@ -128,11 +128,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
                     ARouter.getInstance().build(ActivityConstant.QUICK_PAY).navigation();
                     break;
                 case R.id.tv_date_repayment:
-                    if (queryRepayMentStatus()==false){
-                        toast("还款制定暂时关闭");
-                    }else {
-                        ARouter.getInstance().build(ActivityConstant.DATE_REPAYMENT).navigation();
-                    }
+                    ARouter.getInstance().build(ActivityConstant.DATE_REPAYMENT).navigation();
                     break;
                 case R.id.tv_share_profit:
                     ARouter.getInstance().build(ActivityConstant.MY_SHARE_MOIST).navigation();

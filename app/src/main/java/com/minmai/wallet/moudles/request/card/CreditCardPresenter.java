@@ -16,13 +16,16 @@ import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
+import com.minmai.wallet.moudles.bean.request.CreditCardReq;
 import com.minmai.wallet.moudles.bean.response.Channel;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -92,17 +95,37 @@ public class CreditCardPresenter implements CreditCardContract.presenter {
                 });
     }
 
+    @Override
+    public void addCreditCard(String userId, CreditCardReq creditCardReq) {
 
-    public static <T> List<T> jsonToDto(String message, String jsonHead,Class<T> cls){ //这里是Class<T>
-        JsonObject jsonObject = new JsonParser().parse(message).getAsJsonObject();
-        JsonArray jsonArray = jsonObject.getAsJsonArray(jsonHead);
-        GsonBuilder builder = new GsonBuilder();
-        Gson gson = builder.create();
-        List<T> list = new ArrayList<>();
-        for (JsonElement jsonElement : jsonArray) {
-            list.add(gson.fromJson(jsonElement,cls)); //cls
-        }
-        return list;
+
+
+
+
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign= TokenUtils.getSign(TokenUtils.objectMap(creditCardReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().addCreditCard(currentTimeMillis,sign,userId,creditCardReq.getCarNumber(),creditCardReq.getPhone(),creditCardReq.getCvv(),creditCardReq.getBranch_bank(),creditCardReq.getEffectiveDate(),creditCardReq.getPhoto(),creditCardReq.getNickName(),creditCardReq.getStatementDate(),creditCardReq.getRepaymentDate())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<String>(context, MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<String> t) throws Exception {
+                        view.success(t.getMsg());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<String> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
     }
+
 
 }

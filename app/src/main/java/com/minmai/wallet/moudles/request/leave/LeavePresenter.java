@@ -10,6 +10,7 @@ import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
+import com.minmai.wallet.moudles.bean.response.ListLeaving;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,9 +40,9 @@ public class LeavePresenter implements LeaveContract.presenter{
                 .initRetrofit().listLevMessage(currentTimeMillis,sign,userId,leavingMsg.getPageCurrent(),leavingMsg.getPageSize())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<ListBaseData>(context,MainUtil.loadTxt) {
+                .subscribe(new BaseObserver<ListBaseData<ListLeaving>>(context,MainUtil.loadTxt) {
                     @Override
-                    protected void onSuccess(BaseEntry<ListBaseData> t) throws Exception {
+                    protected void onSuccess(BaseEntry<ListBaseData<ListLeaving>> t) throws Exception {
                         view.onContent(t.getData());
                     }
                     @Override
@@ -51,7 +52,7 @@ public class LeavePresenter implements LeaveContract.presenter{
                         }
                     }
                     @Override
-                    protected void onError(BaseEntry<ListBaseData> t) {
+                    protected void onError(BaseEntry<ListBaseData<ListLeaving>> t) {
                         if (t.getCode()==100){
                             view.noDate();
                         }else {

@@ -98,4 +98,9 @@ public class SavingsCardListActivity extends MyActivity implements CreditCardCon
     public void fail(String msg) {
 
     }
+
+    @Override
+    public void success(String msg) {
+
+    }
 }
