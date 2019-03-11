@@ -346,6 +346,23 @@ public interface WalletApi {
             @Field("pageCurrent") int pageCurrent,
             @Field("pageSize") int pageSize);
 
+    /**
+     * 储蓄卡列表
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param pageCurrent
+     * @param pageSize
+     * @return
+     */
+    @POST("user/queryDebitCard")
+    @FormUrlEncoded
+    Observable<BaseEntry<ListBaseData<DebitCard>>>queryDebitCard(
+            @Header("X_Timestamp") long currentTimeMillis,
+            @Header("X_Signature") String sign,
+            @Header("X_UserId") String xUserId,
+            @Field("pageCurrent") int pageCurrent,
+            @Field("pageSize") int pageSize);
 
     /**
      * 查询交易上线
@@ -526,5 +543,24 @@ public interface WalletApi {
     Observable<BaseEntry<RegisterStateResp>>queryRegisterState(@Header("X_Timestamp") long currentTimeMillis,
                                                                @Header("X_Signature") String sign,
                                                                @Header("X_UserId") String xUserId);
+
+
+    /**
+     * 修改信用卡昵称
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param creditId
+     * @param creditAlias
+     * @return
+     */
+    @POST("trade/updateCreditAlias")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>updateCreditAlias(@Header("X_Timestamp") long currentTimeMillis,
+                                                              @Header("X_Signature") String sign,
+                                                              @Header("X_UserId") String xUserId,
+                                                              @Field("creditId") String creditId,
+                                                              @Field("creditAlias") String creditAlias);
+
 }
 

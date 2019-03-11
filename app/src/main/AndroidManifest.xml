@@ -300,6 +300,7 @@
             />
         <activity android:name=".moudles.web.BrowserActivity"
             android:screenOrientation="portrait"
+            android:hardwareAccelerated="false"
             android:label="@string/activity_browser"
             />
 

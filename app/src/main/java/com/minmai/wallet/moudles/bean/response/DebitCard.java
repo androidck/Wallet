@@ -1,9 +1,11 @@
 package com.minmai.wallet.moudles.bean.response;
 
+import java.io.Serializable;
+
 /**
  * 储蓄卡实体类
  */
-public class DebitCard {
+public class DebitCard implements Serializable {
 
 
     /**

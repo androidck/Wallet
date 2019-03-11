@@ -15,7 +15,9 @@ import com.minmai.wallet.common.base.MyActivity;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.moudles.adapter.CrediteCardAdapter;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
+import com.minmai.wallet.moudles.dialog.OtherDialog;
 import com.minmai.wallet.moudles.request.card.CreditCardContract;
 import com.minmai.wallet.moudles.request.card.CreditCardPresenter;
 import com.zhy.autolayout.AutoRelativeLayout;
@@ -92,11 +94,26 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
         adapter.setOnItemResultDataListener(new CrediteCardAdapter.OnItemResultDataListener() {
             @Override
             public void onResultData(int i) {
-                CreditCard creditCard=creditCards.get(i);
-                Intent intent=new Intent();
-                intent.putExtra("creditCard",creditCard);
-                setResult(RESULT_OK,intent);
-                finish();
+                if (quickPay==1){
+                    CreditCard creditCard=creditCards.get(i);
+                    Intent intent=new Intent();
+                    intent.putExtra("creditCard",creditCard);
+                    setResult(RESULT_OK,intent);
+                    finish();
+                }else {
+                    return;
+                }
+            }
+        });
+        adapter.setOnItemModifyNickName(new CrediteCardAdapter.OnItemModifyNickName() {
+            @Override
+            public void bankId(String bankId) {
+                new OtherDialog(context,1, bankId, false, new OtherDialog.OnNickNameListenter() {
+                    @Override
+                    public void setNickName(String str) {
+
+                    }
+                }).show();
             }
         });
     }
@@ -108,6 +125,11 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
         adapter.setData(list);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setDebitCard(List<DebitCard> list) {
+
     }
 
     @Override

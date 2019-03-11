@@ -13,6 +13,7 @@ import com.minmai.wallet.R;
 import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.common.uitl.ViewUtil;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -21,15 +22,14 @@ import java.util.List;
 /**
  * 信用卡适配器
  */
-public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapter.ViewHolder>{
+public class DebitCardAdapter extends BaseRecyclerViewAdapter<DebitCardAdapter.ViewHolder>{
 
-    List<CreditCard> mData;
+    List<DebitCard> mData;
     private Context context;
 
     private OnItemResultDataListener onItemResultDataListener;
-    private OnItemModifyNickName onItemModifyNickName;
 
-    public CrediteCardAdapter(Context context) {
+    public DebitCardAdapter(Context context) {
         super(context);
         this.context=context;
     }
@@ -44,7 +44,6 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
         viewHolder.tvBankName.setText(mData.get(i).getBankName());
         viewHolder.tvBankType.setText(mData.get(i).getType());
-        viewHolder.tvBankNick.setText(mData.get(i).getCreditAlias());
         viewHolder.tvBankNo.setText(HideDataUtil.formatCarNo(mData.get(i).getCarNumber()));
         Glide.with(context).load(mData.get(i).getLogo()).into(viewHolder.imgBank);
         Glide.with(context).load(mData.get(i).getBankBackground()).into(viewHolder.imgBigLogo);
@@ -55,18 +54,11 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
                 onItemResultDataListener.onResultData(i);
             }
         });
-        viewHolder.imgEditNick.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onItemModifyNickName.bankId(mData.get(i).getCreditId());
-            }
-        });
-
-
+        viewHolder.imgEditNick.setVisibility(View.GONE);
     }
 
     //设置数据
-    public void setData(List<CreditCard> data) {
+    public void setData(List<DebitCard> data) {
         this.mData = data;
         notifyDataSetChanged();
     }
@@ -88,11 +80,11 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
             lyBankBg= (AutoRelativeLayout) findViewById(R.id.ly_bank_bg);
             imgBank= (ImageView) findViewById(R.id.bank_img);
             imgBigLogo= (ImageView) findViewById(R.id.img_big_logo);
-            imgEditNick= (ImageView) findViewById(R.id.img_edit_nick);
             tvBankName= (TextView) findViewById(R.id.tv_bank_name);
             tvBankType= (TextView) findViewById(R.id.tv_bank_type);
             tvBankNo= (TextView) findViewById(R.id.tv_bank_no);
             tvBankNick= (TextView) findViewById(R.id.tv_bank_nick);
+            imgEditNick= (ImageView) findViewById(R.id.img_edit_nick);
         }
     }
 
@@ -104,16 +96,6 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     public void setOnItemResultDataListener(OnItemResultDataListener onItemResultDataListener){
         this.onItemResultDataListener=onItemResultDataListener;
     }
-
-    public interface OnItemModifyNickName{
-        void bankId(String bankId);
-    }
-
-    public void setOnItemModifyNickName(OnItemModifyNickName onItemModifyNickName){
-        this.onItemModifyNickName=onItemModifyNickName;
-    }
-
-
 
 
 

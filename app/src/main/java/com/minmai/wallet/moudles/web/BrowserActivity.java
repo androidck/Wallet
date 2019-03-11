@@ -72,14 +72,16 @@ public class BrowserActivity extends MyActivity {
         WebSettings webSettings = webView.getSettings();
 
         webSettings.setJavaScriptEnabled(true);
-        webView.removeJavascriptInterface("searchBoxJavaBridge_");
+        //webView.removeJavascriptInterface("searchBoxJavaBridge_");
         webSettings.setAllowContentAccess(true);
         webSettings.setDatabaseEnabled(true);
         webSettings.setDomStorageEnabled(true);
         webSettings.setAppCacheEnabled(true);
         webSettings.setSavePassword(false);
+        webSettings.setJavaScriptCanOpenWindowsAutomatically(true);//设置js可以直接打开窗口，如window.open()，默认为false
         webSettings.setSaveFormData(false);
         webSettings.setUseWideViewPort(true);
+        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         webSettings.setLoadWithOverviewMode(true);
     }
 

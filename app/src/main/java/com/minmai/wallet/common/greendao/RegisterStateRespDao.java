@@ -24,7 +24,7 @@ public class RegisterStateRespDao extends AbstractDao<RegisterStateResp, Long> {
      * Can be used for QueryBuilder and for referencing column names.
      */
     public static class Properties {
-        public final static Property Id = new Property(0, Long.class, "id", true, "ID");
+        public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property RegisterState = new Property(1, String.class, "registerState", false, "REGISTER_STATE");
         public final static Property IsOpenDateRepayment = new Property(2, String.class, "isOpenDateRepayment", false, "IS_OPEN_DATE_REPAYMENT");
     }
@@ -42,7 +42,7 @@ public class RegisterStateRespDao extends AbstractDao<RegisterStateResp, Long> {
     public static void createTable(Database db, boolean ifNotExists) {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"REGISTER_STATE_RESP\" (" + //
-                "\"ID\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
+                "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"REGISTER_STATE\" TEXT," + // 1: registerState
                 "\"IS_OPEN_DATE_REPAYMENT\" TEXT);"); // 2: isOpenDateRepayment
     }

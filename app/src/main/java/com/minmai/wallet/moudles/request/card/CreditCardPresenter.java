@@ -18,6 +18,7 @@ import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.response.Channel;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
 
 import java.util.ArrayList;
@@ -59,6 +60,33 @@ public class CreditCardPresenter implements CreditCardContract.presenter {
                     }
                     @Override
                     protected void onError(BaseEntry<ListBaseData<CreditCard>> t) {
+                        view.fail(t.getMsg());
+                    }
+                });
+    }
+
+    @Override
+    public void queryDebitCard(String userId, ListBaseData listBaseData) {
+        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
+        String sign= TokenUtils.getSign(TokenUtils.objectMap(listBaseData), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        RetrofitUtil
+                .getInstance()
+                .initRetrofit().queryDebitCard(currentTimeMillis,sign,userId,listBaseData.getPageCurrent(),listBaseData.getPageSize())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new BaseObserver<ListBaseData<DebitCard>>(context, MainUtil.loadTxt) {
+                    @Override
+                    protected void onSuccess(BaseEntry<ListBaseData<DebitCard>> t) throws Exception {
+                        view.setDebitCard(t.getData().getList());
+                    }
+                    @Override
+                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
+                        if (isNetWorkError){
+                            view.fail("网络连接失败，请检查网络");
+                        }
+                    }
+                    @Override
+                    protected void onError(BaseEntry<ListBaseData<DebitCard>> t) {
                         view.fail(t.getMsg());
                     }
                 });

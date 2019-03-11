@@ -16,8 +16,10 @@ import com.minmai.wallet.common.base.MyLazyFragment;
 import com.minmai.wallet.common.constant.ActivityConstant;
 import com.minmai.wallet.common.constant.Constant;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
+import com.minmai.wallet.common.greendao.RegisterStateRespDao;
 import com.minmai.wallet.common.view.MarqueeView;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
+import com.minmai.wallet.moudles.bean.response.RegisterStateResp;
 import com.minmai.wallet.moudles.bean.response.RollMessage;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.dialog.LoginTipDialog;
@@ -66,6 +68,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
     BannerPresenter presenter;
     private Context context;
     DbUserInfoDao userInfoDao;
+    RegisterStateRespDao respDao;
 
 
 
@@ -98,6 +101,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
     protected void initData() {
         presenter=new BannerPresenter(context,this);
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
+        respDao=MyApplication.getInstances().getDaoSession().getRegisterStateRespDao();
         getBanner();
         getRollMessage();
     }
@@ -124,7 +128,11 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
                     ARouter.getInstance().build(ActivityConstant.QUICK_PAY).navigation();
                     break;
                 case R.id.tv_date_repayment:
-                    ARouter.getInstance().build(ActivityConstant.DATE_REPAYMENT).navigation();
+                    if (queryRepayMentStatus()==false){
+                        toast("还款制定暂时关闭");
+                    }else {
+                        ARouter.getInstance().build(ActivityConstant.DATE_REPAYMENT).navigation();
+                    }
                     break;
                 case R.id.tv_share_profit:
                     ARouter.getInstance().build(ActivityConstant.MY_SHARE_MOIST).navigation();
@@ -207,6 +215,16 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
     public boolean isLogin(){
         List<DbUserInfo> userInfos=userInfoDao.loadAll();
         if (userInfos==null||userInfos.size()==0){
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    //是否开启还款
+    public boolean queryRepayMentStatus(){
+        List<RegisterStateResp> resps=respDao.loadAll();
+        if (resps.get(0).getIsOpenDateRepayment().equals("0")){
             return false;
         }else {
             return true;

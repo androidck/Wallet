@@ -64,22 +64,53 @@
         android:id="@+id/ly_bank_bg"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="1.5"
         >
-
-        <TextView
-            android:id="@+id/tv_bank_nick"
+        <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_30"
-            android:layout_marginRight="@dimen/space_20"
-            android:gravity="center_vertical|right"
-            android:textColor="@android:color/white" />
-        <ImageView
-            android:id="@+id/img_big_logo"
-            android:layout_width="@dimen/space_150"
-            android:layout_height="@dimen/space_150"
-            android:layout_centerInParent="true"
-            android:src="@mipmap/jiaotong_logo_big" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+            <com.zhy.autolayout.AutoLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="match_parent"
+                    android:id="@+id/tv_bank_nick"
+                    android:textColor="@android:color/white"
+                    android:gravity="center_vertical|bottom"
+                    />
+                <ImageView
+                    android:id="@+id/img_edit_nick"
+                    android:layout_width="@dimen/space_34"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/space_30"
+                    android:src="@mipmap/edit" />
+            </com.zhy.autolayout.AutoLinearLayout>
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2.5"
+                >
+
+                <ImageView
+                    android:id="@+id/img_big_logo"
+                    android:layout_width="@dimen/space_150"
+                    android:layout_height="@dimen/space_150"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/space_30"
+                    android:src="@mipmap/jiaotong_logo_big" />
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+
     </com.zhy.autolayout.AutoRelativeLayout>
 </com.zhy.autolayout.AutoLinearLayout>

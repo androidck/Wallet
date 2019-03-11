@@ -65,4 +65,6 @@
     <string name="modify_login_pwd">修改登录密码</string>
     <string name="modify_Pay_pwd">修改支付密码</string>
     <string name="replace_phone_number">修改手机号</string>
+
+    <string name="image">transition</string>
 </resources>

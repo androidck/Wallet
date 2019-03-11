@@ -284,13 +284,17 @@ public class QuickPayActivity extends MyActivity implements ChannelContract.View
 
     //通道dialog
     public void showDialog(List<Channel> channels) {
-        new PassagewayDialog(QuickPayActivity.this, channels, null, false, new PassagewayDialog.OnSelectChannelListener() {
-            @Override
-            public void onSelectChannel(int position, Channel channel) {
-                setChannelView(channel);
-                getQuota();
-            }
-        }).show();
+        if (channels==null||channels.size()==0){
+            toast("暂无可用通道");
+        }else {
+            new PassagewayDialog(QuickPayActivity.this, channels, null, false, new PassagewayDialog.OnSelectChannelListener() {
+                @Override
+                public void onSelectChannel(int position, Channel channel) {
+                    setChannelView(channel);
+                    getQuota();
+                }
+            }).show();
+        }
     }
 
     @Override

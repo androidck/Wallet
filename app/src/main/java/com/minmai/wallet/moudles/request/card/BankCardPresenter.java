@@ -120,9 +120,7 @@ public class BankCardPresenter implements BankCardContract.presenter {
                 .subscribe(new BaseObserver<String>(context, MainUtil.loadTxt) {
                     @Override
                     protected void onSuccess(BaseEntry<String> t) throws Exception {
-                        if (t.getMsg().equals("访问成功")){
-                            view.onSuccess("1");
-                        }
+                        view.onSuccess(t.getMsg());
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {

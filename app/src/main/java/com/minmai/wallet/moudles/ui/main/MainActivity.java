@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.LocalBroadcastManager;
@@ -20,14 +19,8 @@ import com.minmai.wallet.common.helper.ActivityStackManager;
 import com.minmai.wallet.common.helper.DoubleClickHelper;
 import com.minmai.wallet.common.jpush.JpushUtil;
 import com.minmai.wallet.moudles.adapter.HomeFragmentAdapter;
-import com.minmai.wallet.moudles.web.SonicRuntimeImpl;
-import com.tencent.sonic.sdk.SonicConfig;
-import com.tencent.sonic.sdk.SonicEngine;
-
-import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import cn.jpush.android.api.JPushInterface;
 
 /**
@@ -66,6 +59,8 @@ public class MainActivity extends MyActivity implements ViewPager.OnPageChangeLi
 
     @Override
     protected void initView() {
+
+
         vpHomePager.addOnPageChangeListener(this);
 
         // 不使用图标默认变色

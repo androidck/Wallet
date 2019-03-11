@@ -27,6 +27,7 @@ import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.greendao.DbBankInfoDao;
 import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
+import com.minmai.wallet.common.greendao.RegisterStateRespDao;
 import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
@@ -65,6 +66,7 @@ public abstract class MyActivity extends UIActivity
     public static DbUserInfoDao userInfoDao;
     public static DbCenterInfoDao centerInfoDao;
     public static DbBankInfoDao bankInfoDao;
+    public static RegisterStateRespDao respDao;
     public Context context;
 
     public int currentPage=1;
@@ -85,6 +87,7 @@ public abstract class MyActivity extends UIActivity
         userInfoDao=MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         bankInfoDao=MyApplication.getInstances().getDaoSession().getDbBankInfoDao();
+        respDao=MyApplication.getInstances().getDaoSession().getRegisterStateRespDao();
         context=this;
 
         initOrientation();
@@ -231,30 +234,7 @@ public abstract class MyActivity extends UIActivity
         startActivityForResult(intent, -1);
     }
 
-    /**
-     * 倒计时
-     * @param textView
-     */
-    public void countDown(final TextView textView){
-        /** 倒计时60秒，一次1秒 */
-        CountDownTimer timer = new CountDownTimer(10*1000, 1000) {
-            @Override
-            public void onTick(long millisUntilFinished) {
-                // TODO Auto-generated method stub
-                textView.setText(millisUntilFinished/1000+"秒后重新获取");
-                textView.setClickable(false);
-                textView.setTextColor(Color.parseColor("#8d8d8d"));
-            }
-            @Override
-            public void onFinish() {
-                textView.setText("重新发送验证码");
-                textView.setClickable(true);
-                textView.setTextColor(Color.parseColor("#0096ff"));
-            }
-        }.start();
 
-
-    }
 
     public class TimeCount extends CountDownTimer {
 
@@ -287,6 +267,7 @@ public abstract class MyActivity extends UIActivity
         if (userInfos==null||userInfos.size()==0){
             return false;
         }else {
+            queryRegisterState();
             return true;
         }
     }
@@ -299,6 +280,8 @@ public abstract class MyActivity extends UIActivity
           userInfoDao.update(userInfo);
       }
     }
+
+
 
     /**
      * 认证
@@ -336,6 +319,8 @@ public abstract class MyActivity extends UIActivity
                     protected void onSuccess(BaseEntry<RegisterStateResp>t) throws Exception {
                         //修改状态
                         modifyStatus(getUserId(),Integer.parseInt(t.getData().getRegisterState()));
+                        //保存数据
+                        respDao.save(new RegisterStateResp(null,t.getData().getRegisterState(),t.getData().getIsOpenDateRepayment()));
                     }
                     @Override
                     protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
@@ -351,33 +336,7 @@ public abstract class MyActivity extends UIActivity
     }
 
 
-    //获取是否开始还款
-    public void queryRepaymentState(){
-        long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
-        String sign=TokenUtils.getSign(TokenUtils.objectMap(null),EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
-        RetrofitUtil
-                .getInstance()
-                .initRetrofit().queryRegisterState(currentTimeMillis,sign,getUserId())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new BaseObserver<RegisterStateResp>(context, MainUtil.loadTxt) {
-                    @Override
-                    protected void onSuccess(BaseEntry<RegisterStateResp>t) throws Exception {
 
-                    }
-                    @Override
-                    protected void onFailure(Throwable e, boolean isNetWorkError) throws Exception {
-                        if (isNetWorkError){
-                            toast("网络连接失败，请联系管理员");
-                        }
-                    }
-                    @Override
-                    protected void onError(BaseEntry <RegisterStateResp>t) {
-                        toast(t.getMsg());
-                    }
-                });
-
-    }
 
     //获取身份证识别token
     public void getOcrSing() {

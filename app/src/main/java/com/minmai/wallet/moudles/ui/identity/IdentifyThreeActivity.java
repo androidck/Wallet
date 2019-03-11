@@ -283,7 +283,7 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
         }else if (!ValidateUtils.Mobile(phone)){
             toast("手机号格式不正确");
         }else{
-            elementsValidate();
+            userBankCardBinding();
         }
     }
 
@@ -427,16 +427,11 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
 
     @Override
     public void onSuccess(String msg) {
-        if ("1".equals(msg)){
-            toast("实名已完成");
-            //查询进件状态
-            queryRegisterState();
-            ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
-            finish();
-        }else if ("信息匹配".equals(msg)){
-            toast(msg);
-            userBankCardBinding();
-        }
+        //查询进件状态
+        queryRegisterState();
+        ARouter.getInstance().build(ActivityConstant.MAIN).navigation();
+        finish();
+
     }
 
     @Override
