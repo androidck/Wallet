@@ -596,5 +596,15 @@ public interface WalletApi {
     @FormUrlEncoded
     Observable<BaseEntry<BankBackGround>>getBankBackgroundVo(@Field("bankCarNum") String repaymentDate);
 
+    /**
+     * 阅读留言
+     * @param id
+     * @return
+     */
+    @POST("user/updateReadState")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>updateReadState(@Field("id") String id);
+
+
 }
 
