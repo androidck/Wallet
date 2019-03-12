@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.request.user.UpgradeContract;
 import com.minmai.wallet.moudles.request.user.UpgradePresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
@@ -41,27 +43,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class UpgradeActivity extends MyActivity implements UpgradeContract.View {
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
-    @BindView(R.id.ly_data)
-    AutoLinearLayout lyData;
-    @BindView(R.id.img_head)
-    CircleImageView imgHead;
-    @BindView(R.id.tv_nickName)
-    TextView tvNickName;
-    @BindView(R.id.tv_user_no)
-    TextView tvUserNo;
-    @BindView(R.id.tv_current)
-    TextView tvCurrent;
-    @BindView(R.id.tv_low)
-    TextView tvLow;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
-    @BindView(R.id.tv_high)
-    TextView tvHigh;
     @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
+    SwipeRecyclerView recyclerView;
+
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
+    AutoLinearLayout lyData;
+    CircleImageView imgHead;
+    TextView tvNickName;
+    TextView tvUserNo;
+    TextView tvCurrent;
+    TextView tvLow;
+    ProgressBar progressBar;
+    TextView tvHigh;
     private UpgradePresenter presenter;
     private UpgradeAdapter adapter;
     private BottomDialogAdapter adapters;
@@ -81,14 +76,23 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
 
     @Override
     protected void initView() {
-
-
-
         tbLoginTitle.setLeftIcon(R.mipmap.bar_icon_back_white);
         tbLoginTitle.setBackgroundColor(Color.parseColor("#2D2E2D"));
         tbLoginTitle.setTitle("会员中心");
         tbLoginTitle.setTitleColor(Color.parseColor("#ffffff"));
         refreshLayout.setEnableLoadMore(false);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        View headView=getLayoutInflater().inflate(R.layout.activity_upgrade_head,recyclerView);
+        recyclerView.addHeaderView(headView);
+
+        lyData=headView.findViewById(R.id.ly_data);
+        tvNickName=headView.findViewById(R.id.tv_nickName);
+        tvUserNo=headView.findViewById(R.id.tv_user_no);
+        tvCurrent=headView.findViewById(R.id.tv_current);
+        imgHead=headView.findViewById(R.id.img_head);
+        tvLow=headView.findViewById(R.id.tv_low);
+        progressBar=headView.findViewById(R.id.progressBar);
+        tvHigh=headView.findViewById(R.id.tv_high);
     }
 
     @Override
@@ -147,7 +151,6 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
         int ratio=(new Double((memberCentreEntity.getLevelRatio()*100))).intValue();
         Glide.with(context).load(memberCentreEntity.getUserHead()).placeholder(R.mipmap.ic_launcher).into(imgHead);
         progressBar.setProgress(ratio);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
         adapter.setData(memberCentreEntity.getList());
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

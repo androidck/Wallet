@@ -8,6 +8,7 @@ import com.minmai.wallet.moudles.bean.response.ChannelBank;
 import com.minmai.wallet.moudles.bean.response.CityResp;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
+import com.minmai.wallet.moudles.bean.response.DividedOrWithdrawalDetailsList;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.bean.response.ListLeaving;
@@ -659,5 +660,22 @@ public interface WalletApi {
                                                           @Field("type")String type,
                                                           @Field("memberLevelId")String memberLevelId,
                                                           @Field("goodsType")String goodsType);
+
+    /**
+     * 我的分润
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("record/listForRecords")
+    @FormUrlEncoded
+    Observable<BaseEntry<ListBaseData<DividedOrWithdrawalDetailsList>>>listForRecords(@Header("X_Timestamp") long currentTimeMillis,
+                                                                                      @Header("X_Signature") String sign,
+                                                                                      @Header("X_UserId") String xUserId,
+                                                                                      @Field("pageCurrent") int pageCurrent,
+                                                                                      @Field("pageSize") int pageSize
+                                                );
+
 }
 
