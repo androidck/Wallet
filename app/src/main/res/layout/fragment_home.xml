@@ -56,7 +56,6 @@
                         android:layout_gravity="center"
                         />
                     <com.minmai.wallet.common.view.MarqueeView
-
                         android:id="@+id/tv_notice"
                         app:textcolor="@color/textColor"
                         app:textSize="@dimen/font_size_30px"

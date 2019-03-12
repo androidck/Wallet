@@ -26,6 +26,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
 import com.zhy.autolayout.AutoRelativeLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -157,8 +158,8 @@ public class CreditCardListActivity extends MyActivity implements CreditCardCont
 
     @Override
     public void setCreditCard(List<CreditCard> list) {
-        creditCards = list;
-        adapter.setData(list);
+        creditCards=list; ;
+        adapter.setData(creditCards);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

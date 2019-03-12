@@ -14,6 +14,7 @@ import com.baidu.ocr.sdk.OCR;
 import com.baidu.ocr.sdk.OnResultListener;
 import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
+import com.google.gson.Gson;
 import com.hjq.bar.OnTitleBarListener;
 import com.hjq.bar.TitleBar;
 import com.hjq.permissions.OnPermission;
@@ -28,12 +29,14 @@ import com.minmai.wallet.common.greendao.DbBankInfoDao;
 import com.minmai.wallet.common.greendao.DbCenterInfoDao;
 import com.minmai.wallet.common.greendao.DbUserInfoDao;
 import com.minmai.wallet.common.greendao.RegisterStateRespDao;
+import com.minmai.wallet.common.network.OkHttp;
 import com.minmai.wallet.common.uitl.MainUtil;
 import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.RegisterStateResp;
+import com.minmai.wallet.moudles.bean.response.ValideCard;
 import com.minmai.wallet.moudles.db.DbBankInfo;
 import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.ui.identity.IdentifyOneActivity;
@@ -43,12 +46,14 @@ import com.minmai.wallet.moudles.ui.main.MainActivity;
 import com.minmai.wallet.moudles.web.BrowserActivity;
 import com.minmai.wallet.moudles.web.SonicJavaScriptInterface;
 
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.Request;
 
 /**
  *    author : Android 轮子哥
@@ -335,9 +340,6 @@ public abstract class MyActivity extends UIActivity
                 });
     }
 
-
-
-
     //获取身份证识别token
     public void getOcrSing() {
         OCR.getInstance().initAccessToken(new OnResultListener<AccessToken>() {
@@ -362,6 +364,33 @@ public abstract class MyActivity extends UIActivity
             return true;
         }
     }
+
+
+    //获取银行卡类型
+    public void validateCardType(final int type, String cardNumber){
+        OkHttp.getAsync("https://ccdcapi.alipay.com/validateAndCacheCardInfo.json?cardNo="+cardNumber+"&cardBinCheck=true", new OkHttp.DataCallBack() {
+            @Override
+            public void requestSuccess(String result) throws Exception {
+                ValideCard valideCard=new Gson().fromJson(result,ValideCard.class);
+                //验证信用卡
+                if (type==1){
+                    if (!valideCard.equals("CC")){
+
+                    }
+                }else if (type==2){
+                    if (!valideCard.equals("DC")){
+
+                    }
+                }
+            }
+
+            @Override
+            public void requestFailure(Request request, IOException e) {
+
+            }
+        });
+    }
+
 
 
 }

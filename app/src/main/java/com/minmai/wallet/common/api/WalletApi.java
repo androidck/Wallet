@@ -606,5 +606,19 @@ public interface WalletApi {
     Observable<BaseEntry<String>>updateReadState(@Field("id") String id);
 
 
+    /**
+     * 信用卡解绑
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param creditId
+     * @return
+     */
+    @POST("trade/delCreditCard")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>delCreditCard(@Header("X_Timestamp") long currentTimeMillis,
+                                                   @Header("X_Signature") String sign,
+                                                   @Header("X_UserId") String xUserId,
+                                                   @Field("id") String creditId);
 }
 

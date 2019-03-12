@@ -123,6 +123,7 @@ public class HomeFragment extends MyLazyFragment implements BannerContract.View 
                 case R.id.banner:
                     break;
                 case R.id.tv_notice:
+                    ARouter.getInstance().build(ActivityConstant.NOTICE).navigation();
                     break;
                 case R.id.tv_quick_pay:
                     ARouter.getInstance().build(ActivityConstant.QUICK_PAY).navigation();

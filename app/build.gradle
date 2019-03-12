@@ -166,6 +166,8 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     implementation 'liji.library.dev:citypickerview:4.1.1'
+    //高德定位
+    implementation 'com.amap.api:location:latest.integration'
 }
 
 

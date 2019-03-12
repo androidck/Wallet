@@ -402,13 +402,7 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
     }
 
 
-    /**
-     * 四要素验证
-     */
-    public void elementsValidate(){
-        String bankNo=bankNumber.getText().toString().trim().replace(" ","");
-        presenter.elementsValidate(getUserId(),Constant.COMPANY_ID,bankNo,phone);
-    }
+
 
     /**
      * 完善信息第三部

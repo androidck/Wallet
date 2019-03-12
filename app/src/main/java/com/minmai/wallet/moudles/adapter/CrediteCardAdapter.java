@@ -4,20 +4,37 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hjq.base.BaseRecyclerViewAdapter;
+import com.hjq.toast.ToastUtils;
 import com.minmai.wallet.R;
+import com.minmai.wallet.common.base.BaseEntry;
+import com.minmai.wallet.common.base.BaseObserver;
+import com.minmai.wallet.common.enumcode.EnumService;
 import com.minmai.wallet.common.uitl.HideDataUtil;
+import com.minmai.wallet.common.uitl.MainUtil;
+import com.minmai.wallet.common.uitl.RetrofitUtil;
+import com.minmai.wallet.common.uitl.SystemUtil;
+import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.common.uitl.ViewUtil;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
+import com.minmai.wallet.moudles.bean.response.DebitCard;
+import com.minmai.wallet.moudles.bean.response.ListBaseData;
+import com.minmai.wallet.moudles.dialog.UntyingCardDialog;
 import com.minmai.wallet.moudles.ui.cash.CreditCardListActivity;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 信用卡适配器
@@ -64,6 +81,20 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
             }
         });
 
+        //解绑信用卡
+        viewHolder.btnUntying.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new UntyingCardDialog(context, false,mData.get(i).getCreditId(), new UntyingCardDialog.OnUntyingCardListener() {
+                    @Override
+                    public void onSuccess(String msg) {
+                        ToastUtils.show(msg);
+                        notifyDataSetChanged();
+                    }
+                }).show();
+            }
+        });
+
 
     }
 
@@ -84,6 +115,7 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
         ImageView imgBank,imgBigLogo,imgEditNick;
         TextView tvBankName,tvBankType,tvBankNo,tvBankNick;
         AutoRelativeLayout lyBankBg;
+        Button btnUntying;
         public ViewHolder(ViewGroup parent, int layoutId) {
             super(parent, layoutId);
             lyBg= (AutoLinearLayout) findViewById(R.id.tv_card_bg);
@@ -95,6 +127,7 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
             tvBankType= (TextView) findViewById(R.id.tv_bank_type);
             tvBankNo= (TextView) findViewById(R.id.tv_bank_no);
             tvBankNick= (TextView) findViewById(R.id.tv_bank_nick);
+            btnUntying= (Button) findViewById(R.id.btn_untying);
         }
     }
 
@@ -114,6 +147,8 @@ public class CrediteCardAdapter extends BaseRecyclerViewAdapter<CrediteCardAdapt
     public void setOnItemModifyNickName(OnItemModifyNickName onItemModifyNickName){
         this.onItemModifyNickName=onItemModifyNickName;
     }
+
+
 
 
 

@@ -20,8 +20,8 @@ public class ActivityConstant {
     //注册 第三步
     public static final String USER_REGISTER_THREE="/one/RegisterThreeActivity";
 
-    //关于我们
-    public static final String ABOUNT_ME="";
+    //公告
+    public static final String NOTICE="/home/NoticeActivity";
 
     //设置
     public static final String SETUP="";

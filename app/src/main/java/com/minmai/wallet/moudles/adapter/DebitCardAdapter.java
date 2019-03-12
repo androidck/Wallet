@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -55,6 +56,10 @@ public class DebitCardAdapter extends BaseRecyclerViewAdapter<DebitCardAdapter.V
             }
         });
         viewHolder.imgEditNick.setVisibility(View.GONE);
+        viewHolder.btnUntying.setText("变更");
+        if (mData.get(i).getIsDefault().equals("1")){
+            viewHolder.tvBankNick.setText("默认");
+        }
     }
 
     //设置数据
@@ -74,6 +79,7 @@ public class DebitCardAdapter extends BaseRecyclerViewAdapter<DebitCardAdapter.V
         ImageView imgBank,imgBigLogo,imgEditNick;
         TextView tvBankName,tvBankType,tvBankNo,tvBankNick;
         AutoRelativeLayout lyBankBg;
+        Button btnUntying;
         public ViewHolder(ViewGroup parent, int layoutId) {
             super(parent, layoutId);
             lyBg= (AutoLinearLayout) findViewById(R.id.tv_card_bg);
@@ -85,6 +91,7 @@ public class DebitCardAdapter extends BaseRecyclerViewAdapter<DebitCardAdapter.V
             tvBankNo= (TextView) findViewById(R.id.tv_bank_no);
             tvBankNick= (TextView) findViewById(R.id.tv_bank_nick);
             imgEditNick= (ImageView) findViewById(R.id.img_edit_nick);
+            btnUntying= (Button) findViewById(R.id.btn_untying);
         }
     }
 

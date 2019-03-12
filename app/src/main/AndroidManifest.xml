@@ -26,6 +26,8 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
 
     <!-- 8.0两个新权限 -->
     <uses-permission android:name="android.permission.ANSWER_PHONE_CALLS"/>
@@ -56,6 +58,8 @@
                 android:resource="@xml/provider_paths"/>
         </provider>
 -->
+        <!-- 地图定位 -->
+        <service android:name="com.amap.api.location.APSService"></service>
 
         <meta-data android:name="design_width" android:value="768"/>
         <meta-data android:name="design_height" android:value="1280"/>
@@ -66,6 +70,9 @@
             android:theme="@style/MyDialogStyle"
             android:exported="false">
         </activity>
+
+        <meta-data android:name="com.amap.api.v2.apikey" android:value="e70e99ccc77ac19c753488c71aa15873"/>
+
 
         <!-- Required SDK核心功能-->
         <activity
@@ -331,6 +338,11 @@
         <activity android:name=".moudles.ui.pay.ConfirmPayActivity"
             android:screenOrientation="portrait"
             android:label="@string/activity_confirm_pay"
+            />
+
+        <activity android:name=".moudles.ui.home.NoticeActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/activity_notice"
             />
 
 

@@ -99,9 +99,6 @@ public class CreditCardPresenter implements CreditCardContract.presenter {
     public void addCreditCard(String userId, CreditCardReq creditCardReq) {
 
 
-
-
-
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
         String sign= TokenUtils.getSign(TokenUtils.objectMap(creditCardReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil

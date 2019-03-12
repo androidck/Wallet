@@ -89,6 +89,9 @@ public class SavingsCardListActivity extends MyActivity implements CreditCardCon
 
     @Override
     public void setDebitCard(List<DebitCard> list) {
+        if (list.size()!=0){
+            addSavingCard.setVisibility(View.GONE);
+        }
         adapter.setData(list);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -96,7 +99,7 @@ public class SavingsCardListActivity extends MyActivity implements CreditCardCon
 
     @Override
     public void fail(String msg) {
-
+        toast(msg);
     }
 
     @Override

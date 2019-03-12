@@ -9,7 +9,7 @@
     <com.zhy.autolayout.AutoLinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="2.5"
+        android:layout_weight="4"
         android:orientation="vertical">
         <com.zhy.autolayout.AutoLinearLayout
             android:layout_width="match_parent"
@@ -101,13 +101,26 @@
 
                 <ImageView
                     android:id="@+id/img_big_logo"
-                    android:layout_width="@dimen/space_150"
-                    android:layout_height="@dimen/space_150"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/space_30"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
                     android:src="@mipmap/jiaotong_logo_big" />
+
+                <Button
+                    android:id="@+id/btn_untying"
+                    android:layout_width="@dimen/space_100"
+                    android:layout_height="@dimen/space_50"
+                    android:layout_alignEnd="@+id/img_big_logo"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginEnd="-21dp"
+                    android:layout_marginBottom="9dp"
+                    android:background="@drawable/item_untying_card_bg"
+                    android:text="解 绑"
+                    android:textColor="@android:color/white" />
             </com.zhy.autolayout.AutoRelativeLayout>
 
         </com.zhy.autolayout.AutoLinearLayout>

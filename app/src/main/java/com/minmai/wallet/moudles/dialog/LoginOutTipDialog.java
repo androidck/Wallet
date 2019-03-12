@@ -27,11 +27,14 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
     private Context context;
     DbUserInfoDao userInfoDao;
     DbCenterInfoDao centerInfoDao;
+
+
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
     public LoginOutTipDialog(Context context, boolean isCancelable) {
         super(context, R.style.ActionSheetDialogStyle);
         this.context = context;
         this.iscancelable = isCancelable;
+
     }
 
     @Override
@@ -76,4 +79,7 @@ public class LoginOutTipDialog extends Dialog implements View.OnClickListener {
                 break;
         }
     }
+
+
+
 }
