@@ -17,12 +17,16 @@ public class DbCenterInfo {
 
     private String userNo;
 
-    @Generated(hash = 1089097409)
-    public DbCenterInfo(Long id, String userId, String extendOne, String userNo) {
+    private String nickName;
+
+    @Generated(hash = 212599910)
+    public DbCenterInfo(Long id, String userId, String extendOne, String userNo,
+            String nickName) {
         this.id = id;
         this.userId = userId;
         this.extendOne = extendOne;
         this.userNo = userNo;
+        this.nickName = nickName;
     }
 
     @Generated(hash = 1291668564)
@@ -60,4 +64,14 @@ public class DbCenterInfo {
     public void setUserNo(String userNo) {
         this.userNo = userNo;
     }
+
+    public String getNickName() {
+        return this.nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
+    
 }

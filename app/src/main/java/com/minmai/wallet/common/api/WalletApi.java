@@ -11,6 +11,7 @@ import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.ListBaseData;
 import com.minmai.wallet.moudles.bean.response.ListLeaving;
+import com.minmai.wallet.moudles.bean.response.MemberCentreEntity;
 import com.minmai.wallet.moudles.bean.response.PerCenterInfo;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
 import com.minmai.wallet.moudles.bean.response.RefereeUserInfo;
@@ -620,5 +621,43 @@ public interface WalletApi {
                                                    @Header("X_Signature") String sign,
                                                    @Header("X_UserId") String xUserId,
                                                    @Field("id") String creditId);
+
+    /**
+     * 查询升级页面信息
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("upgrade/search")
+    Observable<BaseEntry<MemberCentreEntity>>search(@Header("X_Timestamp") long currentTimeMillis,
+                                                    @Header("X_Signature") String sign,
+                                                    @Header("X_UserId") String xUserId);
+
+
+    /**
+     * 支付宝支付
+     * @param body
+     * @param subject
+     * @param outTradeNo
+     * @param totalAmount
+     * @param productCode
+     * @param userId
+     * @param type
+     * @param memberLevelId
+     * @param goodsType
+     * @return
+     */
+    @POST("alipay/callOrderPay")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>callOrderPay(@Field("body") String body,
+                                                          @Field("subject")String subject,
+                                                          @Field("outTradeNo")String outTradeNo,
+                                                          @Field("totalAmount")String totalAmount,
+                                                          @Field("productCode") String productCode,
+                                                          @Field("userId")String userId,
+                                                          @Field("type")String type,
+                                                          @Field("memberLevelId")String memberLevelId,
+                                                          @Field("goodsType")String goodsType);
 }
 

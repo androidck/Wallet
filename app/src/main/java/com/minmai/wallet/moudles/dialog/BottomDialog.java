@@ -24,9 +24,11 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
     private View view;
     private Context context;
     private List<String> list;
-
+    private String upGradeId;
+    private String upMoney;
     private RecyclerView.Adapter adapter;
     private int closeStatus;
+    private  OnItemPayListener onItemPayListener;
     //这里的view其实可以替换直接传layout过来的 因为各种原因没传(lan)
 
     public BottomDialog(Context context){
@@ -39,6 +41,16 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
         this.context = context;
         this.iscancelable = isCancelable;
         this.adapter=adapter;
+    }
+
+    public BottomDialog(Context context, boolean isCancelable,String upGradeId,String upMoney, RecyclerView.Adapter adapter,OnItemPayListener onItemPayListener) {
+        super(context, R.style.ActionSheetDialogStyle);
+        this.context = context;
+        this.iscancelable = isCancelable;
+        this.upGradeId=upGradeId;
+        this.upMoney=upMoney;
+        this.adapter=adapter;
+        this.onItemPayListener=onItemPayListener;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +72,7 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
+        onItemPayListener.onPay(upGradeId,upMoney);
     }
 
     @Override
@@ -69,6 +82,10 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
                 dismiss();
                 break;
         }
+    }
+
+    public interface OnItemPayListener{
+        void onPay(String upGradeId,String upMoney);
     }
 
 }

@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.bumptech.glide.Glide;
 import com.minmai.wallet.R;
 import com.minmai.wallet.common.base.MyApplication;
 import com.minmai.wallet.common.base.MyLazyFragment;
@@ -350,9 +351,10 @@ public class MyFragment extends MyLazyFragment implements UserContract.View {
             tvRefereePhone.setText(HideDataUtil.hideCardNo(perCenterInfo.getRefereePhone()));
             tvRefereeName.setText(HideDataUtil.hideRealName(perCenterInfo.getRefereeUser()));
         }
+        Glide.with(getContext()).load(perCenterInfo.getUserHead()).placeholder(R.mipmap.ic_launcher).into(imgHead);
         refereeName = tvRefereeName.getText().toString().trim();
         tvNickName.setText(perCenterInfo.getNickName());
-        DbCenterInfo dbCenterInfo = new DbCenterInfo(null, userInfos.get(0).getUserId(), perCenterInfo.getExtendOne(), perCenterInfo.getUserNo());
+        DbCenterInfo dbCenterInfo = new DbCenterInfo(null, userInfos.get(0).getUserId(), perCenterInfo.getExtendOne(), perCenterInfo.getUserNo(),perCenterInfo.getNickName());
         centerInfoDao.save(dbCenterInfo);
     }
 

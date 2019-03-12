@@ -54,7 +54,7 @@ public class UntyingCardDialog extends Dialog implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_login_tip);//这行一定要写在前面
+        setContentView(R.layout.dialog_untrying_tip);//这行一定要写在前面
         setCancelable(iscancelable);//点击外部不可dismiss
         Window window = this.getWindow();
         window.setGravity(Gravity.CENTER);

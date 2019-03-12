@@ -28,6 +28,7 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
         public final static Property UserId = new Property(1, String.class, "userId", false, "USER_ID");
         public final static Property ExtendOne = new Property(2, String.class, "extendOne", false, "EXTEND_ONE");
         public final static Property UserNo = new Property(3, String.class, "userNo", false, "USER_NO");
+        public final static Property NickName = new Property(4, String.class, "nickName", false, "NICK_NAME");
     }
 
 
@@ -46,7 +47,8 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"USER_ID\" TEXT," + // 1: userId
                 "\"EXTEND_ONE\" TEXT," + // 2: extendOne
-                "\"USER_NO\" TEXT);"); // 3: userNo
+                "\"USER_NO\" TEXT," + // 3: userNo
+                "\"NICK_NAME\" TEXT);"); // 4: nickName
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
         if (userNo != null) {
             stmt.bindString(4, userNo);
         }
+ 
+        String nickName = entity.getNickName();
+        if (nickName != null) {
+            stmt.bindString(5, nickName);
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
         if (userNo != null) {
             stmt.bindString(4, userNo);
         }
+ 
+        String nickName = entity.getNickName();
+        if (nickName != null) {
+            stmt.bindString(5, nickName);
+        }
     }
 
     @Override
@@ -116,7 +128,8 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // userId
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // extendOne
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // userNo
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // userNo
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // nickName
         );
         return entity;
     }
@@ -127,6 +140,7 @@ public class DbCenterInfoDao extends AbstractDao<DbCenterInfo, Long> {
         entity.setUserId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setExtendOne(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setUserNo(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setNickName(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

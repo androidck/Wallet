@@ -21,7 +21,7 @@ public class BottomDialogAdapter extends BaseRecyclerViewAdapter<BottomDialogAda
 
     public BottomDialogAdapter(Context context) {
             super(context);
-        }
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
