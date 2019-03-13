@@ -4,6 +4,7 @@ import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
 import com.minmai.wallet.moudles.bean.request.IdentfiyOneReq;
 import com.minmai.wallet.moudles.bean.request.QuickPayReq;
+import com.minmai.wallet.moudles.bean.request.UserBankCardUpdateReq;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
@@ -39,5 +40,6 @@ public interface IdentifyContract {
 
         //实名认证第一步
         void userRealNameAuthenticationTwo(String userId, IdentfiyOneReq identfiyOneReq);
+
     }
 }

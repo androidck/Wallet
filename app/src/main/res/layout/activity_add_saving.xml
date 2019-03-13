@@ -46,6 +46,7 @@
                 android:layout_weight="3.5"
                 android:layout_height="match_parent"
                 android:hint="不可编辑"
+                android:textColor="@color/textColor"
                 android:textSize="@dimen/space_24"
                 android:layout_marginRight="@dimen/space_30"
                 android:background="@null"
@@ -102,21 +103,22 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
                 android:layout_height="match_parent"
-                android:text="选择开户行："
+                android:text="开户地区："
                 android:textColor="@color/textColor"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/space_30"
                 />
             <TextView
-                android:id="@+id/tv_open_member"
+                android:id="@+id/tv_open_address"
                 android:layout_width="0dp"
                 android:layout_weight="3.5"
                 android:layout_height="match_parent"
-                android:hint="请选择开户行"
+                android:hint="请选择开户地区"
+                android:textColor="@color/textColor"
+                android:gravity="center_vertical"
                 android:textSize="@dimen/space_24"
                 android:layout_marginRight="@dimen/space_30"
                 android:background="@null"
-                android:gravity="center_vertical"
                 />
         </com.zhy.autolayout.AutoLinearLayout>
         <View
@@ -136,23 +138,25 @@
                 android:layout_width="0dp"
                 android:layout_weight="1.5"
                 android:layout_height="match_parent"
-                android:text="开户地区："
+                android:text="选择开户行："
                 android:textColor="@color/textColor"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="@dimen/space_30"
                 />
             <TextView
-                android:id="@+id/tv_open_address"
+                android:id="@+id/tv_open_member"
                 android:layout_width="0dp"
                 android:layout_weight="3.5"
                 android:layout_height="match_parent"
-                android:hint="请选择开户地区"
-                android:gravity="center_vertical"
+                android:hint="请选择开户行"
                 android:textSize="@dimen/space_24"
                 android:layout_marginRight="@dimen/space_30"
+                android:textColor="@color/textColor"
                 android:background="@null"
+                android:gravity="center_vertical"
                 />
         </com.zhy.autolayout.AutoLinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_1"
@@ -182,6 +186,7 @@
                 android:layout_height="match_parent"
                 android:hint="请输入预留手机号"
                 android:textSize="@dimen/space_24"
+                android:textColor="@color/textColor"
                 android:layout_marginRight="@dimen/space_30"
                 android:background="@null"
                 android:maxLength="13"
@@ -205,5 +210,5 @@
         android:layout_marginTop="@dimen/space_60"
         android:layout_marginRight="@dimen/space_60"
         android:layout_marginBottom="@dimen/space_60"
-        android:text="添加储蓄卡" />
+        android:text="变更储蓄卡" />
 </com.zhy.autolayout.AutoLinearLayout>

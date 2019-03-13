@@ -3,6 +3,7 @@ package com.minmai.wallet.moudles.request.card;
 import com.minmai.wallet.common.base.BasePresenter;
 import com.minmai.wallet.common.base.BaseView;
 import com.minmai.wallet.moudles.bean.request.UserBankCardReq;
+import com.minmai.wallet.moudles.bean.request.UserBankCardUpdateReq;
 import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.CityResp;
@@ -51,7 +52,7 @@ public interface BankCardContract {
         //第三步信息完善
         void userBankCardBinding(String userId, UserBankCardReq userBankCardReq);
 
-        //四要素验证
-        void elementsValidate(String userId,String companyId,String bankcard, String phone);
+        //修改储蓄卡信息
+        void modifyDefaultDebitCard(String userId, UserBankCardUpdateReq userBankCardUpdateReq);
     }
 }

@@ -13,6 +13,7 @@ import com.minmai.wallet.common.uitl.RetrofitUtil;
 import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.request.UserBankCardReq;
+import com.minmai.wallet.moudles.bean.request.UserBankCardUpdateReq;
 import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.CityResp;
 import com.minmai.wallet.moudles.bean.response.DistBankCard;
@@ -110,7 +111,6 @@ public class BankCardPresenter implements BankCardContract.presenter {
     @Override
     public void userBankCardBinding(String userId, UserBankCardReq userBankCardReq) {
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
-
         String sign= TokenUtils.getSign(TokenUtils.objectMap(userBankCardReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
@@ -136,16 +136,12 @@ public class BankCardPresenter implements BankCardContract.presenter {
     }
 
     @Override
-    public void elementsValidate(String userId,String companyId, String bankcard, String phone) {
-        Map<String,String> map=new HashMap<>();
-        map.put("companyId",companyId);
-        map.put("bankcard",bankcard);
-        map.put("phone",phone);
+    public void modifyDefaultDebitCard(String userId, UserBankCardUpdateReq userBankCardUpdateReq) {
         long currentTimeMillis = SystemUtil.getInstance().getCurrentTimeMillis();
-        String sign= TokenUtils.getSign(TokenUtils.objectMap(map), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
+        String sign= TokenUtils.getSign(TokenUtils.objectMap(userBankCardUpdateReq), EnumService.getEnumServiceByServiceName(1),currentTimeMillis);
         RetrofitUtil
                 .getInstance()
-                .initRetrofit().elementsValidate(currentTimeMillis,sign,userId,companyId,bankcard,phone)
+                .initRetrofit().modifyDefaultDebitCard(currentTimeMillis,sign,userId,userBankCardUpdateReq.getOldDebitCardId(),userBankCardUpdateReq.getUserId(),userBankCardUpdateReq.getCarNumber(),userBankCardUpdateReq.getOpenBank(),userBankCardUpdateReq.getPhone(),userBankCardUpdateReq.getAreaCode(),userBankCardUpdateReq.getPhoto(),userBankCardUpdateReq.getBankId(),userBankCardUpdateReq.getIsDefault())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<String>(context, MainUtil.loadTxt) {
@@ -165,4 +161,6 @@ public class BankCardPresenter implements BankCardContract.presenter {
                     }
                 });
     }
+
+
 }

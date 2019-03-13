@@ -11,6 +11,7 @@ import com.minmai.wallet.common.uitl.SystemUtil;
 import com.minmai.wallet.common.uitl.TokenUtils;
 import com.minmai.wallet.moudles.bean.request.IdentfiyOneReq;
 import com.minmai.wallet.moudles.bean.request.QuickPayReq;
+import com.minmai.wallet.moudles.bean.request.UserBankCardUpdateReq;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
 import com.minmai.wallet.moudles.bean.response.IdentityAuth;
 import com.minmai.wallet.moudles.bean.response.QuickPayResp;
@@ -188,4 +189,5 @@ public class IdentifyPresenter implements IdentifyContract.presenter {
                     }
                 });
     }
+
 }

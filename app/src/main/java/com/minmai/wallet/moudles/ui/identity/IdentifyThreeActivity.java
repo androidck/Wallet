@@ -466,7 +466,6 @@ public class IdentifyThreeActivity extends MyActivity implements BankCardContrac
 
     //弹出窗
     private void showPickerView() {// 弹出选择器
-
         for (int i=0;i<options1Items.size();i++){
             String [] name=options1Items.get(i).split(",");
             branchName.add(name[0]);

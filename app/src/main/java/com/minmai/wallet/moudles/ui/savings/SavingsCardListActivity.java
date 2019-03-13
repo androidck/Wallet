@@ -1,6 +1,8 @@
 package com.minmai.wallet.moudles.ui.savings;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -105,5 +107,14 @@ public class SavingsCardListActivity extends MyActivity implements CreditCardCon
     @Override
     public void success(String msg) {
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==200){
+            //变更成功返回当前页面刷新数据
+            getDebitCard();
+        }
     }
 }

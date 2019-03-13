@@ -677,5 +677,37 @@ public interface WalletApi {
                                                                                       @Field("pageSize") int pageSize
                                                 );
 
+
+    /**
+     * 修改默认储蓄卡
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @param userId
+     * @param carNumber
+     * @param openBank
+     * @param phone
+     * @param areaCode
+     * @param photo
+     * @param bankId
+     * @param isDefault
+     * @return
+     */
+    @POST("user/updateUserBankCard")
+    @FormUrlEncoded
+    Observable<BaseEntry<String>>modifyDefaultDebitCard(@Header("X_Timestamp") long currentTimeMillis,
+                                                     @Header("X_Signature") String sign,
+                                                     @Header("X_UserId") String xUserId,
+                                                     @Field("oldDebitCardId") String oldDebitCardId,
+                                                     @Field("userId") String userId,
+                                                     @Field("carNumber") String carNumber,
+                                                     @Field("openBank") String openBank,
+                                                     @Field("phone") String phone,
+                                                     @Field("areaCode") String areaCode,
+                                                     @Field("photo") String photo,
+                                                     @Field("bankId") String bankId,
+                                                     @Field("isDefault") String isDefault
+    );
+
 }
 

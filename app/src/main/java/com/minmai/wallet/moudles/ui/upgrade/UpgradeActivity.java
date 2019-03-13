@@ -4,8 +4,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -19,14 +17,10 @@ import com.minmai.wallet.moudles.adapter.BottomDialogAdapter;
 import com.minmai.wallet.moudles.adapter.UpgradeAdapter;
 import com.minmai.wallet.moudles.bean.request.AlipayReq;
 import com.minmai.wallet.moudles.bean.response.MemberCentreEntity;
-import com.minmai.wallet.moudles.db.DbBankInfo;
-import com.minmai.wallet.moudles.db.DbCenterInfo;
-import com.minmai.wallet.moudles.db.DbUserInfo;
 import com.minmai.wallet.moudles.dialog.BottomDialog;
 import com.minmai.wallet.moudles.request.user.UpgradeContract;
 import com.minmai.wallet.moudles.request.user.UpgradePresenter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
-import com.yanzhenjie.recyclerview.SwipeRecyclerView;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
@@ -44,25 +38,34 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
     @BindView(R.id.tb_login_title)
     TitleBar tbLoginTitle;
     @BindView(R.id.recyclerView)
-    SwipeRecyclerView recyclerView;
+    RecyclerView recyclerView;
 
     @BindView(R.id.refreshLayout)
     SmartRefreshLayout refreshLayout;
 
-    AutoLinearLayout lyData;
+    @BindView(R.id.img_head)
     CircleImageView imgHead;
+    @BindView(R.id.tv_nickName)
     TextView tvNickName;
+    @BindView(R.id.tv_user_no)
     TextView tvUserNo;
+    @BindView(R.id.tv_current)
     TextView tvCurrent;
+    @BindView(R.id.tv_low)
     TextView tvLow;
+    @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    @BindView(R.id.tv_high)
     TextView tvHigh;
+    @BindView(R.id.ly_data)
+    AutoLinearLayout lyData;
     private UpgradePresenter presenter;
     private UpgradeAdapter adapter;
     private BottomDialogAdapter adapters;
 
-    List<String> dialogList=new ArrayList<>();
+    List<String> dialogList = new ArrayList<>();
     BottomDialog bottomDialog;
+
 
     @Override
     protected int getLayoutId() {
@@ -82,17 +85,8 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
         tbLoginTitle.setTitleColor(Color.parseColor("#ffffff"));
         refreshLayout.setEnableLoadMore(false);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        View headView=getLayoutInflater().inflate(R.layout.activity_upgrade_head,recyclerView);
-        recyclerView.addHeaderView(headView);
 
-        lyData=headView.findViewById(R.id.ly_data);
-        tvNickName=headView.findViewById(R.id.tv_nickName);
-        tvUserNo=headView.findViewById(R.id.tv_user_no);
-        tvCurrent=headView.findViewById(R.id.tv_current);
-        imgHead=headView.findViewById(R.id.img_head);
-        tvLow=headView.findViewById(R.id.tv_low);
-        progressBar=headView.findViewById(R.id.progressBar);
-        tvHigh=headView.findViewById(R.id.tv_high);
+
     }
 
     @Override
@@ -102,24 +96,24 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
 
     @Override
     protected void initData() {
-        presenter=new UpgradePresenter(this,this);
+        presenter = new UpgradePresenter(this, this);
         getUpgradeDate();
         dialogList.add("支付宝");
-        adapters=new BottomDialogAdapter(context);
+        adapters = new BottomDialogAdapter(context);
         adapters.setData(dialogList);
-        adapter=new UpgradeAdapter(context);
+        adapter = new UpgradeAdapter(context);
         adapter.setOnPurchaseListener(new UpgradeAdapter.OnPurchaseListener() {
             @Override
             public void onItemPay(String gradeId, String money) {
-                bottomDialog= new BottomDialog(context, false, gradeId, money, adapters, new BottomDialog.OnItemPayListener() {
+                bottomDialog = new BottomDialog(context, false, gradeId, money, adapters, new BottomDialog.OnItemPayListener() {
                     @Override
                     public void onPay(final String upGradeId, final String upMoney) {
-                       adapters.setOnItemClickListener(new BottomDialogAdapter.OnItemClickListener() {
-                           @Override
-                           public void onClick(int position) {
-                               callOrderPay(upGradeId,upMoney);
-                           }
-                       });
+                        adapters.setOnItemClickListener(new BottomDialogAdapter.OnItemClickListener() {
+                            @Override
+                            public void onClick(int position) {
+                                callOrderPay(upGradeId, upMoney);
+                            }
+                        });
                     }
                 });
                 bottomDialog.show();
@@ -128,7 +122,7 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
     }
 
     //获取升级信息
-    public void getUpgradeDate(){
+    public void getUpgradeDate() {
         presenter.getUpgradeDate(getUserId());
     }
 
@@ -144,24 +138,24 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
     }
 
     @Override
-    public void upgradeDate(MemberCentreEntity memberCentreEntity) {
+    public void upgradeDate(final MemberCentreEntity memberCentreEntity) {
         tvNickName.setText(memberCentreEntity.getNickName());
-        tvUserNo.setText("ID："+memberCentreEntity.getUserNo());
+        tvUserNo.setText("ID：" + memberCentreEntity.getUserNo());
         tvCurrent.setText(memberCentreEntity.getLevelName());
-        int ratio=(new Double((memberCentreEntity.getLevelRatio()*100))).intValue();
+        int ratio = (new Double((memberCentreEntity.getLevelRatio() * 100))).intValue();
         Glide.with(context).load(memberCentreEntity.getUserHead()).placeholder(R.mipmap.ic_launcher).into(imgHead);
         progressBar.setProgress(ratio);
-        adapter.setData(memberCentreEntity.getList());
         recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
         tvLow.setText(memberCentreEntity.getBeginLevel());
         tvHigh.setText(memberCentreEntity.getEndLevel());
+        adapter.setData(memberCentreEntity.getList());
+        adapter.notifyDataSetChanged();
     }
 
 
     //支付宝支付
-    public void callOrderPay(String memberId,String money){
-        AlipayReq alipayReq=new AlipayReq();
+    public void callOrderPay(String memberId, String money) {
+        AlipayReq alipayReq = new AlipayReq();
         /*交易描述*/
         alipayReq.setBody("购买会员等级");
         /*商品的标题*/
@@ -181,4 +175,7 @@ public class UpgradeActivity extends MyActivity implements UpgradeContract.View 
 
         presenter.callOrderPay(alipayReq);
     }
+
+
+
 }

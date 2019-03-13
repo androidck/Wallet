@@ -1,6 +1,7 @@
 package com.minmai.wallet.moudles.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.minmai.wallet.common.uitl.HideDataUtil;
 import com.minmai.wallet.common.uitl.ViewUtil;
 import com.minmai.wallet.moudles.bean.response.CreditCard;
 import com.minmai.wallet.moudles.bean.response.DebitCard;
+import com.minmai.wallet.moudles.ui.cash.AddCreditCardActivity;
+import com.minmai.wallet.moudles.ui.savings.AddSavingCardActivity;
 import com.zhy.autolayout.AutoLinearLayout;
 import com.zhy.autolayout.AutoRelativeLayout;
 
@@ -49,17 +52,29 @@ public class DebitCardAdapter extends BaseRecyclerViewAdapter<DebitCardAdapter.V
         Glide.with(context).load(mData.get(i).getLogo()).into(viewHolder.imgBank);
         Glide.with(context).load(mData.get(i).getBankBackground()).into(viewHolder.imgBigLogo);
         viewHolder.lyBg.setBackground(ViewUtil.setDrawable(mData.get(i).getBackgroundColor()));
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+      /*  viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onItemResultDataListener.onResultData(i);
             }
-        });
+        });*/
         viewHolder.imgEditNick.setVisibility(View.GONE);
         viewHolder.btnUntying.setText("变更");
         if (mData.get(i).getIsDefault().equals("1")){
             viewHolder.tvBankNick.setText("默认");
         }
+        if (viewHolder.btnUntying.getText().toString().trim().equals("变更")){
+            viewHolder.btnUntying.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                   Intent intent=new Intent(context,AddSavingCardActivity.class);
+                   intent.putExtra("cardId",mData.get(i).getDebitCardId());
+                   intent.putExtra("isDefault",mData.get(i).getIsDefault());
+                   context.startActivity(intent);
+                }
+            });
+        }
+
     }
 
     //设置数据
