@@ -70,4 +70,6 @@ public class ShareDialog extends Dialog implements View.OnClickListener {
 
         }
     }
+
+
 }

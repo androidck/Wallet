@@ -9,6 +9,7 @@ import com.minmai.wallet.moudles.fragment.ExtensionFragment;
 import com.minmai.wallet.moudles.fragment.FindFragment;
 import com.minmai.wallet.moudles.fragment.HomeFragment;
 import com.minmai.wallet.moudles.fragment.MyFragment;
+import com.minmai.wallet.moudles.fragment.extensionchild.ImageFragment;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public final class HomeFragmentAdapter extends BaseFragmentAdapter<MyLazyFragmen
     protected void init(FragmentManager manager, List<MyLazyFragment> list) {
         list.add(HomeFragment.newInstance());
         list.add(FindFragment.newInstance());
-        list.add(ExtensionFragment.newInstance());
+        list.add(ImageFragment.newInstance());
         list.add(MyFragment.newInstance());
     }
 }

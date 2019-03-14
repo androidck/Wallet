@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -72,7 +73,9 @@ public class BottomDialog extends Dialog implements View.OnClickListener {
         RecyclerView recyclerView=findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(adapter);
-        onItemPayListener.onPay(upGradeId,upMoney);
+        if (!(TextUtils.isEmpty(upGradeId)&&TextUtils.isEmpty(upMoney))){
+            onItemPayListener.onPay(upGradeId,upMoney);
+        }
     }
 
     @Override

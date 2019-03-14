@@ -1,6 +1,7 @@
 package com.minmai.wallet.common.api;
 
 import com.minmai.wallet.common.base.BaseEntry;
+import com.minmai.wallet.moudles.bean.request.AppSpread;
 import com.minmai.wallet.moudles.bean.response.BankInfo;
 import com.minmai.wallet.moudles.bean.response.BannerInfo;
 import com.minmai.wallet.moudles.bean.response.Channel;
@@ -708,6 +709,31 @@ public interface WalletApi {
                                                      @Field("bankId") String bankId,
                                                      @Field("isDefault") String isDefault
     );
+
+
+    /**
+     * 退出登录
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("user/userSignOut")
+    Observable<BaseEntry<String>>userSignOut(@Header("X_Timestamp") long currentTimeMillis,
+                                             @Header("X_Signature") String sign,
+                                             @Header("X_UserId") String xUserId);
+
+    /**
+     * 获取推广页面数据
+     * @param currentTimeMillis
+     * @param sign
+     * @param xUserId
+     * @return
+     */
+    @POST("spread/search")
+    Observable<BaseEntry<List<AppSpread>>>spread(@Header("X_Timestamp") long currentTimeMillis,
+                                                 @Header("X_Signature") String sign,
+                                                 @Header("X_UserId") String xUserId);
 
 }
 

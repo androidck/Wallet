@@ -4,7 +4,7 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#000000</color>
     <color name="colorAccent">#0096ff </color>
-
+    <color name="color_80_blue">#2677ff</color>
     <color name="tipColor">#b1b1b1</color>
 
     <color name="textColor">#323232</color>
@@ -32,4 +32,10 @@
     <color name="colorButton">#0096ff</color>
 
     <color name="colorRepayment">#ff777d</color>
+
+    <color name="ml_white">#ffffffff</color>
+    <color name="ml_gray">#ff9e9e9e</color>
+    <color name="ml_blue">#ff239efe</color>
+    <color name="ml_red">#ffff0000</color>
+    <color name="alpha_05_white">#0DFFFFFF</color>
 </resources>
