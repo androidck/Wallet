@@ -96,7 +96,7 @@ public class EncodingUtils {
             return src;
         }
         //logo大小为二维码整体大小的1/5
-        float scaleFactor = srcWidth * 1.0f / 3 / logoWidth;
+        float scaleFactor = srcWidth * 1.0f / 4 / logoWidth;
         Bitmap bitmap = Bitmap.createBitmap(srcWidth, srcHeight, Bitmap.Config.ARGB_8888);
         try {
             Canvas canvas = new Canvas(bitmap);
@@ -158,10 +158,10 @@ public class EncodingUtils {
         int bgHeight=background.getHeight();
         int fgWidth=foreground.getWidth();
         int fgHeight=foreground.getHeight();
-        Bitmap newmap=Bitmap.createBitmap(bgWidth,bgHeight,Bitmap.Config.RGB_565);
+        Bitmap newmap=Bitmap.createBitmap(bgWidth,bgHeight,Bitmap.Config.ARGB_8888);
         Canvas canvas=new Canvas(newmap);
         canvas.drawBitmap(background,0,0,null);
-        canvas.drawBitmap(foreground,(bgWidth-fgWidth)/2,(bgHeight-fgHeight)/2,null);
+        canvas.drawBitmap(foreground,(bgWidth-fgWidth)/2.1f,(bgHeight-fgHeight)/1.29f,null);
         canvas.save();
         canvas.restore();
         return newmap;

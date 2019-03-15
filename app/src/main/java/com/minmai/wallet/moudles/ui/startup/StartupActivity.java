@@ -99,6 +99,7 @@ public class StartupActivity extends MyActivity
         }
     }
 
+
     @Override
     public void onBackPressed() {
         //禁用返回键

@@ -2,6 +2,7 @@ package com.minmai.wallet.moudles.fragment.extensionchild;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -73,7 +74,7 @@ public class ImageFragment extends MyLazyFragment implements ExtensionContract.V
      * 当前展示的图片信息
      */
     private AppSpread appSpread;
-    private DbCenterInfoDao centerInfoDao;
+
 
     @Override
     protected int getLayoutId() {
@@ -105,7 +106,6 @@ public class ImageFragment extends MyLazyFragment implements ExtensionContract.V
 
     @Override
     protected void initData() {
-        centerInfoDao=MyApplication.getInstances().getDaoSession().getDbCenterInfoDao();
         userInfoDao = MyApplication.getInstances().getDaoSession().getDbUserInfoDao();
         String userId = userInfoDao.loadAll().get(0).getUserId();
         presenter = new ExtensionPresenter(getActivity(), this);
@@ -119,13 +119,9 @@ public class ImageFragment extends MyLazyFragment implements ExtensionContract.V
 
             @Override
             public void onRightClick(View v) {
-                //释放back
-                if (backBitMap!=null){
-                    backBitMap.recycle();
-                }
                 backBitMap=((BitmapDrawable) (imgBigLogo).getDrawable()).getBitmap();
                 new ShareDialog(getContext(),false).show();
-                Bitmap bm=EncodingUtils.combineBitmap(backBitMap,fontBitMap);
+                Bitmap bm=EncodingUtils.combineBitmap(backBitMap,zoomImg(fontBitMap,146,146));
                 File file=EncodingUtils.compressImage(bm);
                 uploadImgQiNiu(file.getAbsolutePath());
             }
@@ -188,8 +184,8 @@ public class ImageFragment extends MyLazyFragment implements ExtensionContract.V
 
     //生成二维码
     private Bitmap genRateQrCode(){
-        String userNo=centerInfoDao.loadAll().get(0).getUserNo();
-        fontBitMap=EncodingUtils.createQRCode(Constant.SHARE_URL+userNo, 750, 750,
+      //  String userNo=centerInfoDao.loadAll().get(0).getUserNo();
+        fontBitMap=EncodingUtils.createQRCode("http://www.baidu.com", 750, 750,
                 BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
         return fontBitMap;
     }
@@ -224,4 +220,31 @@ public class ImageFragment extends MyLazyFragment implements ExtensionContract.V
 
     }
 
+
+
+
+
+
+    // 缩放图片
+    public static Bitmap zoomImg(Bitmap bm, int newWidth, int newHeight) {
+        // 获得图片的宽高
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+        // 计算缩放比例
+        float scaleWidth = ((float) newWidth) / width;
+        float scaleHeight = ((float) newHeight) / height;
+        // 取得想要缩放的matrix参数
+        Matrix matrix = new Matrix();
+        matrix.postScale(scaleWidth, scaleHeight);
+        // 得到新的图片
+        Bitmap newbm = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, true);
+        return newbm;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        backBitMap.recycle();
+
+    }
 }
